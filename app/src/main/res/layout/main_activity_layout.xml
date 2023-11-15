@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background_gradient"
+    android:backgroundTintMode="src_atop"
+    android:backgroundTint="@color/layout_tint"
+    android:orientation="vertical"
+    android:layout_gravity="center">
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        style="@style/Widget.App.BottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/bottom_navigation_menu"/>
+</androidx.appcompat.widget.LinearLayoutCompat>

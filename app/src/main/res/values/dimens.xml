@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_start">50dp</dimen>
+    <dimen name="margin_top">5dp</dimen>
+    <dimen name="input_width">310dp</dimen>
+    <dimen name="corner_radius">10dp</dimen>
+</resources>

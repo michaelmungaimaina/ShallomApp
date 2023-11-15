@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home"
+        android:enabled="true"
+        android:icon="@drawable/home_active"
+        android:title="@string/home"/>
+    <item
+        android:id="@+id/requests"
+        android:enabled="true"
+        android:icon="@drawable/request_active"
+        android:title="@string/request"/>
+    <item
+        android:id="@+id/lesson"
+        android:enabled="true"
+        android:icon="@drawable/lesson_active"
+        android:title="@string/lesson"/>
+    <item
+        android:id="@+id/doctrine"
+        android:enabled="true"
+        android:icon="@drawable/doctrine_active"
+        android:title="@string/home"/>
+    <item
+        android:id="@+id/songs"
+        android:enabled="true"
+        android:icon="@drawable/song_active"
+        android:title="@string/songs"/>
+</menu>
