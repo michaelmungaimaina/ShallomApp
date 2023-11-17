@@ -26,6 +26,7 @@
     <color name="grey_150">#8C8A8A</color>
     <color name="grey_250">#514F4F</color>
     <color name="grey_350">#4D4D4D</color>
+    <color name="grey_500">#5E5D5D</color>
     <color name="grey_400">#B6B6B6</color>
     <color name="grey_450">#1E1E1E</color>
     <color name="layout_tint">#DA070707</color>

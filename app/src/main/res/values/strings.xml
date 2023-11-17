@@ -22,7 +22,7 @@
     <string name="have_account">Already have an account?</string>
     <string name="login"><u>Log In</u></string>
     <string name="locality">LOCATION</string>
-    <string name="user_cont">Continued...</string>
+    <string name="user_cont">Continued…</string>
     <string name="county">County</string>
     <string name="county_prompt">Select Your County</string>
     <string name="sub_county">Sub County</string>
@@ -43,4 +43,28 @@
     <string name="request">Request</string>
     <string name="lesson">Lesson</string>
     <string name="songs">Songs</string>
+    <string name="day">24</string>
+    <string name="month">NOV</string>
+    <string name="event_location">LOCATION</string>
+    <string name="event_name">EVENT NAME</string>
+    <string name="event_description">Description</string>
+    <string name="event_duration">Event Running Days</string>
+    <string name="number">03</string>
+    <string name="week">Wks</string>
+    <string name="minutes">Mins</string>
+    <string name="hours">Hrs</string>
+    <string name="days">Days</string>
+    <string name="greeting_text">Good Morning</string>
+    <string name="username_cap">USERNAME</string>
+    <string name="acronym_text">ACRONYM</string>
+    <string name="event_description_cap">DESCRIPTION</string>
+    <string name="todo">TODO</string>
+    <string name="sample_text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam feugiat, libero ac consectetur tincidunt, velit est fermentum erat, non dictum tortor ex a elit. Sed vehicula orci vel magna fringilla, in efficitur libero convallis. Vivamus in nunc eu libero hendrerit tempus. Nullam sed est ac odio volutpat tempor in eu lorem. Phasellus efficitur varius risus, sit amet sollicitudin urna. Aenean ac justo id augue sagittis vestibulum. Proin vel "</string>
+    <string name="read_more">READ MORE</string>
+    <string name="sermon_title">TITLE</string>
+    <string name="sermon_scripture">SCRIPTURE</string>
+    <string name="ministry_name">NAME OF MINISTRY</string>
+    <string name="user_panel">USER PANEL</string>
+    <string name="new_request">New Request(s)</string>
+    <string name="my_request">My Request(s)</string>
 </resources>
