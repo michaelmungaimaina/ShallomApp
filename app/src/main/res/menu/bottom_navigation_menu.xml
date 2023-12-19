@@ -4,26 +4,26 @@
     <item
         android:id="@+id/home"
         android:enabled="true"
-        android:icon="@drawable/home_active"
+        android:icon="@drawable/ic_home_active"
         android:title="@string/home"/>
     <item
         android:id="@+id/requests"
         android:enabled="true"
-        android:icon="@drawable/request_active"
+        android:icon="@drawable/ic_request_green"
         android:title="@string/request"/>
     <item
         android:id="@+id/lesson"
         android:enabled="true"
-        android:icon="@drawable/lesson_active"
+        android:icon="@drawable/ic_lesson_green"
         android:title="@string/lesson"/>
     <item
         android:id="@+id/doctrine"
         android:enabled="true"
-        android:icon="@drawable/doctrine_active"
+        android:icon="@drawable/ic_doctrine_green"
         android:title="@string/home"/>
     <item
         android:id="@+id/songs"
         android:enabled="true"
-        android:icon="@drawable/song_active"
+        android:icon="@drawable/ic_song_green"
         android:title="@string/songs"/>
 </menu>

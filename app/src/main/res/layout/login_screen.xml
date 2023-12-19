@@ -16,7 +16,7 @@
         android:background="@color/white"
         android:layout_gravity="center"
         android:layout_marginTop="80dp"
-        android:src="@drawable/user"
+        android:src="@drawable/ic_user_avatar_blue"
         app:strokeWidth="1dp"
         app:strokeColor="@android:color/darker_gray"
         android:layout_centerHorizontal="true"
@@ -126,7 +126,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="18dp"
-            android:src="@drawable/forgot_password"
+            android:src="@drawable/ic_forgot_password"
             android:layout_marginStart="5dp"/>
 
     </LinearLayout>
@@ -162,7 +162,7 @@
             <ImageView
                 android:layout_width="35dp"
                 android:layout_height="match_parent"
-                android:src="@drawable/google"
+                android:src="@drawable/ic_google"
                 android:layout_gravity="center"/>
             <TextView
                 android:layout_width="wrap_content"

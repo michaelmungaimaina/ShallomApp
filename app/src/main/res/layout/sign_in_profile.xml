@@ -16,7 +16,7 @@
         android:background="@color/white"
         android:layout_gravity="center"
         android:layout_marginTop="80dp"
-        android:src="@drawable/user"
+        android:src="@drawable/ic_user_avatar_blue"
         app:strokeWidth="1dp"
         app:strokeColor="@android:color/darker_gray"
         android:layout_centerHorizontal="true"
@@ -85,7 +85,7 @@
         <ImageView
             android:layout_width="15dp"
             android:layout_height="9dp"
-            android:src="@drawable/mandatory_star"
+            android:src="@drawable/ic_mandatory_star_light"
             android:layout_marginStart="0dp"
             android:layout_gravity="top"/>
 
@@ -132,7 +132,7 @@
         <ImageView
             android:layout_width="15dp"
             android:layout_height="9dp"
-            android:src="@drawable/mandatory_star"
+            android:src="@drawable/ic_mandatory_star_light"
             android:layout_marginStart="0dp"
             android:layout_gravity="top"/>
 
@@ -180,7 +180,7 @@
         <ImageView
             android:layout_width="15dp"
             android:layout_height="9dp"
-            android:src="@drawable/mandatory_star"
+            android:src="@drawable/ic_mandatory_star_light"
             android:layout_marginStart="0dp"
             android:layout_gravity="top"/>
 
@@ -224,7 +224,7 @@
         <ImageView
             android:layout_width="15dp"
             android:layout_height="9dp"
-            android:src="@drawable/mandatory_star"
+            android:src="@drawable/ic_mandatory_star_light"
             android:layout_marginStart="0dp"
             android:layout_gravity="top"/>
 
@@ -269,7 +269,7 @@
         <ImageView
             android:layout_width="15dp"
             android:layout_height="9dp"
-            android:src="@drawable/mandatory_star"
+            android:src="@drawable/ic_mandatory_star_light"
             android:layout_marginStart="0dp"
             android:layout_gravity="top"/>
 

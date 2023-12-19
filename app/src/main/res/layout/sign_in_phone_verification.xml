@@ -15,7 +15,7 @@
         android:layout_height="150dp"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:src="@drawable/verification_check"
+        android:src="@drawable/ic_verification_check"
         app:strokeColor="@android:color/darker_gray"
         android:layout_centerHorizontal="true"
         android:adjustViewBounds="true"

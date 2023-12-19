@@ -87,4 +87,15 @@
     <string name="yes">YES</string>
     <string name="presented">Presented:</string>
     <string name="no">NO</string>
+    <string name="date">2023-12-31</string>
+    <string name="sample_location">MARURUI</string>
+    <string name="date_day">THU</string>
+    <string name="date_day_digit">24</string>
+    <string name="reject">REJECT</string>
+    <string name="approve">APPROVE</string>
+    <string name="change_status">CHANGE STATUS</string>
+    <string name="announcement_text">Announcement</string>
+    <string name="group_text">Groups</string>
+    <string name="sermon_text">Sermons</string>
+    <string name="ministry_text">Ministries</string>
 </resources>

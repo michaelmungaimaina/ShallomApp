@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:background="@drawable/green_border_rect"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/textViewDateDay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/date_day"
+        android:textColor="@color/white_"
+        android:textStyle="normal"
+        android:textSize="14sp"
+        android:padding="2dp"
+        android:maxLines="1"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="0dp"
+        android:layout_gravity="start"
+        android:fontFamily="@font/ibmplexsanshebrew_regular"/>
+    <TextView
+        android:id="@+id/textViewDateDigits"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/date_day_digit"
+        android:textColor="@color/white_"
+        android:textStyle="normal"
+        android:textSize="14sp"
+        android:padding="2dp"
+        android:maxLines="1"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="0dp"
+        android:layout_gravity="center"
+        android:fontFamily="@font/ibmplexsanshebrew_regular"/>
+
+</LinearLayout>

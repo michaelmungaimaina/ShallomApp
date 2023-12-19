@@ -28,7 +28,7 @@
             android:id="@+id/imageViewAcronymImage"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:src="@drawable/image_avatar"
+            android:src="@drawable/ic_image_avatar"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
             android:foreground="#A4000000"/>
@@ -69,7 +69,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@drawable/back_icon"
+            android:src="@drawable/ic_back"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
             android:rotation="270"
