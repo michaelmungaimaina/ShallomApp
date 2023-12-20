@@ -93,17 +93,6 @@
                     android:fontFamily="@font/ibmplexsanshebrew_bold"/>
 
             </LinearLayout>
-            <TextView
-                android:id="@+id/textViewExplanation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/explanation_text"
-                android:textColor="@color/white_"
-                android:textStyle="normal"
-                android:textSize="12sp"
-                android:layout_gravity="start"
-                android:justificationMode="inter_word"
-                android:fontFamily="@font/ibmplexsanshebrew_regular"/>
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>
