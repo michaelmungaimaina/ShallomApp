@@ -1,6 +1,8 @@
 package com.mich.gwan.shallom.model;
 
-public class LessonQuestion extends LessonCategory{
+import com.mich.gwan.shallom.enums.Language;
+
+public class LessonQuestion extends LessonWeek {
     private int questionId;
     private String question;
     private String questionRefBooks;
@@ -8,9 +10,10 @@ public class LessonQuestion extends LessonCategory{
 
     public LessonQuestion(){}
 
-    public LessonQuestion(int lessonCategoryId, String lessonLanguage, int questionId,
-                          String question, String questionRefBooks, String explanation) {
-        super(lessonCategoryId, lessonLanguage);
+    public LessonQuestion(int lessonWeekId, Language lessonLanguage, int questionId,
+                          String question, String questionRefBooks, String explanation,
+                          String registeredBy, String registrationDate) {
+        super(lessonWeekId, lessonLanguage, registeredBy,registrationDate);
         this.questionId = questionId;
         this.question = question;
         this.questionRefBooks = questionRefBooks;

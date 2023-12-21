@@ -7,16 +7,21 @@ public class Event {
     private String eventDescription;
     private String eventStartDate;
     private String eventEndDate;
+    private String registrationDate;
+    private String registeredBy;
 
     public Event(){}
 
-    public Event(int eventId, String eventLocation, String eventTitle, String eventDescription, String eventStartDate, String eventEndDate) {
+    public Event(int eventId, String eventLocation, String eventTitle, String eventDescription,
+                 String eventStartDate, String eventEndDate, String registrationDate, String registeredBy) {
         this.eventId = eventId;
         this.eventLocation = eventLocation;
         this.eventTitle = eventTitle;
         this.eventDescription = eventDescription;
         this.eventStartDate = eventStartDate;
         this.eventEndDate = eventEndDate;
+        this.registrationDate = registrationDate;
+        this.registeredBy = registeredBy;
     }
 
     public int getEventId() {
@@ -65,5 +70,21 @@ public class Event {
 
     public void setEventEndDate(String eventEndDate) {
         this.eventEndDate = eventEndDate;
+    }
+
+    public String getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(String registrationDate) {
+        this.registrationDate = registrationDate;
+    }
+
+    public String getRegisteredBy() {
+        return registeredBy;
+    }
+
+    public void setRegisteredBy(String registeredBy) {
+        this.registeredBy = registeredBy;
     }
 }

@@ -1,4 +1,4 @@
-package com.mich.gwan.shallom;
+package com.mich.gwan.shallom.activity;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -6,6 +6,8 @@ import android.text.TextWatcher;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.mich.gwan.shallom.R;
 
 public class SignInActivity extends AppCompatActivity {
 

@@ -80,6 +80,7 @@
     <string name="explanation"><u>Explanation</u></string>
     <string name="explanation_text">Simple description</string>
     <string name="sample_bible_books">Proverbs 22:2, Psalms 10:10</string>
+    <string name="sample_bible_book">Proverbs 22:2</string>
     <string name="category_text">MEM-VERSE</string>
     <string name="approved">Approved:</string>
     <string name="morning">MORNING</string>

@@ -1,5 +1,7 @@
 package com.mich.gwan.shallom.model;
 
+import com.mich.gwan.shallom.enums.Status;
+
 public class User {
     private int userId;
     private String firstName;
@@ -13,27 +15,51 @@ public class User {
     private String userGroup;
     private String designation;
     private String password;
+    private String registrationDate;
+    private Status status;
 
     public User(){}
 
-    public User(int userId, String firstName, String lastName, String email, String phone, String username) {
+    public User(int userId, String firstName, String lastName, String email, String phone,
+                String username, String registrationDate, Status status) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phone = phone;
         this.username = username;
+        this.status = status;
+        this.registrationDate = registrationDate;
     }
 
     public User(String password) {
         this.password = password;
     }
 
-
+    public User(String username, Status status){
+        this.username = username;
+        this.status = status;
+    }
 
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+
+    public String getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(String registrationDate) {
+        this.registrationDate = registrationDate;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     public int getUserId() {
