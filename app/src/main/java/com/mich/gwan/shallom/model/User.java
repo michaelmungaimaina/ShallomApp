@@ -1,9 +1,12 @@
 package com.mich.gwan.shallom.model;
 
+import android.graphics.Bitmap;
+
 import com.mich.gwan.shallom.enums.Status;
 
 public class User {
     private int userId;
+    private Bitmap userProf;
     private String firstName;
     private String lastName;
     private String email;
@@ -44,6 +47,14 @@ public class User {
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+
+    public Bitmap getUserProf() {
+        return userProf;
+    }
+
+    public void setUserProf(Bitmap userProf) {
+        this.userProf = userProf;
     }
 
     public String getRegistrationDate() {
