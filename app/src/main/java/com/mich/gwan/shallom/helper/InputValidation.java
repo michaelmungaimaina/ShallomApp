@@ -7,6 +7,7 @@ package com.mich.gwan.shallom.helper;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -14,6 +15,7 @@ import android.widget.EditText;
 
 import androidx.appcompat.widget.AppCompatSpinner;
 
+import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -303,5 +305,23 @@ public class InputValidation {
     public void hideKeyboardFrom(View view) {
         InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+    }
+
+    /**
+     * Checks if a ShapeableImageView has an image set.
+     *
+     * @param shapeableImageView The ShapeableImageView to check for the presence of an image.
+     * @param message            The error message to display if the ShapeableImageView has no image.
+     * @return True if the ShapeableImageView has an image; false otherwise.
+     */
+    public boolean isShapeableImageViewHasImage(ShapeableImageView shapeableImageView, TextInputLayout textInputLayout, String message) {
+        Drawable imageDrawable = shapeableImageView.getDrawable();
+
+        if (imageDrawable == null) {
+            textInputLayout.setError(message);
+            return false;
+        }
+
+        return true;
     }
 }
