@@ -99,4 +99,10 @@
     <string name="group_text">Groups</string>
     <string name="sermon_text">Sermons</string>
     <string name="ministry_text">Ministries</string>
+    <string name="forgot_password">Forgot Password!</string>
+    <string name="coming_soon">Coming soon!</string>
+    <string name="missing_username">Input Username!</string>
+    <string name="empty_password">Input Password!</string>
+    <string name="not_valid_password">Not a Valid Password!</string>
+    <string name="invalid_password">Invalid Username or Password!</string>
 </resources>
