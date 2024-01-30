@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import androidx.appcompat.widget.AppCompatSpinner;
 
@@ -65,13 +66,15 @@ public class InputValidation {
      * This method validates whether the provided AppCompatSpinner has a selected value.
      * If no value is selected, it displays an error message in the specified TextInputLayout.
      *
-     * @param spinner          The AppCompatSpinner to check for a selected value.
+     * @param spinner          The Spinner to check for a selected value.
      * @param textInputLayout  The TextInputLayout to display the error message.
      * @param message          The error message to display if no value is selected.
      * @return True if the spinner has a selected value; false otherwise.
      */
-    public boolean isSpinnerEmpty(AppCompatSpinner spinner, TextInputLayout textInputLayout, String message){
-        if(spinner.getSelectedItem() == "Select User Type" ) {
+    public boolean isSpinnerEmpty(Spinner spinner, TextInputLayout textInputLayout, String message){
+        if(spinner.getSelectedItem().equals("Select County") || spinner.getSelectedItem().equals("Select Sub-County") ||
+                spinner.getSelectedItem().equals("Select Village") || spinner.getSelectedItem().equals("Select Designation") ||
+                spinner.getSelectedItem().equals("Select Group")) {
             textInputLayout.setError(message);
             return false;
         } else  {

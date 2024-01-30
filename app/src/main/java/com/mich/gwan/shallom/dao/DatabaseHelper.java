@@ -541,12 +541,40 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * This method queries the database to determine whether the provided username already exists.
      *
      * @param username The username to be checked for duplication.
-     * @return {@code true} if the username does not exist (is unique), {@code false} if it already exists.
+     * @return {@code true} if the email does not exist (is unique), {@code false} if it already exists.
      */
     public boolean checkUsernameIfExists(String username){
         String[] columns = {COLUMN_USER_USERNAME};
         String selection = COLUMN_USER_USERNAME + " = ? ";
         String[] selectionArgs = {username};
+        SQLiteDatabase db  = this.getWritableDatabase();
+        Cursor cursor = db.query(TABLE_USER, columns, selection, selectionArgs, null, null, null);
+
+        if (cursor != null){
+            try {
+                cursor.moveToFirst();
+                return cursor.getInt(0) == 0;
+            } catch (CursorIndexOutOfBoundsException e){
+                return true;
+            } finally {
+                cursor.close();
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks for the existence of a duplicate email during user registration.
+     * <p>
+     * This method queries the database to determine whether the provided email already exists.
+     *
+     * @param email The email to be checked for duplication.
+     * @return {@code true} if the username does not exist (is unique), {@code false} if it already exists.
+     */
+    public boolean checkEmailIfExists(String email){
+        String[] columns = {COLUMN_USER_EMAIL};
+        String selection = COLUMN_USER_EMAIL + " = ? ";
+        String[] selectionArgs = {email};
         SQLiteDatabase db  = this.getWritableDatabase();
         Cursor cursor = db.query(TABLE_USER, columns, selection, selectionArgs, null, null, null);
 

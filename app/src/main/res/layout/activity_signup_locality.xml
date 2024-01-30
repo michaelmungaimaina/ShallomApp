@@ -9,22 +9,30 @@
     android:orientation="vertical"
     android:layout_gravity="center">
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/shapeableImageViewUserAvatar"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutImage"
+        android:layout_width="310dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/ic_location"
-        app:strokeColor="@android:color/darker_gray"
-        android:layout_centerHorizontal="true"
-        android:adjustViewBounds="true"
-        android:elevation="5dp"
-        android:maxWidth="50dp"
-        android:maxHeight="50dp"
-        android:scaleType="fitXY"
-        app:shapeAppearance="?attr/actionButtonStyle"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"/>
+        android:textColorHint="@color/grey_350"
+        style="@style/OutlinedRoundedBox">
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/shapeableImageViewUserAvatar"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_location"
+            app:strokeColor="@android:color/darker_gray"
+            android:layout_centerHorizontal="true"
+            android:adjustViewBounds="true"
+            android:elevation="5dp"
+            android:maxWidth="50dp"
+            android:maxHeight="50dp"
+            android:scaleType="fitXY"
+            app:shapeAppearance="?attr/actionButtonStyle"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:layout_width="wrap_content"

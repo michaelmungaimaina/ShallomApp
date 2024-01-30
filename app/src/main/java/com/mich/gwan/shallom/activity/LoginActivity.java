@@ -5,7 +5,6 @@
 
 package com.mich.gwan.shallom.activity;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -27,6 +26,7 @@ import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.mich.gwan.shallom.R;
+import com.mich.gwan.shallom.activity.signup.SignUpProfileActivity;
 import com.mich.gwan.shallom.dao.DatabaseHelper;
 import com.mich.gwan.shallom.databinding.ActivityLoginLayoutBinding;
 import com.mich.gwan.shallom.helper.InputValidation;
@@ -155,7 +155,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Toast.makeText(this, R.string.coming_soon, Toast.LENGTH_LONG).show();
         } else if (v.getId() == R.id.textViewCreateAccount){
             // Launch Create Account
-            Intent intentRegister = new Intent(getApplicationContext(), SignInActivity.class);
+            Intent intentRegister = new Intent(getApplicationContext(), SignUpProfileActivity.class);
             startActivity(intentRegister);
         }
     }

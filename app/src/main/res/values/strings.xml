@@ -105,4 +105,9 @@
     <string name="empty_password">Input Password!</string>
     <string name="not_valid_password">Not a Valid Password!</string>
     <string name="invalid_password">Invalid Username or Password!</string>
+    <string name="input_this_field">Required Input!</string>
+    <string name="not_valid_email">Invalid Email!</string>
+    <string name="invalid_phone">Invalid Phone Number!</string>
+    <string name="select_image">Add Your Passport!</string>
+    <string name="select_a_value">Select an item!</string>
 </resources>
