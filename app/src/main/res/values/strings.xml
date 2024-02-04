@@ -110,4 +110,18 @@
     <string name="invalid_phone">Invalid Phone Number!</string>
     <string name="select_image">Add Your Passport!</string>
     <string name="select_a_value">Select an item!</string>
+    <string name="region">Region</string>
+    <string name="select_region">Select your region!</string>
+    <string name="select_county">Select your county!</string>
+    <string name="select_sub_county">Select sub-county!</string>
+    <string name="select_village">Select your village!</string>
+    <string name="select_group">Select your group!</string>
+    <string name="select_designation">Select your designation!</string>
+    <string name="already_exists">Designation already exists!</string>
+    <string name="gender">Gender</string>
+    <string name="select_gender">Select your gender!</string>
+    <string name="designation_not_female">Only men are allowed!</string>
+    <string name="pastor_is_cogmea">Postor must be a COGMEA!</string>
+    <string name="governor_is_cogyok">Governor is a COGYOK!</string>
+    <string name="strength_password">Password Strength</string>
 </resources>

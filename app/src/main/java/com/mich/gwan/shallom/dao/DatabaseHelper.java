@@ -60,7 +60,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_USER_LASTNAME = "lastname";
     private static final String COLUMN_USER_EMAIL = "email";
     private static final String COLUMN_USER_PHONE = "phone";
+    private static final String COLUMN_USER_GENDER = "gender";
     private static final String COLUMN_USER_USERNAME = "username";
+    private static final String COLUMN_USER_REGION = "region";
     private static final String COLUMN_USER_COUNTY = "county";
     private static final String COLUMN_USER_SUB_COUNTY = "sub_county";
     private static final String COLUMN_USER_VILLAGE = "village";
@@ -142,9 +144,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + COLUMN_USER_ID + " INTEGER PRIMARY KEY UNIQUE NOT NULL,"
             + COLUMN_USER_FIRSTNAME + " TEXT,"
             + COLUMN_USER_LASTNAME + " TEXT,"
+            + COLUMN_USER_GENDER + " TEXT,"
             + COLUMN_USER_EMAIL + " TEXT,"
             + COLUMN_USER_PHONE + " TEXT,"
             + COLUMN_USER_USERNAME + " TEXT,"
+            + COLUMN_USER_REGION + " TEXT,"
             + COLUMN_USER_COUNTY + " TEXT,"
             + COLUMN_USER_SUB_COUNTY + " TEXT,"
             + COLUMN_USER_VILLAGE + " TEXT,"
@@ -305,8 +309,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_USER_LASTNAME, par.getLastName());
         values.put(COLUMN_USER_EMAIL, par.getEmail());
         values.put(COLUMN_USER_PHONE, par.getPhone());
+        values.put(COLUMN_USER_GENDER, par.getGender());
         values.put(COLUMN_USER_USERNAME, par.getUsername());
         values.put(COLUMN_USER_COUNTY, par.getCounty());
+        values.put(COLUMN_USER_REGION, par.getRegion());
         values.put(COLUMN_USER_SUB_COUNTY, par.getSubCounty());
         values.put(COLUMN_USER_VILLAGE, par.getVillage());
         values.put(COLUMN_USER_GROUP, par.getUserGroup());
@@ -341,8 +347,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     par.setFirstName(cursor.getString(cursor.getColumnIndex(COLUMN_USER_FIRSTNAME)));
                     par.setLastName(cursor.getString(cursor.getColumnIndex(COLUMN_USER_LASTNAME)));
                     par.setEmail(cursor.getString(cursor.getColumnIndex(COLUMN_USER_EMAIL)));
+                    par.setGender(cursor.getString(cursor.getColumnIndex(COLUMN_USER_GENDER)));
                     par.setPhone(cursor.getString(cursor.getColumnIndex(COLUMN_USER_PHONE)));
                     par.setUsername(cursor.getString(cursor.getColumnIndex(COLUMN_USER_USERNAME)));
+                    par.setRegion(cursor.getString(cursor.getColumnIndex(COLUMN_USER_REGION)));
                     par.setCounty(cursor.getString(cursor.getColumnIndex(COLUMN_USER_COUNTY)));
                     par.setSubCounty(cursor.getString(cursor.getColumnIndex(COLUMN_USER_SUB_COUNTY)));
                     par.setVillage(cursor.getString(cursor.getColumnIndex(COLUMN_USER_VILLAGE)));
@@ -387,9 +395,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     par.setUserId(cursor.getInt(cursor.getColumnIndex(COLUMN_USER_ID)));
                     par.setFirstName(cursor.getString(cursor.getColumnIndex(COLUMN_USER_FIRSTNAME)));
                     par.setLastName(cursor.getString(cursor.getColumnIndex(COLUMN_USER_LASTNAME)));
+                    par.setGender(cursor.getString(cursor.getColumnIndex(COLUMN_USER_GENDER)));
                     par.setEmail(cursor.getString(cursor.getColumnIndex(COLUMN_USER_EMAIL)));
                     par.setPhone(cursor.getString(cursor.getColumnIndex(COLUMN_USER_PHONE)));
                     par.setUsername(cursor.getString(cursor.getColumnIndex(COLUMN_USER_USERNAME)));
+                    par.setRegion(cursor.getString(cursor.getColumnIndex(COLUMN_USER_REGION)));
                     par.setCounty(cursor.getString(cursor.getColumnIndex(COLUMN_USER_COUNTY)));
                     par.setSubCounty(cursor.getString(cursor.getColumnIndex(COLUMN_USER_SUB_COUNTY)));
                     par.setVillage(cursor.getString(cursor.getColumnIndex(COLUMN_USER_VILLAGE)));
@@ -435,9 +445,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     par.setUserId(cursor.getInt(cursor.getColumnIndex(COLUMN_USER_ID)));
                     par.setFirstName(cursor.getString(cursor.getColumnIndex(COLUMN_USER_FIRSTNAME)));
                     par.setLastName(cursor.getString(cursor.getColumnIndex(COLUMN_USER_LASTNAME)));
+                    par.setGender(cursor.getString(cursor.getColumnIndex(COLUMN_USER_GENDER)));
                     par.setEmail(cursor.getString(cursor.getColumnIndex(COLUMN_USER_EMAIL)));
                     par.setPhone(cursor.getString(cursor.getColumnIndex(COLUMN_USER_PHONE)));
                     par.setUsername(cursor.getString(cursor.getColumnIndex(COLUMN_USER_USERNAME)));
+                    par.setRegion(cursor.getString(cursor.getColumnIndex(COLUMN_USER_REGION)));
                     par.setCounty(cursor.getString(cursor.getColumnIndex(COLUMN_USER_COUNTY)));
                     par.setSubCounty(cursor.getString(cursor.getColumnIndex(COLUMN_USER_SUB_COUNTY)));
                     par.setVillage(cursor.getString(cursor.getColumnIndex(COLUMN_USER_VILLAGE)));
@@ -481,9 +493,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     par.setUserId(cursor.getInt(cursor.getColumnIndex(COLUMN_USER_ID)));
                     par.setFirstName(cursor.getString(cursor.getColumnIndex(COLUMN_USER_FIRSTNAME)));
                     par.setLastName(cursor.getString(cursor.getColumnIndex(COLUMN_USER_LASTNAME)));
+                    par.setGender(cursor.getString(cursor.getColumnIndex(COLUMN_USER_GENDER)));
                     par.setEmail(cursor.getString(cursor.getColumnIndex(COLUMN_USER_EMAIL)));
                     par.setPhone(cursor.getString(cursor.getColumnIndex(COLUMN_USER_PHONE)));
                     par.setUsername(cursor.getString(cursor.getColumnIndex(COLUMN_USER_USERNAME)));
+                    par.setRegion(cursor.getString(cursor.getColumnIndex(COLUMN_USER_REGION)));
                     par.setCounty(cursor.getString(cursor.getColumnIndex(COLUMN_USER_COUNTY)));
                     par.setSubCounty(cursor.getString(cursor.getColumnIndex(COLUMN_USER_SUB_COUNTY)));
                     par.setVillage(cursor.getString(cursor.getColumnIndex(COLUMN_USER_VILLAGE)));
@@ -592,6 +606,184 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * Checks for the existence of a duplicate designation during user registration.
+     * <p>
+     * This method queries the database to determine whether the provided designation already exists.
+     *
+     * @param designation The designation to be checked for duplication.
+     * @return {@code true} if the designation does not exist (is unique), {@code false} if it already exists.
+     */
+    public boolean checkDesignation(String designation) {
+        String[] columns = {COLUMN_USER_DESIGNATION};
+        String selection = COLUMN_USER_DESIGNATION + " = ? ";
+        String[] selectionArgs = {designation};
+        SQLiteDatabase db  = this.getWritableDatabase();
+        Cursor cursor = db.query(TABLE_USER, columns, selection, selectionArgs, null, null, null);
+
+        if (cursor != null){
+            try {
+                cursor.moveToFirst();
+                return cursor.getInt(0) == 0;
+            } catch (CursorIndexOutOfBoundsException e){
+                return true;
+            } finally {
+                cursor.close();
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks for the existence of a duplicate designation within a specific region and group during user registration.
+     * <p>
+     * This method queries the database to determine whether the provided combination of region, group, and designation already exists.
+     *
+     * @param region      The region to filter the search.
+     * @param group       The group to filter the search.
+     * @param designation The designation to be checked for duplication within the specified region and group.
+     * @return {@code true} if the designation does not exist within the given region and group (is unique), {@code false} if it already exists.
+     */
+    public boolean checkDesignation(String region, String group, String designation) {
+        String[] columns = {COLUMN_USER_REGION, COLUMN_USER_GROUP, COLUMN_USER_DESIGNATION};
+        String selection = COLUMN_USER_GROUP + " = ? AND " + COLUMN_USER_REGION + " = ? AND " + COLUMN_USER_DESIGNATION + " = ? ";
+        String[] selectionArgs = {group, region, designation};
+        SQLiteDatabase db  = this.getWritableDatabase();
+        Cursor cursor = db.query(TABLE_USER, columns, selection, selectionArgs, null, null, null);
+
+        if (cursor != null){
+            try {
+                cursor.moveToFirst();
+                return cursor.getInt(0) == 0;
+            } catch (CursorIndexOutOfBoundsException e){
+                return true;
+            } finally {
+                cursor.close();
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks for the existence of a duplicate designation within a specific region and group for an office bearer during user registration.
+     * <p>
+     * This method queries the database to determine whether the provided combination of region, group, and designation already exists
+     * specifically for users designated as office bearers and with a limit on the count.
+     *
+     * @param region      The region to filter the search.
+     * @param group       The group to filter the search.
+     * @param designation The designation to be checked for duplication within the specified region and group for office bearers.
+     * @return {@code true} if the count of the designation within the given region and group for office bearers is less than or equal to 5 (is unique or not present),
+     *         {@code false} if it already exceeds the limit.
+     */
+    public boolean checkDesignationOfficeBearer(String region, String group, String designation) {
+        String[] columns = {COLUMN_USER_REGION, COLUMN_USER_GROUP, COLUMN_USER_DESIGNATION};
+        String selection = COLUMN_USER_GROUP + " = ? AND " + COLUMN_USER_REGION + " = ? AND " + COLUMN_USER_DESIGNATION + " = ? ";
+        String[] selectionArgs = {group, region, designation};
+        SQLiteDatabase db  = this.getWritableDatabase();
+        Cursor cursor = db.query(TABLE_USER, columns, selection, selectionArgs, null, null, null);
+
+        if (cursor != null){
+            try {
+                cursor.moveToFirst();
+                return cursor.getInt(0) <= 5;
+            } catch (CursorIndexOutOfBoundsException e){
+                return true;
+            } finally {
+                cursor.close();
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks for the existence of a duplicate designation within a specific region, village, and group during user registration.
+     * <p>
+     * This method queries the database to determine whether the provided combination of region, village, group, and designation
+     * already exists for users with the specified details.
+     *
+     * @param region      The region to filter the search.
+     * @param village     The village to filter the search.
+     * @param group       The group to filter the search.
+     * @param designation The designation to be checked for duplication within the specified region, village, and group.
+     * @return {@code true} if the designation does not exist within the given region, village, and group (is unique),
+     *         {@code false} if it already exists.
+     */
+    public boolean checkDesignation(String region, String village, String group, String designation) {
+        String[] columns = {COLUMN_USER_REGION, COLUMN_USER_VILLAGE, COLUMN_USER_GROUP, COLUMN_USER_DESIGNATION};
+        String selection = COLUMN_USER_GROUP + " = ? AND " + COLUMN_USER_REGION + " = ? AND " + COLUMN_USER_VILLAGE + " = ? " + COLUMN_USER_DESIGNATION + " = ? ";
+        String[] selectionArgs = {group, region, village, designation};
+        SQLiteDatabase db  = this.getWritableDatabase();
+        Cursor cursor = db.query(TABLE_USER, columns, selection, selectionArgs, null, null, null);
+
+        if (cursor != null){
+            try {
+                cursor.moveToFirst();
+                return cursor.getInt(0) == 0;
+            } catch (CursorIndexOutOfBoundsException e){
+                return true;
+            } finally {
+                cursor.close();
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks for the existence of a duplicate designation within a specific village during user registration.
+     * <p>
+     * This method queries the database to determine whether the provided combination of village and designation already exists.
+     *
+     * @param village     The village to be checked for duplication.
+     * @param designation The designation to be checked for duplication within the specified village.
+     * @return {@code true} if the designation does not exist within the given village (is unique), {@code false} if it already exists.
+     */
+    public boolean checkDesignation(String village, String designation) {
+        String[] columns = {COLUMN_USER_VILLAGE, COLUMN_USER_DESIGNATION};
+        String selection = COLUMN_USER_VILLAGE + " = ? AND " + COLUMN_USER_DESIGNATION + " = ? ";
+        String[] selectionArgs = {village, designation};
+        SQLiteDatabase db  = this.getWritableDatabase();
+        Cursor cursor = db.query(TABLE_USER, columns, selection, selectionArgs, null, null, null);
+
+        if (cursor != null){
+            try {
+                cursor.moveToFirst();
+                return cursor.getInt(0) == 0;
+            } catch (CursorIndexOutOfBoundsException e){
+                return true;
+            } finally {
+                cursor.close();
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks whether the count of a specific designation in a given village is less than or equal to 5
+     * in the SQLite database.
+     *
+     * @param village     The name of the village to be checked.
+     * @param designation The designation for which the count is to be checked.
+     * @return            Returns true if the count of the specified designation in the given village
+     *                    is less than or equal to 5; otherwise, returns false.
+     */
+    public boolean checkDesignationDcn(String village, String designation) {
+        String[] columns = {COLUMN_USER_VILLAGE, "COUNT(" + COLUMN_USER_DESIGNATION + ") AS designation_count"};
+        String selection = COLUMN_USER_VILLAGE + " = ? AND " + COLUMN_USER_DESIGNATION + " = ? ";
+        String[] selectionArgs = {village, designation};
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.query(TABLE_USER, columns, selection, selectionArgs, null, null, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            try {
+                @SuppressLint("Range") int designationCount = cursor.getInt(cursor.getColumnIndex("designation_count"));
+                return designationCount <= 5;
+            } finally {
+                cursor.close();
+            }
+        }
+        return false;
+    }
+    /**
      * Updates the password for a user based on the provided username.
      * <p>
      * This method updates the user's password in the database where the username matches the provided username.
@@ -646,6 +838,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * Deletes a user from the SQLite database based on the provided user ID and username.
+     *
+     * @param userId   The unique identifier of the user to be deleted.
+     * @param username The username of the user to be deleted.
+     */
     public void deleteUser(String userId, String username){
         SQLiteDatabase db  = this.getWritableDatabase();
         String whereClause = COLUMN_USER_ID + " = ? AND " + COLUMN_USER_USERNAME + " = ?";
@@ -679,6 +877,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * Retrieves a list of all events from the SQLite database.
+     *
+     * @return A List of Event objects representing the events in the database.
+     */
     @SuppressLint("Range")
     public List<Event> getEvent(){
         String[] columns = {"*"};
@@ -706,6 +909,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return list;
     }
 
+    /**
+     * Retrieves a list of events from the SQLite database based on the specified location.
+     *
+     * @param location The location for which events are to be retrieved.
+     * @return A List of Event objects representing the events in the specified location.
+     */
     @SuppressLint("Range")
     public List<Event> getEvent(String location){
         String[] columns = {"*"};
@@ -735,6 +944,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return list;
     }
 
+    /**
+     * Updates an existing event in the SQLite database with the provided Event object.
+     *
+     * @param par The Event object containing updated information for the event to be updated.
+     */
     public void updateEvent(Event par){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -755,6 +969,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * Deletes an event from the SQLite database based on the provided event ID.
+     *
+     * @param eventId The unique identifier of the event to be deleted.
+     */
     public void deleteEvent(String eventId){
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_EVENT, COLUMN_EVENT_ID + " = ?", new String[]{eventId});
@@ -780,6 +999,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * Retrieves a list of all doctrines from the SQLite database.
+     *
+     * @return A List of Doctrine objects representing the doctrines in the database.
+     */
     @SuppressLint("Range")
     public List<Doctrine> getDoctrine(){
         String[] columns = {"*"};
@@ -802,6 +1026,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return list;
     }
 
+    /**
+     * Updates an existing doctrine in the SQLite database with the provided Doctrine object.
+     *
+     * @param par The Doctrine object containing updated information for the doctrine to be updated.
+     */
     public void updateDoctrine(Doctrine par){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -817,6 +1046,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * Deletes a doctrine from the SQLite database based on the provided doctrine ID.
+     *
+     * @param doctrineId The unique identifier of the doctrine to be deleted.
+     */
     public void deleteDoctrine(int doctrineId){
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_DOCTRINE, COLUMN_DOCTRINE_ID + " = ?", new String[] {String.valueOf(doctrineId)});
@@ -845,6 +1079,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * Retrieves a list of LessonQuarter objects from the database, sorted by quarter ID in descending order.
+     *
+     * @return A list of LessonQuarter objects containing information about quarters.
+     */
     @SuppressLint("Range")
     public List<LessonQuarter> getLessonQuarter(){
         String[] columns = {"*"};
@@ -871,6 +1110,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return list;
     }
 
+    /**
+     * Retrieves a list of LessonQuarter objects from the database for a specific quarter ID, sorted by quarter ID in descending order.
+     *
+     * @param quarterId The ID of the quarter for which LessonQuarter objects are to be retrieved.
+     * @return A list of LessonQuarter objects containing information about the specified quarter.
+     */
     @SuppressLint("Range")
     public List<LessonQuarter> getLessonQuarter(int quarterId){
         String[] columns = {"*"};
@@ -901,6 +1146,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return list;
     }
 
+    /**
+     * Updates the information of a LessonQuarter in the database.
+     *
+     * @param par The LessonQuarter object containing the updated information.
+     */
     public void updateLessonQuarter(LessonQuarter par){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -918,6 +1168,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * Deletes a LessonQuarter from the database based on the provided quarter ID.
+     *
+     * @param quarterId The ID of the quarter to be deleted.
+     */
     public void deleteLessonQuarter(int quarterId){
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_LESSON_QUARTER, COLUMN_LESSON_QUARTER_ID + " = ?", new String[]{String.valueOf(quarterId)});
@@ -950,6 +1205,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * Retrieves a list of LessonQuestion objects from the database for a specific week ID, sorted by question ID in ascending order.
+     *
+     * @param weekId The ID of the week for which LessonQuestion objects are to be retrieved.
+     * @return A list of LessonQuestion objects containing information about questions for the specified week.
+     */
     @SuppressLint("Range")
     public List<LessonQuestion> getLessonQuestion(int weekId){
         String[] columns = {"*"};
@@ -984,6 +1245,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    /**
+     * Updates the information of a LessonQuestion in the database.
+     *
+     * @param par The LessonQuestion object containing the updated information.
+     */
     public void updateQuestion(LessonQuestion par){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -1004,6 +1270,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * Deletes a LessonQuestion from the database based on the provided question ID.
+     *
+     * @param questionId The ID of the question to be deleted.
+     */
     public void deleteQuestion(int questionId){
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_LESSON_QUESTION, COLUMN_LESSON_QUESTION_ID + " = ?", new String[]{String.valueOf(questionId)});
@@ -1011,6 +1282,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
+    /**
+     * Deletes LessonQuestions from the database based on the provided week ID.
+     *
+     * @param weekId The ID of the week for which LessonQuestions are to be deleted.
+     */
     public void deleteQuestion(String weekId){
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_LESSON_QUESTION, COLUMN_LESSON_QUESTION_WEEK + " = ?", new String[]{String.valueOf(weekId)});
@@ -1042,6 +1318,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * Retrieves a list of LessonWeek objects from the database for a specific quarter ID, sorted by week ID in ascending order.
+     *
+     * @param quarterId The ID of the quarter for which LessonWeek objects are to be retrieved.
+     * @return A list of LessonWeek objects containing information about weeks for the specified quarter.
+     */
     @SuppressLint("Range")
     public List<LessonWeek> getLessonWeek(int quarterId){
         String[] columns = {"*"};
@@ -1075,6 +1357,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return list;
     }
 
+    /**
+     * Updates the information of a LessonWeek in the database.
+     *
+     * @param par The LessonWeek object containing the updated information.
+     */
     public void updateLessonWeek(LessonWeek par){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -1095,12 +1382,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * Deletes a LessonWeek from the database based on the provided lesson ID.
+     *
+     * @param lessonId The ID of the lesson to be deleted.
+     */
     public void deleteLesson(int lessonId){
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_LESSON_WEEK, COLUMN_LESSON_WEEK_ID + " = ?", new String[]{String.valueOf(lessonId)});
         db.close();
     }
 
+    /**
+     * Deletes LessonWeeks from the database based on the provided quarter ID.
+     *
+     * @param quarterId The ID of the quarter for which LessonWeeks are to be deleted.
+     */
     public void deleteLesson(String quarterId){
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_LESSON_WEEK, COLUMN_LESSON_WEEK_QUARTER + " = ?", new String[]{String.valueOf(quarterId)});
@@ -1131,6 +1428,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * Retrieves a list of Song objects from the database, sorted by song ID in ascending order.
+     *
+     * @return A list of Song objects containing information about songs.
+     */
     @SuppressLint("Range")
     public List<Song> getSong(){
         String[] columns = {"*"};
@@ -1161,6 +1463,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return list;
     }
 
+    /**
+     * Retrieves a list of Song objects from the database for a specific song category, sorted by song ID in ascending order.
+     *
+     * @param songCategory The category of songs to be retrieved.
+     * @return A list of Song objects containing information about songs in the specified category.
+     */
     @SuppressLint("Range")
     public List<Song> getSong(String songCategory){
         String[] columns = {"*"};
@@ -1194,6 +1502,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
+    /**
+     * Retrieves a list of Song objects from the database for a specific song group, sorted by song ID in ascending order.
+     *
+     * @param songGroup The group of songs to be retrieved.
+     * @return A list of Song objects containing information about songs in the specified group.
+     */
     @SuppressLint("Range")
     public List<Song> getSongByGroup(String songGroup){
         String[] columns = {"*"};
@@ -1227,6 +1541,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
+    /**
+     * Retrieves a list of Song objects from the database for a specific song group and category, sorted by song ID in ascending order.
+     *
+     * @param songGroup The group of songs to be retrieved.
+     * @param songCategory The category of songs to be retrieved.
+     * @return A list of Song objects containing information about songs in the specified group and category.
+     */
     @SuppressLint("Range")
     public List<Song> getSong(String songGroup, String songCategory){
         String[] columns = {"*"};
@@ -1259,6 +1580,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return list;
     }
 
+    /**
+     * Updates the information of a Song in the database.
+     *
+     * @param par The Song object containing the updated information.
+     */
     public void updateSong(Song par){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -1278,6 +1604,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * Deletes a Song from the database based on the provided song ID.
+     *
+     * @param songId The ID of the song to be deleted.
+     */
     public void deleteSong(int songId){
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_SONG, COLUMN_SONG_ID + " = ?", new String[]{String.valueOf(songId)});
@@ -1300,6 +1631,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * Retrieves a list of SongStanza objects from the database for a specific song ID, sorted by stanza ID in ascending order.
+     *
+     * @param songId The ID of the song for which stanzas are to be retrieved.
+     * @return A list of SongStanza objects containing information about stanzas for the specified song.
+     */
     @SuppressLint("Range")
     public List<SongStanza> getStanza(int songId){
         String[] columns = {"*"};
@@ -1328,6 +1665,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return list;
     }
 
+    /**
+     * Updates the information of a SongStanza in the database.
+     *
+     * @param par The SongStanza object containing the updated information.
+     */
     public void updateStanza(SongStanza par){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -1343,6 +1685,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * Deletes a SongStanza from the database based on the provided stanza ID.
+     *
+     * @param stanzaId The ID of the stanza to be deleted.
+     */
     public void deleteStanza(int stanzaId){
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_SONG_STANZA, COLUMN_STANZA_ID + " = ?", new String[]{String.valueOf(stanzaId)});
@@ -1350,6 +1697,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
+    /**
+     * Deletes all stanzas associated with a specific song ID from the database.
+     *
+     * @param songId The ID of the song whose stanzas are to be deleted.
+     */
     public void deleteStanza(String songId){
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_SONG_STANZA, COLUMN_STANZA_SONG_ID + " = ?", new String[]{String.valueOf(songId)});
@@ -1372,6 +1724,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * Retrieves a list of SongChorus objects from the database for a specific song ID, sorted by chorus ID in ascending order.
+     *
+     * @param songId The ID of the song for which choruses are to be retrieved.
+     * @return A list of SongChorus objects containing information about choruses for the specified song.
+     */
     @SuppressLint("Range")
     public List<SongChorus> getChorus(int songId){
         String[] columns = {"*"};
@@ -1400,6 +1758,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return list;
     }
 
+    /**
+     * Updates the information of a SongChorus in the database.
+     *
+     * @param par The SongChorus object containing the updated information.
+     */
     public void updateChorus(SongChorus par){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -1416,12 +1779,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
+    /**
+     * Deletes a SongChorus from the database based on the provided chorus ID.
+     *
+     * @param chorusId The ID of the chorus to be deleted.
+     */
     public void deleteChorus(int chorusId){
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_SONG_CHORUS, COLUMN_CHORUS_ID + " = ?", new String[]{String.valueOf(chorusId)});
         db.close();
     }
 
+    /**
+     * Deletes all choruses associated with a specific song ID from the database.
+     *
+     * @param songId The ID of the song whose choruses are to be deleted.
+     */
     public void deleteChorus(String songId){
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_SONG_CHORUS, COLUMN_CHORUS_SONG_ID + " = ?", new String[]{String.valueOf(songId)});

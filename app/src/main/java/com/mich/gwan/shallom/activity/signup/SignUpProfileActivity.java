@@ -13,7 +13,9 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.Window;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,6 +33,8 @@ import com.mich.gwan.shallom.helper.InputValidation;
 import com.mich.gwan.shallom.model.User;
 import com.mich.gwan.shallom.utils.ImageUtils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class SignUpProfileActivity extends AppCompatActivity implements View.OnClickListener{
@@ -42,11 +46,14 @@ public class SignUpProfileActivity extends AppCompatActivity implements View.OnC
     private TextInputEditText textInputEditTextUsername;
 
     private TextInputLayout textInputLayoutFirstName;
+    private TextInputLayout textInputLayoutGender;
     private TextInputLayout textInputLayoutSurname;
     private TextInputLayout textInputLayoutEmail;
     private TextInputLayout textInputLayoutPhoneNumber;
     private TextInputLayout textInputLayoutUsername;
     private TextInputLayout textInputLayoutUserAvatar;
+
+    private Spinner spinnerGender;
 
     private AppCompatButton buttonNext;
 
@@ -189,6 +196,19 @@ public class SignUpProfileActivity extends AppCompatActivity implements View.OnC
         buttonNext = binding.buttonNext;
         shapeableImageViewUserAvatar = binding.shapeableImageViewUserAvatar;
         textViewBackToLogin = binding.textViewBackToLogin;
+        spinnerGender = binding.spinnerGender;
+        textInputLayoutGender = binding.textInputLayoutGender;
+
+        List<String> gender = new ArrayList<>();
+        gender.add("Select Gender");
+        gender.add("MALE");
+        gender.add("FEMALE");
+        gender.add("OTHER");
+
+        // Set up ArrayAdapter for gender
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, gender);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerGender.setAdapter(adapter);
     }
 
     private void setupOnBackPressedCallback() {
@@ -225,6 +245,8 @@ public class SignUpProfileActivity extends AppCompatActivity implements View.OnC
             return;
         if (inputValidation.isInputEditTextFilled(textInputEditTextUsername, textInputLayoutUsername, getString(R.string.input_this_field)))
             return;
+        if (inputValidation.isSpinnerEmpty(spinnerGender, textInputLayoutGender, getString(R.string.select_gender)))
+            return;
         if (inputValidation.isShapeableImageViewHasImage(shapeableImageViewUserAvatar, textInputLayoutUserAvatar, getString(R.string.select_image)))
             return;
         if (databaseHelper.checkUsernameIfExists(Objects.requireNonNull(textInputEditTextUsername.getText()).toString().toUpperCase())) {
@@ -242,6 +264,7 @@ public class SignUpProfileActivity extends AppCompatActivity implements View.OnC
         user.setFirstName(textInputEditTextFirstName.getText().toString().toUpperCase());
         user.setLastName(textInputEditTextSurname.getText().toString().toUpperCase());
         user.setUsername(textInputEditTextUsername.getText().toString().toUpperCase());
+        user.setGender(spinnerGender.getSelectedItem().toString().toUpperCase());
         user.setUserProf(((BitmapDrawable) drawable).getBitmap());
     }
 }

@@ -63,7 +63,7 @@ public class InputValidation {
     /**
      * Checks whether a spinner has a selected value.
      * <p>
-     * This method validates whether the provided AppCompatSpinner has a selected value.
+     * This method validates whether the provided Spinner has a selected value.
      * If no value is selected, it displays an error message in the specified TextInputLayout.
      *
      * @param spinner          The Spinner to check for a selected value.
@@ -74,7 +74,8 @@ public class InputValidation {
     public boolean isSpinnerEmpty(Spinner spinner, TextInputLayout textInputLayout, String message){
         if(spinner.getSelectedItem().equals("Select County") || spinner.getSelectedItem().equals("Select Sub-County") ||
                 spinner.getSelectedItem().equals("Select Village") || spinner.getSelectedItem().equals("Select Designation") ||
-                spinner.getSelectedItem().equals("Select Group")) {
+                spinner.getSelectedItem().equals("Select Group") || spinner.getSelectedItem().equals("Select Gender") ||
+        spinner.getSelectedItem().equals("Select Region")) {
             textInputLayout.setError(message);
             return false;
         } else  {

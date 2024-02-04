@@ -9,6 +9,8 @@
     <!-- Dark Theme Colors -->
     <color name="white">#FFFFFF</color>
     <color name="black_main">#070707</color>
+    <color name="orange">#FFA500</color>
+    <color name="orange_">#CC8401</color>
     <color name="green_dark">#009245</color>
     <color name="green_bright">#0AFF7E</color>
     <color name="green_light">#013117</color>
@@ -17,18 +19,18 @@
     <color name="red">#A90000</color>
     <color name="red_400">#FF0000</color>
     <color name="red_700">#920000</color>
-    <color name="grey">#4D4D4D</color>
     <color name="white_">#C4C4C4</color>
     <color name="white_20">#F2F2F2</color>
-    <color name="grey_200">#424443</color>
-    <color name="grey_300">#292727</color>
     <color name="grey_100">#D9D9D9</color>
     <color name="grey_150">#8C8A8A</color>
+    <color name="grey_200">#424443</color>
     <color name="grey_250">#514F4F</color>
+    <color name="grey_300">#292727</color>
     <color name="grey_350">#4D4D4D</color>
-    <color name="grey_500">#5E5D5D</color>
     <color name="grey_400">#B6B6B6</color>
     <color name="grey_450">#1E1E1E</color>
+    <color name="grey_500">#5E5D5D</color>
+    <color name="grey">#4D4D4D</color>
     <color name="layout_tint">#DA070707</color>
     <color name="colorless">#00FFFFFF</color>
 </resources>

@@ -12,11 +12,13 @@ public class User {
     private String email;
     private String phone;
     private String username;
+    private String region;
     private String county;
     private String subCounty;
     private String village;
     private String userGroup;
     private String designation;
+    private String gender;
     private String password;
     private String registrationDate;
     private Status status;
@@ -24,12 +26,13 @@ public class User {
     public User(){}
 
     public User(int userId, String firstName, String lastName, String email, String phone,
-                String username, String registrationDate, Status status) {
+                String username, String registrationDate, String gender, Status status) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phone = phone;
+        this.gender = gender;
         this.username = username;
         this.status = status;
         this.registrationDate = registrationDate;
@@ -63,6 +66,14 @@ public class User {
 
     public void setRegistrationDate(String registrationDate) {
         this.registrationDate = registrationDate;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public Status getStatus() {
@@ -119,6 +130,14 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
     }
 
     public String getCounty() {
