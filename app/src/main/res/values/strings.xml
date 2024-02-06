@@ -124,4 +124,10 @@
     <string name="pastor_is_cogmea">Postor must be a COGMEA!</string>
     <string name="governor_is_cogyok">Governor is a COGYOK!</string>
     <string name="strength_password">Password Strength</string>
+    <string name="password_mismatch">Password does not match!</string>
+    <string name="doctrine">Doctrine</string>
+    <string name="name_surname">MICHAEL MAINA</string>
+    <string name="welcome_text">Welcome to Our App</string>
+    <string name="shallom_text">SHALLOM!</string>
+    <string name="crafted_with_love">Developed with love</string>
 </resources>

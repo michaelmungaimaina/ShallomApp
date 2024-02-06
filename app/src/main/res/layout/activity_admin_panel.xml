@@ -38,7 +38,7 @@
             android:alpha="0.7"
             android:elevation="0dp"
             android:foreground="@drawable/ic_rectangle_green_blur_stroke"
-            app:cardBackgroundColor="@color/colorless"
+            app:cardBackgroundColor="@color/transparent"
             app:cardCornerRadius="5dp" />
         <com.google.android.flexbox.FlexboxLayout
             android:id="@+id/flexboxLayoutTop"
@@ -64,7 +64,7 @@
                 android:layout_margin="8dp"
                 android:foreground="@drawable/grey_cardview_border"
                 app:cardCornerRadius="5dp"
-                app:cardBackgroundColor="@color/colorless">
+                app:cardBackgroundColor="@color/transparent">
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -115,7 +115,7 @@
                 android:layout_margin="8dp"
                 android:foreground="@drawable/grey_cardview_border"
                 app:cardCornerRadius="5dp"
-                app:cardBackgroundColor="@color/colorless">
+                app:cardBackgroundColor="@color/transparent">
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -168,7 +168,7 @@
             android:layout_marginTop="8dp"
             android:foreground="@drawable/grey_cardview_border"
             app:cardCornerRadius="5dp"
-            app:cardBackgroundColor="@color/colorless"
+            app:cardBackgroundColor="@color/transparent"
             android:layout_below="@id/flexboxLayoutTop">
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
@@ -219,7 +219,7 @@
             android:layout_margin="8dp"
             android:foreground="@drawable/grey_cardview_border"
             app:cardCornerRadius="5dp"
-            app:cardBackgroundColor="@color/colorless"
+            app:cardBackgroundColor="@color/transparent"
             android:layout_below="@id/flexboxLayoutTop"
             android:layout_toEndOf="@+id/cardViewDashboard">
             <androidx.cardview.widget.CardView

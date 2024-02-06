@@ -7,6 +7,8 @@ package com.mich.gwan.shallom.activity.signup;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.Window;
 import android.widget.LinearLayout;
@@ -97,15 +99,57 @@ public class SignUpPasswordActivity extends AppCompatActivity implements View.On
             finish();
     }
 
+    private void attachTextWatcher() {
+        textInputEditTextPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // Not needed
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                passwordStrengthControllerLayout.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                checkPassword(editable.toString());
+            }
+        });
+    }
+
+
     private void checkPassword(String password){
-        password.contains("");
+        if (password.length() < 6 && !inputValidation.isValidPassword(password, "$(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+,.\\\\/;':\"-]).{6,15}")){
+            passwordStrengthControllerLayout.setVisibility(View.VISIBLE);
+            passwordWeakLayout.setVisibility(View.VISIBLE);
+            passwordGoodLayout.setVisibility(View.GONE);
+            passwordStrongLayout.setVisibility(View.GONE);
+        } else if (inputValidation.isValidPassword(password, "$(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+,.\\\\/;':\"-]).{6,7}")) {
+            passwordStrengthControllerLayout.setVisibility(View.VISIBLE);
+            passwordWeakLayout.setVisibility(View.GONE);
+            passwordGoodLayout.setVisibility(View.VISIBLE);
+            passwordStrongLayout.setVisibility(View.GONE);
+        } else if (inputValidation.isValidPassword(password, "$(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+,.\\\\/;':\"-]).{8,15}")){
+            passwordStrengthControllerLayout.setVisibility(View.VISIBLE);
+            passwordWeakLayout.setVisibility(View.GONE);
+            passwordGoodLayout.setVisibility(View.GONE);
+            passwordStrongLayout.setVisibility(View.VISIBLE);
+        }
     }
 
     private void verifyFromSQLite() {
         if (inputValidation.isInputEditTextFilled(textInputEditTextPassword, textInputLayoutPassword, getString(R.string.empty_password)))
             return;
+        if (inputValidation.isValidPassword(textInputEditTextPassword, textInputLayoutPassword, getString(R.string.not_valid_password)))
+            return;
         if (inputValidation.isInputEditTextFilled(textInputEditTextConfirmPassword, textInputLayoutConfirmPassword, getString(R.string.confirm_password)))
             return;
-        if (inputValidation.isValidPassword(textInputEditTextPassword, textInputLayoutPassword, getString(R.string.not_valid_password)))
+        if (inputValidation.isInputEditTextMatches(textInputEditTextPassword, textInputEditTextConfirmPassword, textInputLayoutConfirmPassword, getString(R.string.password_mismatch)))
+            return;
+
+        user.setPassword(textInputEditTextPassword.getText().toString());
+
+        databaseHelper.addUser(user);
     }
 }

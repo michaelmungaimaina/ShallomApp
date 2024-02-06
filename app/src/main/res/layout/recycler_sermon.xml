@@ -7,7 +7,7 @@
     android:layout_gravity="start"
     android:backgroundTint="#A1000000"
     android:backgroundTintMode="src_over"
-    android:background="@color/colorless">
+    android:background="@color/transparent">
     <TextView
         android:id="@+id/textViewSermonTitle"
         android:layout_width="wrap_content"

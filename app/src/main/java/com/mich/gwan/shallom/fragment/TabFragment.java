@@ -100,7 +100,7 @@ public class TabFragment extends Fragment {
 
         /**
          * Return number of fragments available
-         * @return
+         * @return number of items
          */
         @Override
         public int getItemCount() {

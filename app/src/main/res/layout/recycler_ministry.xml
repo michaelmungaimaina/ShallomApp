@@ -7,7 +7,7 @@
     android:layout_gravity="start"
     android:backgroundTint="#A1000000"
     android:backgroundTintMode="src_over"
-    android:background="@color/colorless">
+    android:background="@color/transparent">
     <TextView
         android:id="@+id/textViewMinistryTitle"
         android:layout_width="wrap_content"
@@ -32,19 +32,20 @@
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
             android:foreground="#A4000000"/>
+
         <TextView
             android:id="@+id/textViewMinistryName"
             android:layout_width="wrap_content"
             android:layout_height="25dp"
+            android:layout_centerInParent="true"
+            android:layout_gravity="start"
+            android:layout_marginTop="@dimen/margin_top"
+            android:fontFamily="@font/ibmplexsanshebrew_bold"
+            android:maxLines="1"
             android:text="@string/ministry_name"
             android:textColor="@color/white"
-            android:textStyle="bold"
-            android:layout_marginTop="@dimen/margin_top"
             android:textSize="21sp"
-            android:maxLines="1"
-            android:layout_gravity="start"
-            android:layout_centerInParent="true"
-            android:fontFamily="@font/ibmplexsanshebrew_bold"/>
+            android:textStyle="bold" />
     </RelativeLayout>
 
     <androidx.cardview.widget.CardView

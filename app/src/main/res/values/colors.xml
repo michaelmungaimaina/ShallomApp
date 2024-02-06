@@ -32,5 +32,5 @@
     <color name="grey_500">#5E5D5D</color>
     <color name="grey">#4D4D4D</color>
     <color name="layout_tint">#DA070707</color>
-    <color name="colorless">#00FFFFFF</color>
+    <color name="transparent">#00FFFFFF</color>
 </resources>

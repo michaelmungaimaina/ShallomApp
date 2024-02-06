@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2024. Maina Michael.
+  ~ Created on 2024 / 2 / 6
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/background_gradient"
+    android:backgroundTint="@color/layout_tint">
+    <TextView
+        android:id="@+id/textViewCreateAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/welcome_text"
+        android:textSize="24sp"
+        android:fontFamily="@font/ibmplexsanshebrew_bold"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:textColor="@color/green_bright"
+        android:gravity="center"
+        android:layout_marginBottom="90dp"/>
+    <TextView
+        android:id="@+id/textViewShallom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/shallom_text"
+        android:textSize="50sp"
+        android:fontFamily="@font/ibmplexsanshebrew_bold"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:layout_marginBottom="140dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/crafted_with_love"
+        android:textSize="11sp"
+        android:fontFamily="@font/ibmplexsanshebrew_thin"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:letterSpacing="0.7"
+        android:textColor="@color/white"
+        android:gravity="bottom"
+        android:layout_marginStart="10dp"/>
+
+</LinearLayout>

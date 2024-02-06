@@ -143,6 +143,7 @@
                 android:fontFamily="@font/ibmplexsanshebrew_medium"
                 android:layout_gravity="start"/>
             <TextView
+                android:id="@+id/textViewRequestCode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/resend"
@@ -156,7 +157,7 @@
 
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/buttonNext"
+            android:id="@+id/buttonVerify"
             android:layout_width="160dp"
             android:layout_height="40dp"
             android:background="@drawable/buton_background"

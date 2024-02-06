@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="@dimen/margin_top"
-    app:cardBackgroundColor="@color/colorless"
+    app:cardBackgroundColor="@color/transparent"
     app:cardElevation="0dp"
     app:cardCornerRadius="0dp">
     <LinearLayout

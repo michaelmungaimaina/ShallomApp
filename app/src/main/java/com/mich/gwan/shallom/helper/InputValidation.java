@@ -251,6 +251,12 @@ public class InputValidation {
         return true;
         //(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+,.\\\/;':"-]).{5,}
     }
+    public boolean isValidPassword(String password, String regex){
+        Pattern pattern=Pattern.compile(regex);
+        Matcher matcher=pattern.matcher(password);
+        return !password.isEmpty() && matcher.matches();
+        //(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+,.\\\/;':"-]).{5,}
+    }
 
     /**
      * Validates a phone number and displays an error message if invalid.

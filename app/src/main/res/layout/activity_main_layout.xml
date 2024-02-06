@@ -1,20 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/background_gradient"
     android:backgroundTintMode="src_atop"
     android:backgroundTint="@color/layout_tint"
     android:orientation="vertical"
     android:layout_gravity="center">
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        style="@style/Widget.App.BottomNavigationView"
+    <RelativeLayout
+        android:id="@+id/relative"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="bottom"
-        app:labelVisibilityMode="labeled"
-        app:menu="@menu/bottom_navigation_menu"/>
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_alignParentTop="true">
+
+            <include
+                layout="@layout/toolbar_main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <FrameLayout
+                android:id="@+id/frameContent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="48dp"/>
+        </LinearLayout>
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation"
+            style="@style/Widget.App.BottomNavigationView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            app:labelVisibilityMode="labeled"
+            app:menu="@menu/bottom_navigation_menu"/>
+    </RelativeLayout>
 </androidx.appcompat.widget.LinearLayoutCompat>

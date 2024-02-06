@@ -20,7 +20,7 @@
         android:id="@+id/doctrine"
         android:enabled="true"
         android:icon="@drawable/ic_doctrine_green"
-        android:title="@string/home"/>
+        android:title="@string/doctrine"/>
     <item
         android:id="@+id/songs"
         android:enabled="true"
