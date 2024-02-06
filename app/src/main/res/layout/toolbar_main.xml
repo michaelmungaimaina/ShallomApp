@@ -48,7 +48,7 @@
             android:gravity="start|center"
             android:layout_marginStart="5dp">
             <TextView
-                android:id="@+id/textViewCreateAccount"
+                android:id="@+id/textViewGreetingText"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:text="@string/greeting_text"
@@ -59,6 +59,7 @@
                 android:textColor="@color/green_bright"
                 android:gravity="center"/>
             <TextView
+                android:id="@+id/textViewNameDisplay"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="@string/name_surname"
@@ -78,6 +79,7 @@
             android:layout_marginStart="5dp"
             android:layout_alignParentRight="true">
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewSearch"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 app:cardCornerRadius="20dp"
@@ -101,6 +103,7 @@
 
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewNotification"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_marginStart="10dp"
@@ -124,6 +127,7 @@
 
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewSettings"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_marginStart="10dp"
