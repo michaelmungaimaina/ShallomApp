@@ -1,19 +1,21 @@
 package com.mich.gwan.shallom.model;
 
+import java.time.LocalDateTime;
+
 public class Event {
     private int eventId;
     private String eventLocation;
     private String eventTitle;
     private String eventDescription;
-    private String eventStartDate;
-    private String eventEndDate;
-    private String registrationDate;
+    private LocalDateTime eventStartDate;
+    private LocalDateTime eventEndDate;
+    private LocalDateTime registrationDate;
     private String registeredBy;
 
     public Event(){}
 
     public Event(int eventId, String eventLocation, String eventTitle, String eventDescription,
-                 String eventStartDate, String eventEndDate, String registrationDate, String registeredBy) {
+                 LocalDateTime eventStartDate, LocalDateTime eventEndDate, LocalDateTime registrationDate, String registeredBy) {
         this.eventId = eventId;
         this.eventLocation = eventLocation;
         this.eventTitle = eventTitle;
@@ -56,27 +58,27 @@ public class Event {
         this.eventDescription = eventDescription;
     }
 
-    public String getEventStartDate() {
+    public LocalDateTime getEventStartDate() {
         return eventStartDate;
     }
 
-    public void setEventStartDate(String eventStartDate) {
+    public void setEventStartDate(LocalDateTime eventStartDate) {
         this.eventStartDate = eventStartDate;
     }
 
-    public String getEventEndDate() {
+    public LocalDateTime getEventEndDate() {
         return eventEndDate;
     }
 
-    public void setEventEndDate(String eventEndDate) {
+    public void setEventEndDate(LocalDateTime eventEndDate) {
         this.eventEndDate = eventEndDate;
     }
 
-    public String getRegistrationDate() {
+    public LocalDateTime getRegistrationDate() {
         return registrationDate;
     }
 
-    public void setRegistrationDate(String registrationDate) {
+    public void setRegistrationDate(LocalDateTime registrationDate) {
         this.registrationDate = registrationDate;
     }
 

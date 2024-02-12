@@ -20,7 +20,6 @@ import androidx.core.content.ContextCompat;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.mich.gwan.shallom.R;
-import com.mich.gwan.shallom.activity.LoginActivity;
 import com.mich.gwan.shallom.dao.DatabaseHelper;
 import com.mich.gwan.shallom.databinding.ActivitySignupLocalityBinding;
 import com.mich.gwan.shallom.helper.InputValidation;
@@ -28,7 +27,6 @@ import com.mich.gwan.shallom.model.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.IllegalFormatCodePointException;
 import java.util.List;
 import java.util.Map;
 

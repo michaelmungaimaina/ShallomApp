@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/background_gradient"
     android:backgroundTintMode="src_atop"
+    android:background="@drawable/background_gradient"
     android:backgroundTint="@color/layout_tint"
     android:orientation="vertical"
     android:layout_gravity="center">

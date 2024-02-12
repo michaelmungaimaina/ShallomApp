@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2024. Maina Michael.
+  ~ Created on 2024 / 2 / 12
+  -->
+
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:backgroundTintMode="src_atop"
+    android:background="@drawable/background_gradient"
+    android:backgroundTint="@color/layout_tint">
+
+    <include
+        android:id="@+id/my_toolbar"
+        layout="@layout/toolbar_lesson_home"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:minHeight="?attr/actionBarSize"
+        android:fitsSystemWindows="true"/>
+    <com.google.android.flexbox.FlexboxLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:flexWrap="wrap"
+        app:alignItems="flex_start"
+        app:alignContent="flex_start"
+        app:justifyContent="space_around"
+        android:layout_marginTop="@dimen/margin_view_start"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="@dimen/margin_view_start">
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="15dp"
+                android:background="@color/grey_300"
+                android:layout_gravity="center"
+                android:layout_marginTop="3.5dp"
+                android:src="@drawable/ic_triangle_green"
+                app:strokeWidth="0dp"
+                app:strokeColor="@android:color/darker_gray"
+                android:adjustViewBounds="true"
+                android:elevation="5dp"
+                android:maxWidth="50dp"
+                android:maxHeight="50dp"
+                android:scaleType="fitXY"
+                app:shapeAppearance="?attr/actionButtonStyle"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/ibmplexsanshebrew_bold"
+                android:maxLines="1"
+                android:text="@string/years"
+                android:textColor="@color/white"
+                android:textSize="@dimen/header_text_size"
+                android:textStyle="bold" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="@dimen/margin_view_start">
+
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="15dp"
+                android:background="@color/grey_300"
+                android:layout_gravity="center"
+                android:layout_marginTop="3.5dp"
+                android:src="@drawable/ic_triangle_green"
+                app:strokeWidth="0dp"
+                app:strokeColor="@android:color/darker_gray"
+                android:adjustViewBounds="true"
+                android:elevation="5dp"
+                android:maxWidth="50dp"
+                android:maxHeight="50dp"
+                android:scaleType="fitXY"
+                app:shapeAppearance="?attr/actionButtonStyle"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/ibmplexsanshebrew_bold"
+                android:maxLines="1"
+                android:text="@string/quarters"
+                android:textColor="@color/white"
+                android:textSize="@dimen/header_text_size"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </com.google.android.flexbox.FlexboxLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewBibleLesson"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_view_start"
+        android:layout_marginStart="@dimen/margin_view_start"
+        android:layout_marginTop="@dimen/margin_view_start"/>
+</androidx.appcompat.widget.LinearLayoutCompat>

@@ -31,6 +31,19 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
+    <style name="CustomDatePickerDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/green_700</item>
+        <item name="android:datePickerStyle">@style/CustomDatePickerStyle</item>
+        <item name="android:colorAccent">#138A44</item>
+    </style>
+    <style name="CustomDatePickerStyle" parent="@android:style/Widget.Material.Light.DatePicker">
+        <item name="android:headerBackground">@color/green_700</item>
+        <item name="android:calendarTextColor">#020202</item>
+        <item name="android:dayOfWeekBackground">#74A591</item>
+        <item name="android:yearListSelectorColor">#715050</item>
+        <item name="android:datePickerMode">calendar</item>
+    </style>
+
     <!-- Bottom navigation style -->
     <style name="Widget.App.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
         <item name="bottomNavigationStyle">@style/Widget.MaterialComponents.BottomNavigationView.Colored</item>

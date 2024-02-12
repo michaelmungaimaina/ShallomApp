@@ -9,6 +9,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
+    android:backgroundTintMode="src_atop"
     android:background="@drawable/background_gradient"
     android:backgroundTint="@color/layout_tint">
     <TextView

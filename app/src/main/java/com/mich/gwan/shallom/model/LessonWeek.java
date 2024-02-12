@@ -6,13 +6,14 @@ public class LessonWeek extends LessonQuarter{
     private int lessonWeekId;
     private String lessonTitle;
     private String lessonReading;
+    private String lessonDate;
     private String memoryVerse;
     private Language lessonLanguage;
 
     public LessonWeek(){}
 
     public LessonWeek(int quarterId, int lessonWeekId, String lessonTitle,
-                      String lessonReading, String memoryVerse, Language lessonLanguage,
+                      String lessonReading, String memoryVerse, Language lessonLanguage, String lessonDate,
                       String registeredBy, String registrationDate) {
         super(quarterId,registeredBy,registrationDate);
         this.lessonWeekId = lessonWeekId;
@@ -20,6 +21,7 @@ public class LessonWeek extends LessonQuarter{
         this.lessonReading = lessonReading;
         this.memoryVerse = memoryVerse;
         this.lessonLanguage = lessonLanguage;
+        this.lessonDate = lessonDate;
     }
 
     public LessonWeek(int lessonWeekId, Language lessonLanguage, String registeredBy,
@@ -59,6 +61,14 @@ public class LessonWeek extends LessonQuarter{
 
     public void setMemoryVerse(String memoryVerse) {
         this.memoryVerse = memoryVerse;
+    }
+
+    public String getLessonDate() {
+        return lessonDate;
+    }
+
+    public void setLessonDate(String lessonDate) {
+        this.lessonDate = lessonDate;
     }
 
     public Language getLessonLanguage() {

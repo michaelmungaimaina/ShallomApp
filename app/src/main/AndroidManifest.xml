@@ -13,7 +13,7 @@
         android:theme="@style/Theme.Shallom"
         tools:targetApi="31" >
         <activity
-            android:name=".activity.SplashActivity"
+            android:name=".activity.start.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,11 +22,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.home.MainActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="fullSensor" />
         <activity
-            android:name=".activity.LoginActivity"
+            android:name=".activity.start.LoginActivity"
             android:screenOrientation="user" />
         <activity
             android:name=".activity.signup.SignUpProfileActivity"

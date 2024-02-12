@@ -13,6 +13,7 @@ import android.database.CursorIndexOutOfBoundsException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
+import android.os.Build;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -31,6 +32,7 @@ import com.mich.gwan.shallom.model.SongStanza;
 import com.mich.gwan.shallom.model.User;
 import com.mich.gwan.shallom.utils.ImageUtils;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -107,6 +109,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Columns for table lesson_week
     private static final String COLUMN_LESSON_WEEK_ID = "week_id";
+    private static final String COLUMN_LESSON_WEEK_DATE = "week_date";
     private static final String COLUMN_LESSON_WEEK_TITLE = "lesson_title";
     private static final String COLUMN_LESSON_WEEK_READING = "lesson_reading";
     private static final String COLUMN_LESSON_WEEK_MEM_VERSE = "memory_verse";
@@ -198,6 +201,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // create table lesson_week sql query
     private final String CREATE_LESSON_WEEK_TABLE = "CREATE TABLE " + TABLE_LESSON_WEEK + "("
             + COLUMN_LESSON_WEEK_ID + " INTEGER PRIMARY KEY UNIQUE NOT NULL,"
+            + COLUMN_LESSON_WEEK_DATE + " TEXT NOT NULL,"
             + COLUMN_LESSON_WEEK_TITLE + " TEXT NOT NULL,"
             + COLUMN_LESSON_WEEK_READING + " TEXT NOT NULL,"
             + COLUMN_LESSON_WEEK_MEM_VERSE + " TEXT NOT NULL,"
@@ -868,9 +872,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_EVENT_LOCATION, par.getEventLocation());
         values.put(COLUMN_EVENT_TITLE, par.getEventTitle());
         values.put(COLUMN_EVENT_DESCRIPTION, par.getEventDescription());
-        values.put(COLUMN_EVENT_START_DATE, par.getEventStartDate());
-        values.put(COLUMN_EVENT_END_DATE, par.getEventEndDate());
-        values.put(COLUMN_EVENT_REG_DATE, par.getRegistrationDate());
+        values.put(COLUMN_EVENT_START_DATE, String.valueOf(par.getEventStartDate()));
+        values.put(COLUMN_EVENT_END_DATE, String.valueOf(par.getEventEndDate()));
+        values.put(COLUMN_EVENT_REG_DATE, String.valueOf(par.getRegistrationDate()));
         values.put(COLUMN_EVENT_REG_BY, par.getRegisteredBy());
 
         db.insert(TABLE_EVENT, null, values);
@@ -897,10 +901,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 par.setEventLocation(cursor.getString(cursor.getColumnIndex(COLUMN_EVENT_LOCATION)));
                 par.setEventTitle(cursor.getString(cursor.getColumnIndex(COLUMN_EVENT_TITLE)));
                 par.setEventDescription(cursor.getString(cursor.getColumnIndex(COLUMN_EVENT_DESCRIPTION)));
-                par.setEventStartDate(cursor.getString(cursor.getColumnIndex(COLUMN_EVENT_START_DATE)));
-                par.setEventEndDate(cursor.getString(cursor.getColumnIndex(COLUMN_EVENT_END_DATE)));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    par.setEventStartDate(LocalDateTime.parse(cursor.getString(cursor.getColumnIndex(COLUMN_EVENT_START_DATE))));
+                    par.setEventEndDate(LocalDateTime.parse(cursor.getString(cursor.getColumnIndex(COLUMN_EVENT_END_DATE))));
+                    par.setRegistrationDate(LocalDateTime.parse(cursor.getString(cursor.getColumnIndex(COLUMN_EVENT_REG_DATE))));
+                }
                 par.setRegisteredBy(cursor.getString(cursor.getColumnIndex(COLUMN_EVENT_REG_BY)));
-                par.setRegistrationDate(cursor.getString(cursor.getColumnIndex(COLUMN_EVENT_REG_DATE)));
 
                 list.add(par);
             } while (cursor.moveToNext());
@@ -932,10 +938,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 par.setEventLocation(cursor.getString(cursor.getColumnIndex(COLUMN_EVENT_LOCATION)));
                 par.setEventTitle(cursor.getString(cursor.getColumnIndex(COLUMN_EVENT_TITLE)));
                 par.setEventDescription(cursor.getString(cursor.getColumnIndex(COLUMN_EVENT_DESCRIPTION)));
-                par.setEventStartDate(cursor.getString(cursor.getColumnIndex(COLUMN_EVENT_START_DATE)));
-                par.setEventEndDate(cursor.getString(cursor.getColumnIndex(COLUMN_EVENT_END_DATE)));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    par.setEventStartDate(LocalDateTime.parse(cursor.getString(cursor.getColumnIndex(COLUMN_EVENT_START_DATE))));
+                    par.setEventEndDate(LocalDateTime.parse(cursor.getString(cursor.getColumnIndex(COLUMN_EVENT_END_DATE))));
+                    par.setRegistrationDate(LocalDateTime.parse(cursor.getString(cursor.getColumnIndex(COLUMN_EVENT_REG_DATE))));
+                }
                 par.setRegisteredBy(cursor.getString(cursor.getColumnIndex(COLUMN_EVENT_REG_BY)));
-                par.setRegistrationDate(cursor.getString(cursor.getColumnIndex(COLUMN_EVENT_REG_DATE)));
 
                 list.add(par);
             } while (cursor.moveToNext());
@@ -943,6 +951,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         return list;
     }
+
+    public boolean getEventCount() {
+        String[] columns = {"*"};
+        SQLiteDatabase db  = this.getWritableDatabase();
+        Cursor cursor = db.query(TABLE_EVENT, columns, null, null, null, null, null);
+
+        if (cursor != null){
+            try {
+                cursor.moveToFirst();
+                return cursor.getCount() == 0;
+            } catch (CursorIndexOutOfBoundsException e){
+                return true;
+            } finally {
+                cursor.close();
+            }
+        }
+        return false;
+    }
+
 
     /**
      * Updates an existing event in the SQLite database with the provided Event object.
@@ -957,9 +984,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_EVENT_LOCATION, par.getEventLocation());
         values.put(COLUMN_EVENT_TITLE, par.getEventTitle());
         values.put(COLUMN_EVENT_DESCRIPTION, par.getEventDescription());
-        values.put(COLUMN_EVENT_START_DATE, par.getEventStartDate());
-        values.put(COLUMN_EVENT_END_DATE, par.getEventEndDate());
-        values.put(COLUMN_EVENT_REG_DATE, par.getRegistrationDate());
+        values.put(COLUMN_EVENT_START_DATE, String.valueOf(par.getEventStartDate()));
+        values.put(COLUMN_EVENT_END_DATE, String.valueOf(par.getEventEndDate()));
+        values.put(COLUMN_EVENT_REG_DATE, String.valueOf(par.getRegistrationDate()));
         values.put(COLUMN_EVENT_REG_BY, par.getRegisteredBy());
 
         String whereClause = COLUMN_EVENT_ID + " = ?";
@@ -1109,6 +1136,33 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         return list;
     }
+
+    /**
+     * Retrieves a list of LessonQuarters  from the database, sorted by quarter ID in descending order.
+     *
+     * @return A list of LessonQuarters strings.
+     */
+    @SuppressLint("Range")
+    public List<String> getLessonQuarters(String quarterYear){
+        String[] columns = {"*"};
+        String sortOrder = COLUMN_LESSON_QUARTER_ID + " DESC";
+        String selection = COLUMN_LESSON_QUARTER_YEAR + " = ?";
+        String[] selectionArgs = {quarterYear};
+
+        List<String> list = new ArrayList<>();
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.query(TABLE_LESSON_QUARTER, columns, selection, selectionArgs ,null, null, sortOrder);
+        if (cursor.moveToFirst()){
+            do {
+                list.add(cursor.getString(cursor.getColumnIndex(COLUMN_LESSON_QUARTER_MONTH)));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return list;
+    }
+
 
     /**
      * Retrieves a list of LessonQuarter objects from the database for a specific quarter ID, sorted by quarter ID in descending order.
@@ -1306,6 +1360,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_LESSON_WEEK_ID, par.getLessonWeekId());
+        values.put(COLUMN_LESSON_WEEK_DATE, par.getLessonDate());
         values.put(COLUMN_LESSON_WEEK_TITLE, par.getLessonTitle());
         values.put(COLUMN_LESSON_WEEK_READING, par.getLessonReading());
         values.put(COLUMN_LESSON_WEEK_MEM_VERSE, par.getMemoryVerse());
@@ -1341,6 +1396,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 LessonWeek obj = new LessonWeek();
                 obj.setLessonWeekId(cursor.getInt(cursor.getColumnIndex(COLUMN_LESSON_WEEK_ID)));
                 obj.setLessonTitle(cursor.getString(cursor.getColumnIndex(COLUMN_LESSON_WEEK_TITLE)));
+                obj.setLessonDate(cursor.getString(cursor.getColumnIndex(COLUMN_LESSON_WEEK_DATE)));
                 obj.setLessonReading(cursor.getString(cursor.getColumnIndex(COLUMN_LESSON_WEEK_READING)));
                 obj.setMemoryVerse(cursor.getString(cursor.getColumnIndex(COLUMN_LESSON_WEEK_MEM_VERSE)));
                 obj.setLessonLanguage(Language.valueOf(cursor.getString(cursor.getColumnIndex(COLUMN_LESSON_WEEK_LANGUAGE))));
@@ -1358,6 +1414,77 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * Retrieves a list of LessonWeek objects from the database for a specific quarter ID, sorted by week ID in ascending order.
+     *
+     * @param quarterId The ID of the quarter for which LessonWeek objects are to be retrieved.
+     * @return A list of LessonWeek objects containing information about weeks for the specified quarter.
+     */
+    @SuppressLint("Range")
+    public List<LessonWeek> getLessonWeek(int quarterId, String quarter){
+        String[] columns = {"*"};
+        String sortOder = COLUMN_LESSON_WEEK_ID + " ASC";
+        String selection = COLUMN_LESSON_WEEK_QUARTER + " = ? AND " + COLUMN_LESSON_WEEK_QUARTER + " = ?";
+        String[] selectionArgs = {String.valueOf(quarterId), quarter};
+
+        List<LessonWeek> list = new ArrayList<>();
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.query(TABLE_LESSON_WEEK, columns, selection, selectionArgs, null, null, sortOder);
+        if (cursor.moveToFirst()){
+            do {
+                LessonWeek obj = new LessonWeek();
+                obj.setLessonWeekId(cursor.getInt(cursor.getColumnIndex(COLUMN_LESSON_WEEK_ID)));
+                obj.setLessonTitle(cursor.getString(cursor.getColumnIndex(COLUMN_LESSON_WEEK_TITLE)));
+                obj.setLessonDate(cursor.getString(cursor.getColumnIndex(COLUMN_LESSON_WEEK_DATE)));
+                obj.setLessonReading(cursor.getString(cursor.getColumnIndex(COLUMN_LESSON_WEEK_READING)));
+                obj.setMemoryVerse(cursor.getString(cursor.getColumnIndex(COLUMN_LESSON_WEEK_MEM_VERSE)));
+                obj.setLessonLanguage(Language.valueOf(cursor.getString(cursor.getColumnIndex(COLUMN_LESSON_WEEK_LANGUAGE))));
+                obj.setQuarterQuarter(cursor.getString(cursor.getColumnIndex(COLUMN_LESSON_WEEK_QUARTER)));
+                obj.setRegisteredBy(cursor.getString(cursor.getColumnIndex(COLUMN_LESSON_WEEK_REG_BY)));
+                obj.setRegistrationDate(cursor.getString(cursor.getColumnIndex(COLUMN_LESSON_WEEK_REG_DATE)));
+
+                list.add(obj);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+
+        return list;
+    }
+
+    /**
+     * Retrieves a list of LessonWeek objects from the database for a specific quarter ID, sorted by week ID in ascending order.
+     *
+     * @param quarterId The ID of the quarter for which LessonWeek objects are to be retrieved.
+     * @return A list of LessonWeek objects containing information about weeks for the specified quarter.
+     */
+    @SuppressLint("Range")
+    public boolean checkLessonQuarter(int quarterId, String quarter){
+        String[] columns = {"*"};
+        String sortOder = COLUMN_LESSON_WEEK_ID + " ASC";
+        String selection = COLUMN_LESSON_WEEK_QUARTER + " = ? AND " + COLUMN_LESSON_WEEK_QUARTER + " = ?";
+        String[] selectionArgs = {String.valueOf(quarterId), quarter};
+
+        List<LessonWeek> list = new ArrayList<>();
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.query(TABLE_LESSON_WEEK, columns, selection, selectionArgs, null, null, sortOder);
+        if (cursor != null){
+            try {
+                cursor.moveToFirst();
+                return cursor.getCount() == 0;
+            } catch (CursorIndexOutOfBoundsException e){
+                return true;
+            } finally {
+                cursor.close();
+            }
+        }
+        return false;
+    }
+
+    /**
      * Updates the information of a LessonWeek in the database.
      *
      * @param par The LessonWeek object containing the updated information.
@@ -1372,6 +1499,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_LESSON_WEEK_MEM_VERSE, par.getMemoryVerse());
         values.put(COLUMN_LESSON_WEEK_LANGUAGE, par.getLessonLanguage().name());
         values.put(COLUMN_LESSON_WEEK_QUARTER, par.getQuarterQuarter());
+        values.put(COLUMN_LESSON_WEEK_DATE, par.getLessonDate());
         values.put(COLUMN_LESSON_WEEK_REG_DATE, par.getRegistrationDate());
         values.put(COLUMN_LESSON_WEEK_REG_BY, par.getRegisteredBy());
 
@@ -1800,4 +1928,5 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.delete(TABLE_SONG_CHORUS, COLUMN_CHORUS_SONG_ID + " = ?", new String[]{String.valueOf(songId)});
         db.close();
     }
+
 }

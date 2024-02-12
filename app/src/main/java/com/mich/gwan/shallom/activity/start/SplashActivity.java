@@ -1,9 +1,14 @@
 /*
  * Copyright (c) 2024. Maina Michael.
+ * Created on 2024 / 2 / 12
+ */
+
+/*
+ * Copyright (c) 2024. Maina Michael.
  * Created on 2024 / 2 / 6
  */
 
-package com.mich.gwan.shallom.activity;
+package com.mich.gwan.shallom.activity.start;
 
 import android.content.Intent;
 import android.os.Bundle;

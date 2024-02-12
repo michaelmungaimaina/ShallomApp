@@ -1,40 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@color/black">
+    android:backgroundTintMode="src_atop"
+    android:background="@drawable/background_gradient"
+    android:backgroundTint="@color/layout_tint">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_margin="15dp"
+        android:foreground="@drawable/round_rectangle_border"
+        app:cardBackgroundColor="@color/transparent"
+        app:cardCornerRadius="15dp">
+        <!-- viewpager to show images -->
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </androidx.cardview.widget.CardView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginStart="@dimen/margin_view_start"
+        android:layout_marginEnd="@dimen/margin_view_start">
+        <TextView
+            android:id="@+id/verticalLine1"
+            android:layout_width="6dp"
+            android:layout_height="30dp"
+            android:background="@color/green_bright"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="5dp"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            android:layout_alignStart="@+id/verticalLine1"
+            android:layout_marginStart="@dimen/margin_top">
+            <TextView
+                android:id="@+id/textViewUpcomingEvents"
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/margin_top"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/ibmplexsanshebrew_bold"
+                android:maxLines="1"
+                android:text="@string/upcoming_events"
+                android:textColor="@color/white"
+                android:textSize="@dimen/header_text_size"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="140dp"
+                android:layout_height="2dp"
+                android:layout_gravity="start"
+                android:background="@color/transparent"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="4dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_alignParentEnd="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            tools:ignore="RelativeOverlap">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_vertical"
+                android:layout_marginEnd="@dimen/margin_top"
+                android:layout_marginStart="@dimen/margin_top">
+                <TextView
+                    android:id="@+id/textViewPastEvent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="22dp"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="@dimen/margin_top"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="@font/ibmplexsanshebrew_bold"
+                    android:maxLines="1"
+                    android:text="@string/past_events"
+                    android:textColor="@color/green_700"
+                    android:textSize="@dimen/header_text_size"
+                    android:textStyle="bold" />
+                <TextView
+                    android:layout_width="96dp"
+                    android:layout_height="2dp"
+                    android:layout_gravity="start"
+                    android:background="@color/transparent"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="4dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+            <TextView
+                android:id="@+id/verticalLine2"
+                android:layout_width="6dp"
+                android:layout_height="30dp"
+                android:background="@color/green_700"
+                android:layout_marginTop="2dp"/>
+        </LinearLayout>
+
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical">
-        <ImageView
-            android:layout_width="wrap_content"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewAnnouncements"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="@dimen/margin_start"
-            android:src="@drawable/background_gradient"
-            android:contentDescription="TODO" />
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_alignParentTop="true"/>
         <TextView
-            android:id="@+id/textViewMinistryName"
+            android:id="@+id/textViewEmptyEvents"
             android:layout_width="wrap_content"
-            android:layout_height="25dp"
+            android:layout_height="22dp"
             android:layout_gravity="start"
-            android:layout_marginTop="@dimen/margin_top"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="90dp"
+            android:layout_marginStart="5dp"
             android:fontFamily="@font/ibmplexsanshebrew_bold"
             android:maxLines="1"
-            android:text="@string/announcement_text"
-            android:textColor="@color/white"
-            android:textSize="21sp"
+            android:hint="@string/no_events"
+            android:textColor="@color/grey"
+            android:textColorHint="@color/grey"
+            android:textSize="@dimen/header_text_size"
             android:textStyle="bold" />
 
-    </LinearLayout>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewAnnouncements"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="7dp"
-        android:layout_marginEnd="6dp"/>
-</LinearLayout>
+    </RelativeLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>

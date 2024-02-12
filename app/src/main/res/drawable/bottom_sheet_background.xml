@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2024. Maina Michael.
+  ~ Created on 2024 / 2 / 8
+  -->
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:right="0dp">
+        <shape android:shape="rectangle" >
+            <size android:height="20dp" />
+            <solid android:color="@color/green_700" />
+            <corners android:topRightRadius="20dp"
+                android:topLeftRadius="20dp"/>
+
+        </shape>
+    </item>
+</layer-list>

@@ -12,12 +12,9 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -32,12 +29,11 @@ import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.mich.gwan.shallom.R;
-import com.mich.gwan.shallom.activity.LoginActivity;
+import com.mich.gwan.shallom.activity.start.LoginActivity;
 import com.mich.gwan.shallom.dao.DatabaseHelper;
 import com.mich.gwan.shallom.databinding.ActivitySignupProfileBinding;
 import com.mich.gwan.shallom.helper.InputValidation;
 import com.mich.gwan.shallom.model.User;
-import com.mich.gwan.shallom.utils.ImageUtils;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -74,8 +70,6 @@ public class SignUpProfileActivity extends AppCompatActivity implements View.OnC
     private InputValidation inputValidation;
     private DatabaseHelper databaseHelper;
     public User user;
-    private ImageUtils imageUtils;
-    private EditText firstDigitOtpEdt, secondDigitOtpEdt, thirdDigitOtpEdt, fourthDigitOtpEdt;
 
 
     @Override

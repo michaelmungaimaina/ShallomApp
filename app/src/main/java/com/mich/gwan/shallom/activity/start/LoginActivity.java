@@ -1,9 +1,14 @@
 /*
  * Copyright (c) 2024. Maina Michael.
+ * Created on 2024 / 2 / 12
+ */
+
+/*
+ * Copyright (c) 2024. Maina Michael.
  * Created on 2024 / 1 / 22
  */
 
-package com.mich.gwan.shallom.activity;
+package com.mich.gwan.shallom.activity.start;
 
 import android.content.Context;
 import android.content.Intent;
@@ -26,6 +31,7 @@ import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.mich.gwan.shallom.R;
+import com.mich.gwan.shallom.activity.home.MainActivity;
 import com.mich.gwan.shallom.activity.signup.SignUpProfileActivity;
 import com.mich.gwan.shallom.dao.DatabaseHelper;
 import com.mich.gwan.shallom.databinding.ActivityLoginLayoutBinding;

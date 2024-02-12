@@ -11,7 +11,10 @@
     <color name="black_main">#070707</color>
     <color name="orange">#FFA500</color>
     <color name="orange_">#CC8401</color>
+    <color name="orange_bright">#FFB800</color>
     <color name="green_dark">#009245</color>
+    <color name="green_blue">#0AB6FF</color>
+    <color name="orange_green">#8FFF00</color>
     <color name="green_bright">#0AFF7E</color>
     <color name="green_light">#013117</color>
     <color name="green_teal">#015C2C</color>
