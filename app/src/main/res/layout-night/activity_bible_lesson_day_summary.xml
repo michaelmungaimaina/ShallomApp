@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2024. Maina Michael.
+  ~ Created on 2024 / 2 / 16
+  -->
+
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:backgroundTintMode="src_atop"
+    android:background="@drawable/background_gradient"
+    android:backgroundTint="@color/layout_tint">
+
+    <include
+        android:id="@+id/my_toolbar"
+        layout="@layout/toolbar_lesson_home"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:minHeight="?attr/actionBarSize"
+        android:fitsSystemWindows="true"/>
+    <com.google.android.flexbox.FlexboxLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:flexWrap="wrap"
+        app:alignItems="flex_start"
+        app:alignContent="flex_start"
+        app:justifyContent="space_between"
+        android:layout_marginTop="@dimen/margin_view_start"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp">
+        <TextView
+            android:id="@+id/textViewEnglish"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/ic_tilted_rectangle_green_border"
+            android:fontFamily="@font/ibmplexsanshebrew_bold"
+            android:gravity="center"
+            android:maxLines="1"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:text="@string/english"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textViewKiswahili"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/ic_tilted_grey_rectangle"
+            android:fontFamily="@font/ibmplexsanshebrew_bold"
+            android:gravity="center"
+            android:maxLines="1"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:text="@string/kiswahili"
+            android:textColor="@color/grey"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+    </com.google.android.flexbox.FlexboxLayout>
+    <com.google.android.flexbox.FlexboxLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:flexWrap="wrap"
+        app:alignItems="flex_start"
+        app:alignContent="flex_start"
+        app:justifyContent="space_between"
+        android:layout_marginTop="@dimen/margin_view_start"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp">
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonLastQuarter"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:background="@drawable/ic_grey_border_rectangle"
+            android:layout_gravity="center"
+            android:text="@string/last_quarter"
+            android:textColor="@color/grey"
+            android:textSize="12sp"
+            android:fontFamily="@font/ibmplexsanshebrew_medium"
+            android:textStyle="bold"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonFirstQuarter"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:background="@drawable/ic_grey_border_rectangle"
+            android:layout_gravity="center"
+            android:text="@string/first_quarter"
+            android:textColor="@color/grey"
+            android:textSize="12sp"
+            android:fontFamily="@font/ibmplexsanshebrew_medium"
+            android:textStyle="bold"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonSecondQuarter"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:background="@drawable/ic_grey_border_rectangle"
+            android:layout_gravity="center"
+            android:text="@string/second_quarter"
+            android:textColor="@color/grey"
+            android:textSize="12sp"
+            android:fontFamily="@font/ibmplexsanshebrew_medium"
+            android:textStyle="bold"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonThirdQuarter"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:background="@drawable/ic_grey_border_rectangle"
+            android:layout_gravity="center"
+            android:text="@string/third_quarter"
+            android:textColor="@color/grey"
+            android:textSize="12sp"
+            android:fontFamily="@font/ibmplexsanshebrew_medium"
+            android:textStyle="bold"/>
+
+    </com.google.android.flexbox.FlexboxLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewLesson"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_view_start"
+        android:layout_marginStart="@dimen/margin_view_start"
+        android:layout_marginTop="@dimen/margin_view_start"/>
+</androidx.appcompat.widget.LinearLayoutCompat>
