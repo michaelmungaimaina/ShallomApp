@@ -26,6 +26,8 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.imageview.ShapeableImageView;
@@ -40,6 +42,7 @@ import com.mich.gwan.shallom.service.AsyncTaskExecutorService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class LessonDaySummary extends AppCompatActivity implements View.OnClickListener {
 
@@ -47,7 +50,7 @@ public class LessonDaySummary extends AppCompatActivity implements View.OnClickL
 
     private RecyclerView recyclerView;
 
-    private ShapeableImageView searchIcon;
+    private ImageView searchIcon;
     private ImageView backIcon;
 
     private CardView filterCardView;
@@ -57,7 +60,7 @@ public class LessonDaySummary extends AppCompatActivity implements View.OnClickL
 
     private Toolbar toolbar;
 
-    private TextView english, swahili;
+    private TextView english, swahili, middleText;
 
     private AppCompatButton lastQuarter, firstQuarter, secondQuarter, thirdQuarter;
 
@@ -81,6 +84,8 @@ public class LessonDaySummary extends AppCompatActivity implements View.OnClickL
         initObjects();
         initListeners();
 
+        setSupportActionBar(toolbar);
+
         // Sets the status bar color to the specified color
         int statusBarColor = ContextCompat.getColor(this, R.color.layout_tint);
         Window window = this.getWindow();
@@ -94,6 +99,7 @@ public class LessonDaySummary extends AppCompatActivity implements View.OnClickL
         filterCardView = binding.myToolbar.cardViewFilter;
         searchCardView = binding.myToolbar.cardViewSearch;
         filterEditText = binding.myToolbar.editTextFilter;
+        middleText = binding.myToolbar.toolbarMiddleText;
         toolbar = binding.myToolbar.toolbarPayment;
         english = binding.textViewEnglish;
         swahili = binding.textViewKiswahili;
@@ -111,10 +117,24 @@ public class LessonDaySummary extends AppCompatActivity implements View.OnClickL
         databaseHelper = new DatabaseHelper(this);
         inputValidation = new InputValidation(this);
         list = new ArrayList<>();
+        middleText.setText(year);
+
+        if (!quarter.equals("NULL")) {
+            updateView(firstQuarter, quarter);
+            updateView(secondQuarter, quarter);
+            updateView(thirdQuarter, quarter);
+            updateView(lastQuarter, quarter);
+        }
 
         getDataFromSQLite();
         mainList = getList("ENGLISH");
         adapter = new LessonSermonAdapter(mainList);
+
+        LinearLayoutManager myLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(myLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(adapter);
     }
 
     private void initListeners() {
@@ -148,11 +168,31 @@ public class LessonDaySummary extends AppCompatActivity implements View.OnClickL
                 new RecyclerTouchListener.ClickListener() {
                     @Override
                     public void onClick(View view, int position) {
-                        Intent intent = new Intent(view.getContext(), LessonDaySummary.class);
-                        intent.putExtra("YEAR", mainList.get(position).getQuarterYear());
-                        intent.putExtra("QUARTER_ID", mainList.get(position).getQuarterId());
-                        intent.putExtra("QUARTER", "NULL");
-                        startActivity(intent);
+
+                        if (mainList.get(position).getLessonLanguage().name().equals("KISWAHILI")){
+                            int weekId = 0;
+                            String lessonTitle = null;
+
+                            // Get the week id
+                            for (LessonWeek lessonWeek : list){
+                                if (Objects.equals(lessonWeek.getLessonDate(), mainList.get(position).getLessonDate()) && lessonWeek.getLessonLanguage().name().equals("ENGLISH")) {
+                                    weekId = lessonWeek.getLessonWeekId();
+                                    lessonTitle = lessonWeek.getLessonTitle();
+                                }
+                            }
+
+                            Intent intent = new Intent(view.getContext(), LessonQuestionsActivity.class);
+                            intent.putExtra("WEEK_ID", weekId);
+                            intent.putExtra("LESSON_TITLE", lessonTitle);
+                            intent.putExtra("LESSON_DATE", mainList.get(position).getLessonDate());
+                            startActivity(intent);
+                        } else {
+                            Intent intent = new Intent(view.getContext(), LessonQuestionsActivity.class);
+                            intent.putExtra("WEEK_ID", mainList.get(position).getLessonWeekId());
+                            intent.putExtra("LESSON_TITLE", mainList.get(position).getLessonTitle());
+                            intent.putExtra("LESSON_DATE", mainList.get(position).getLessonDate());
+                            startActivity(intent);
+                        }
                     }
 
                     @Override
@@ -185,6 +225,7 @@ public class LessonDaySummary extends AppCompatActivity implements View.OnClickL
         }
         return temp;
     }
+
     @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onClick(View v) {
@@ -211,36 +252,63 @@ public class LessonDaySummary extends AppCompatActivity implements View.OnClickL
         } else if (v.getId() == R.id.textViewKiswahili) {
             getList("KISWAHILI");
             adapter.notifyDataSetChanged();
+
+            // Update View
+            updateView(swahili, true);
+            updateView(english, false);
         } else if (v.getId() == R.id.textViewEnglish) {
             adapter.updateList(getList("ENGLISH"));
+
+            //Update View
+            updateView(english, true);
+            updateView(swahili, false);
         } else if (v.getId() == R.id.buttonFirstQuarter) {
-            updateButton(firstQuarter, true);
-            updateButton(secondQuarter, false);
-            updateButton(thirdQuarter, false);
-            updateButton(lastQuarter, false);
-            if (databaseHelper.checkQuarter(firstQuarter.getText().toString()))
-                databaseHelper.getLessonWeek(Integer.parseInt(quarterId), firstQuarter.getText().toString());
-            else
-                Toast.makeText(this, "The quarter " + firstQuarter.getText().toString() + " is not available", Toast.LENGTH_LONG).show();
+            updateView(firstQuarter, true);
+            updateView(secondQuarter, false);
+            updateView(thirdQuarter, false);
+            updateView(lastQuarter, false);
+
+            // Data retrieval and update
+            buttonAction(firstQuarter);
         } else if (v.getId() == R.id.buttonSecondQuarter) {
-            updateButton(firstQuarter, false);
-            updateButton(secondQuarter, true);
-            updateButton(thirdQuarter, false);
-            updateButton(lastQuarter, false);
+            updateView(firstQuarter, false);
+            updateView(secondQuarter, true);
+            updateView(thirdQuarter, false);
+            updateView(lastQuarter, false);
+
+            // Data retrieval and update
+            buttonAction(secondQuarter);
         } else if (v.getId() == R.id.buttonLastQuarter) {
-            updateButton(firstQuarter, false);
-            updateButton(secondQuarter, false);
-            updateButton(thirdQuarter, false);
-            updateButton(lastQuarter, true);
+            updateView(firstQuarter, false);
+            updateView(secondQuarter, false);
+            updateView(thirdQuarter, false);
+            updateView(lastQuarter, true);
+
+            // Data retrieval and update
+            buttonAction(lastQuarter);
         } else if (v.getId() == R.id.buttonThirdQuarter) {
-            updateButton(firstQuarter, false);
-            updateButton(secondQuarter, false);
-            updateButton(thirdQuarter, true);
-            updateButton(lastQuarter, false);
+            updateView(firstQuarter, false);
+            updateView(secondQuarter, false);
+            updateView(thirdQuarter, true);
+            updateView(lastQuarter, false);
+
+            // Data retrieval and update
+            buttonAction(thirdQuarter);
         }
     }
 
-    private void updateButton(AppCompatButton button, boolean isSelected) {
+    private void buttonAction(AppCompatButton button){
+        // Check if the pressed quarter id present
+        if (databaseHelper.checkLessonQuarter(year,button.getText().toString())) {
+            // Set the list
+            list = databaseHelper.getLessonWeek(databaseHelper.getLessonQuarterId(year, button.getText().toString()));
+            // Update adapter
+            adapter.updateList(getList("ENGLISH"));
+        } else
+            Toast.makeText(this, "The quarter " + button.getText().toString() + " is not available", Toast.LENGTH_LONG).show();
+    }
+
+    private void updateView(AppCompatButton button, boolean isSelected) {
         if (isSelected) {
             button.setTextColor(ContextCompat.getColor(this, R.color.green_bright));
             button.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.ic_green_border_rectangle));
@@ -248,6 +316,20 @@ public class LessonDaySummary extends AppCompatActivity implements View.OnClickL
             button.setTextColor(ContextCompat.getColor(this, R.color.grey));
             button.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.ic_grey_border_rectangle));
         }
+    }
+
+    private void updateView(TextView textView, boolean isSelected){
+        if (isSelected){
+            textView.setTextColor(ContextCompat.getColor(this, R.color.white));
+            textView.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_tilted_rectangle_green_border));
+        } else {
+            textView.setTextColor(ContextCompat.getColor(this, R.color.grey));
+            textView.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_tilted_grey_rectangle));
+        }
+    }
+
+    private void updateView(AppCompatButton button, String quarter){
+        updateView(button, button.getText().toString().equals(quarter));
     }
 
     /**

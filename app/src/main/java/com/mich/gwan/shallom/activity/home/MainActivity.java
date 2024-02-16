@@ -10,6 +10,7 @@
 
 package com.mich.gwan.shallom.activity.home;
 
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -33,6 +34,10 @@ import androidx.fragment.app.FragmentManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.mich.gwan.shallom.R;
+import com.mich.gwan.shallom.activity.doctrine.DoctrineActivity;
+import com.mich.gwan.shallom.activity.lesson.LessonHomeActivity;
+import com.mich.gwan.shallom.activity.requests.RequestsActivity;
+import com.mich.gwan.shallom.activity.songs.SongsActivity;
 import com.mich.gwan.shallom.databinding.ActivityMainLayoutBinding;
 import com.mich.gwan.shallom.fragment.TabFragment;
 
@@ -109,15 +114,19 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             return true;
         } else if (item.getItemId() == R.id.requests) {
             // Start activity requests
+            startActivity(new Intent(MainActivity.this, RequestsActivity.class));
             return true;
         } else if (item.getItemId() == R.id.lesson) {
             // Start activity lesson
+            startActivity(new Intent(MainActivity.this, LessonHomeActivity.class));
             return true;
         } else if (item.getItemId() == R.id.doctrine) {
             // Start activity doctrine
+            startActivity(new Intent(MainActivity.this, DoctrineActivity.class));
             return true;
         } else if (item.getItemId() == R.id.songs){
             // Start activity songs
+            startActivity(new Intent(MainActivity.this, SongsActivity.class));
             return true;
         }
         return false;

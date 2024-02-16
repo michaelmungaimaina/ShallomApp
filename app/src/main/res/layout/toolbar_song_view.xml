@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2024. Maina Michael.
+  ~ Created on 2024 / 2 / 14
+  -->
+
+<androidx.appcompat.widget.Toolbar
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:id="@+id/toolbarPayment"
+android:layout_width="match_parent"
+android:layout_height="65dp"
+android:background="@drawable/toolbar_background"
+android:fitsSystemWindows="true"
+android:minHeight="?attr/actionBarSize"
+app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:layout_gravity="top">
+    <ImageView
+        android:id="@+id/backIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:src="@drawable/ic_back_arrow"
+        android:contentDescription="@string/todo"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/margin_top"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"/>
+    <TextView
+        android:id="@+id/toolbarMiddleText"
+        android:layout_width="wrap_content"
+        android:layout_height="22dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginStart="35dp"
+        android:fontFamily="@font/ibmplexsanshebrew_bold"
+        android:maxLines="1"
+        android:text="@string/song_title"
+        android:textColor="@color/white"
+        android:textSize="@dimen/header_text_size"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:textStyle="bold" />
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewFavourite"
+        android:layout_width="37dp"
+        android:layout_height="37dp"
+        android:layout_marginEnd="@dimen/margin_view_start"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/margin_top"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@+id/cardViewShare"
+        app:cardCornerRadius="20dp"
+        app:cardBackgroundColor="@color/grey_300">
+        <ImageView
+            android:id="@+id/imageViewFovourite"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@color/grey_300"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_favourite_uselected_green"
+            app:strokeWidth="0dp"
+            app:strokeColor="@android:color/darker_gray"
+            android:adjustViewBounds="true"
+            android:elevation="5dp"
+            android:maxWidth="50dp"
+            android:maxHeight="50dp"
+            android:scaleType="fitXY"
+            app:shapeAppearance="?attr/actionButtonStyle"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"/>
+
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewPlay"
+        android:layout_width="37dp"
+        android:layout_height="37dp"
+        android:layout_marginEnd="@dimen/margin_view_start"
+        android:layout_centerVertical="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/margin_top"
+        android:layout_toStartOf="@+id/cardViewFavourite"
+        app:cardCornerRadius="20dp"
+        app:cardBackgroundColor="@color/grey_300">
+        <ImageView
+            android:id="@+id/imageViewPlay"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@color/grey_300"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_play_green"
+            app:strokeWidth="0dp"
+            app:strokeColor="@android:color/darker_gray"
+            android:adjustViewBounds="true"
+            android:elevation="5dp"
+            android:maxWidth="50dp"
+            android:maxHeight="50dp"
+            android:scaleType="fitXY"
+            app:shapeAppearance="?attr/actionButtonStyle"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"/>
+
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewShare"
+        android:layout_width="37dp"
+        android:layout_height="37dp"
+        android:layout_marginEnd="@dimen/margin_view_start"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="5dp"
+        android:layout_centerVertical="true"
+        app:cardCornerRadius="20dp"
+        app:cardBackgroundColor="@color/grey_300">
+        <ImageView
+            android:id="@+id/imageViewShare"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@color/grey_300"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_share_green"
+            app:strokeWidth="0dp"
+            app:strokeColor="@android:color/darker_gray"
+            android:adjustViewBounds="true"
+            android:elevation="5dp"
+            android:maxWidth="50dp"
+            android:maxHeight="50dp"
+            android:scaleType="fitXY"
+            app:shapeAppearance="?attr/actionButtonStyle"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"/>
+
+    </androidx.cardview.widget.CardView>
+
+
+</RelativeLayout>
+</androidx.appcompat.widget.Toolbar>

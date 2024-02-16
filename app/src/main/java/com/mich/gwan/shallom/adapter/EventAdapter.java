@@ -70,7 +70,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             targetMillisec = list.get(position).getEventEndDate().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
         }
-        long targetMillis = System.currentTimeMillis() + (10 * 24 * 60 * 60 * 1000); // Example: 10 days from now
 
         // Start countdown timer
         new CountDownTimer(targetMillisec - System.currentTimeMillis(), 1000) {

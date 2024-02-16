@@ -1,4 +1,6 @@
 <resources>
+    <string name="selected_language">English</string>
+    <string name="language">En, US</string>
     <string name="app_name">Shallom</string>
     <string name="log_in">LOG IN</string>
     <string name="username">Username</string>
@@ -186,4 +188,18 @@
     <string name="years">Year</string>
     <string name="english">ENGLISH</string>
     <string name="kiswahili">KISWAHILI</string>
+    <string name="lesson_title">Lesson Title</string>
+    <string name="questions">Questions</string>
+    <string name="doctrines">Doctrines</string>
+    <string name="bible_ref">Bible Reference</string>
+    <string name="worship">WORSHIP</string>
+    <string name="praise">PRAISE</string>
+    <string name="group_songs">GROUP SONGS</string>
+    <string name="all_songs">ALL SONGS</string>
+    <string name="chorus">CHORUS</string>
+    <string name="song_title">Song Title</string>
+    <string name="cogyok">COGYOK</string>
+    <string name="mewak">MEWAK</string>
+    <string name="cogmea">COGMEA</string>
+    <string name="already_favourite">Already a fouvourite!</string>
 </resources>

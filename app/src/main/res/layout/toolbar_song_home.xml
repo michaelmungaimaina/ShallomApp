@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2024. Maina Michael.
+  ~ Created on 2024 / 2 / 14
+  -->
+
+<androidx.appcompat.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbarPayment"
+    android:layout_width="match_parent"
+    android:layout_height="55dp"
+    android:background="@drawable/toolbar_background"
+    android:fitsSystemWindows="true"
+    android:minHeight="?attr/actionBarSize"
+    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_gravity="top">
+        <TextView
+            android:id="@+id/toolbarMiddleText"
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginStart="35dp"
+            android:fontFamily="@font/ibmplexsanshebrew_bold"
+            android:maxLines="1"
+            android:text="@string/songs"
+            android:textColor="@color/white"
+            android:textSize="@dimen/header_text_size"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+</androidx.appcompat.widget.Toolbar>

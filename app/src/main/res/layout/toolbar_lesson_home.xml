@@ -77,7 +77,7 @@
             android:layout_centerVertical="true"
             app:cardCornerRadius="20dp"
             app:cardBackgroundColor="@color/grey_300">
-            <com.google.android.material.imageview.ShapeableImageView
+            <ImageView
                 android:id="@+id/shapeableImageViewIcon"
                 android:layout_width="30dp"
                 android:layout_height="30dp"

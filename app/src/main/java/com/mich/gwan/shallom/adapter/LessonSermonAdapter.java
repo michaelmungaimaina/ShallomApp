@@ -48,7 +48,7 @@ public class LessonSermonAdapter extends RecyclerView.Adapter<LessonSermonAdapte
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, @SuppressLint("RecyclerView") int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             holder.textViewSermonDay.setText((CharSequence) DateTimeFormatter.ofPattern("DD").parse(list.get(position).getLessonDate()));
             holder.textViewSermonMonth.setText((CharSequence) DateTimeFormatter.ofPattern("MMM").parse(list.get(position).getLessonDate()));

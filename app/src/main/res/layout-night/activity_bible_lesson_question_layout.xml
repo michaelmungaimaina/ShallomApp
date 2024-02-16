@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2024. Maina Michael.
+  ~ Created on 2024 / 2 / 13
+  -->
+
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:backgroundTintMode="src_atop"
+    android:background="@drawable/background_gradient"
+    android:backgroundTint="@color/layout_tint">
+
+    <include
+        android:id="@+id/my_toolbar"
+        layout="@layout/toolbar_lesson_home"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:minHeight="?attr/actionBarSize"
+        android:fitsSystemWindows="true"/>
+    <com.google.android.flexbox.FlexboxLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:flexWrap="wrap"
+        app:alignItems="flex_start"
+        app:alignContent="flex_start"
+        app:justifyContent="space_between"
+        android:layout_marginTop="@dimen/margin_view_start"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp">
+        <TextView
+            android:id="@+id/textViewEnglish"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/ic_tilted_rectangle_green_border"
+            android:fontFamily="@font/ibmplexsanshebrew_bold"
+            android:gravity="center"
+            android:maxLines="1"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:text="@string/english"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textViewKiswahili"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/ic_tilted_grey_rectangle"
+            android:fontFamily="@font/ibmplexsanshebrew_bold"
+            android:gravity="center"
+            android:maxLines="1"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:text="@string/kiswahili"
+            android:textColor="@color/grey"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+    </com.google.android.flexbox.FlexboxLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:layout_gravity="center"
+        android:layout_alignStart="@+id/verticalLine1"
+        android:layout_marginStart="@dimen/margin_top"
+        android:layout_marginTop="@dimen/margin_view_start">
+        <TextView
+            android:id="@+id/textViewLessonTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:layout_gravity="start"
+            android:layout_marginTop="@dimen/margin_top"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/ibmplexsanshebrew_bold"
+            android:maxLines="1"
+            android:text="@string/lesson_title"
+            android:textColor="@color/green_bright"
+            android:textSize="@dimen/header_text_size"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="start"
+            android:background="@color/white"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="4dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_gravity="start"
+        android:layout_marginStart="@dimen/margin_view_start"
+        android:layout_marginTop="@dimen/margin_view_start">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            android:layout_gravity="start"
+            android:layout_marginStart="@dimen/margin_top"
+            android:layout_marginTop="@dimen/margin_view_start">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/margin_top"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/ibmplexsanshebrew_medium"
+                android:maxLines="1"
+                android:text="@string/scripture_reading"
+                android:textColor="@color/green_dark"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/margin_top"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/ibmplexsanshebrew_medium"
+                android:maxLines="1"
+                android:text="@string/memory_verse"
+                android:textColor="@color/green_dark"
+                android:textSize="14sp"
+                android:textStyle="normal" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            android:layout_gravity="start"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="@dimen/margin_view_start">
+            <TextView
+                android:id="@+id/textViewScriptureReading"
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/margin_top"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/ibmplexsanshebrew_regular"
+                android:maxLines="1"
+                android:text="@string/lesson_title"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="normal" />
+            <TextView
+                android:id="@+id/textViewMemoryVerse"
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/margin_top"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/ibmplexsanshebrew_regular"
+                android:maxLines="1"
+                android:text="@string/lesson_title"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="normal" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_alignParentEnd="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="@dimen/margin_view_start">
+        <TextView
+            android:id="@+id/verticalLine2"
+            android:layout_width="5dp"
+            android:layout_height="20dp"
+            android:background="@color/green_bright"
+            android:layout_marginTop="5dp"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            android:layout_marginEnd="@dimen/margin_top"
+            android:layout_marginStart="2dp">
+            <TextView
+                android:id="@+id/textViewPastEvent"
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/margin_top"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/ibmplexsanshebrew_bold"
+                android:maxLines="1"
+                android:text="@string/questions"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="96dp"
+                android:layout_height="2dp"
+                android:layout_gravity="start"
+                android:background="@color/transparent"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="4dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewQuestions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_view_start"
+        android:layout_marginStart="@dimen/margin_view_start"
+        android:layout_marginTop="@dimen/margin_view_start"/>
+</androidx.appcompat.widget.LinearLayoutCompat>

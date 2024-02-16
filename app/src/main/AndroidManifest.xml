@@ -44,6 +44,50 @@
             android:name=".activity.signup.SignUpLocalityActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="locked" />
+        <activity
+            android:name=".activity.doctrine.DoctrineActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".activity.lesson.LessonActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".activity.lesson.LessonDaySummary"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".activity.lesson.LessonHomeActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".activity.lesson.LessonPaymentActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".activity.lesson.LessonQuestionsActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".activity.requests.RequestsActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".activity.songs.SongViewActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".activity.songs.SongsActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".activity.songs.SongListActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".activity.songs.SongGroupsActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="locked" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

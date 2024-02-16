@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2024. Maina Michael.
+  ~ Created on 2024 / 2 / 13
+  -->
+
+<resources>
+    <string name="app_name">Shallom</string>
+    <string name="selected_language">Kiswahili</string>
+    <string name="language">Swa, Ke</string>
+    <string name="introduction">Utangulizi</string>
+    <string name="visit_website">Tovuti</string>
+    <string name="faqs">F.A.Qs</string>
+    <string name="bible_lesson">LESONI YA BIBLIA</string>
+    <string name="bible_lesson_small">Lesoni ya Biblia</string>
+    <string name="payment_plan">Mbinu ya Malipo</string>
+    <string name="pref_plan">Chagua  mbinu uipendayo</string>
+    <string name="for_word">Kwa</string>
+    <string name="three_months">Miezi 3</string>
+    <string name="amount_30">Ksh. 30</string>
+    <string name="amount_90">Ksh. 90</string>
+    <string name="nine_months">Miezi 9</string>
+    <string name="six_months">Miezi 6</string>
+    <string name="amount_120">Ksh. 120</string>
+    <string name="one_year">Mwaka 1</string>
+    <string name="amount_60">Ksh. 60</string>
+    <string name="payment_method">Mbinu ya Malipo</string>
+    <string name="mpesa">M-pesa</string>
+    <string name="confirm_number">Hakikisha kwamba hii ni nambari yako ya M-psa</string>
+    <string name="make_payment">FAYA MALIPO</string>
+    <string name="payment">Malipo</string>
+    <string name="ok">SAWA</string>
+    <string name="search_filter">Tafuta | Chuja</string>
+    <string name="quarters">Virobo</string>
+    <string name="years">Mwaka</string>
+    <string name="english">KIINGEREZA</string>
+    <string name="kiswahili">KISWAHILI</string>
+</resources>

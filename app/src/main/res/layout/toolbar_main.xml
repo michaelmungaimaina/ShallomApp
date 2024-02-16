@@ -9,7 +9,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
+    android:layout_height="55dp"
     android:background="@drawable/toolbar_background"
     android:fitsSystemWindows="true"
     android:minHeight="?attr/actionBarSize"
@@ -63,10 +63,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="@string/name_surname"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:fontFamily="@font/ibmplexsanshebrew_medium"
                 android:textStyle="bold"
                 android:layout_gravity="center"
+                android:maxLines="1"
                 android:textColor="@color/white"
                 android:gravity="center"/>
         </LinearLayout>

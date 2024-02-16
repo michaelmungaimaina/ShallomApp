@@ -57,7 +57,7 @@
             android:layout_gravity="start"
             android:fontFamily="@font/ibmplexsanshebrew_bold"/>
         <TextView
-            android:id="@+id/textViewMainScripture"
+            android:id="@+id/textViewRefScripture"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/sample_bible_books"

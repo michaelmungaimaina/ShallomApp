@@ -87,7 +87,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Columns for table doctrine
     private static final String COLUMN_DOCTRINE_ID = "doc_id";
-    private static final String COLUMN_DOCTRINE_CONTENT = "description";
+    private static final String COLUMN_DOCTRINE_CONTENT = "content";
+    private static final String COLUMN_DOCTRINE_DESCRIPTION = "description";
     private static final String COLUMN_DOCTRINE_REF = "doc_reference";
 
     // Columns for table lesson_questions
@@ -177,6 +178,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private final String CREATE_DOCTRINE_TABLE = "CREATE TABLE " + TABLE_DOCTRINE + "("
             + COLUMN_DOCTRINE_ID + " INTEGER PRIMARY KEY UNIQUE NOT NULL,"
             + COLUMN_DOCTRINE_CONTENT + " TEXT NOT NULL,"
+            + COLUMN_DOCTRINE_DESCRIPTION + " TEXT,"
             + COLUMN_DOCTRINE_REF + " TEXT NOT NULL" + ")";
 
     // create table lesson_question sql query
@@ -272,6 +274,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_SONG_TABLE);
         db.execSQL(CREATE_CHORUS_TABLE);
         db.execSQL(CREATE_STANZA_TABLE);
+
+        db.execSQL(Data.INSERT_QUARTER);
+        db.execSQL(Data.INSERT_LESSON_WEEK);
+        db.execSQL(Data.INSERT_LESSON_QUESTION);
+        db.execSQL(Data.INSERT_DOCTRINE);
+        db.execSQL(Data.INSERT_EVENT);
 
     }
 
@@ -1020,6 +1028,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(COLUMN_DOCTRINE_ID, par.getDoctrineId());
         values.put(COLUMN_DOCTRINE_CONTENT, par.getDoctrineContent());
+        values.put(COLUMN_DOCTRINE_DESCRIPTION, par.getDoctrineDescription());
         values.put(COLUMN_DOCTRINE_REF, par.getDoctrineRef());
 
         db.insertWithOnConflict(TABLE_DOCTRINE, null, values,SQLiteDatabase.CONFLICT_REPLACE);
@@ -1044,6 +1053,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 Doctrine par = new Doctrine();
                 par.setDoctrineId(cursor.getInt(cursor.getColumnIndex(COLUMN_DOCTRINE_ID)));
                 par.setDoctrineContent(cursor.getString(cursor.getColumnIndex(COLUMN_DOCTRINE_CONTENT)));
+                par.setDoctrineDescription(cursor.getString(cursor.getColumnIndex(COLUMN_DOCTRINE_DESCRIPTION)));
                 par.setDoctrineRef(cursor.getString(cursor.getColumnIndex(COLUMN_DOCTRINE_REF)));
 
                 list.add(par);
@@ -1064,6 +1074,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(COLUMN_DOCTRINE_ID, par.getDoctrineId());
         values.put(COLUMN_DOCTRINE_CONTENT, par.getDoctrineContent());
+        values.put(COLUMN_DOCTRINE_DESCRIPTION, par.getDoctrineDescription());
         values.put(COLUMN_DOCTRINE_REF, par.getDoctrineRef());
 
         String whereClause = COLUMN_DOCTRINE_ID + " = ?";
@@ -1198,6 +1209,60 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
 
         return list;
+    }
+
+    /**
+     * Retrieves the ID of a given LessonQuarter from the database.
+     *
+     * @param year The Year of the quarter for which LessonQuarterId is to be retrieved.
+     * @param month The month of the quarter for which LessonQuarterId is to be retrieved.
+     * @return id of the lesson quarter
+     */
+    @SuppressLint("Range")
+    public int getLessonQuarterId(String year, String month){
+        String[] columns = {"*"};
+        String selection = COLUMN_LESSON_QUARTER_YEAR + " = ? AND " + COLUMN_LESSON_QUARTER_MONTH + " = ?";
+        String[] selectionArgs = {year, month};
+        int id = 0;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.query(TABLE_LESSON_QUARTER, columns, selection, selectionArgs ,null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            try {
+                id = cursor.getInt(cursor.getColumnIndex(COLUMN_LESSON_QUARTER_ID));
+            } finally {
+                cursor.close();
+            }
+        }
+        db.close();
+        return id;
+    }
+
+    /**
+     * Checks if a specific quarter exits for the given year.
+     *
+     * @param year The Year of the quarter for which LessonQuarter is to be checked.
+     * @param month The month of the quarter for which LessonQuarter is to be checked.
+     * @return true if does not exist, false if exists
+     */
+    @SuppressLint("Range")
+    public boolean checkLessonQuarter(String year, String month){
+        String[] columns = {"*"};
+        String selection = COLUMN_LESSON_QUARTER_YEAR + " = ? AND " + COLUMN_LESSON_QUARTER_MONTH + " = ?";
+        String[] selectionArgs = {year, month};
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.query(TABLE_LESSON_QUARTER, columns, selection, selectionArgs ,null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            try {
+                return cursor.getCount() == 0;
+            } finally {
+                cursor.close();
+            }
+        }
+        return false;
     }
 
     /**
@@ -1414,43 +1479,84 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Retrieves a list of LessonWeek objects from the database for a specific quarter ID, sorted by week ID in ascending order.
+     * Retrieves a title of the lesson from the database for a specific date in the provided language.
      *
-     * @param quarterId The ID of the quarter for which LessonWeek objects are to be retrieved.
-     * @return A list of LessonWeek objects containing information about weeks for the specified quarter.
+     * @param date The date of the week for which lesson title is to be retrieved.
+     * @param language The language of the title is to be retrieved.
+     * @return A string title
      */
     @SuppressLint("Range")
-    public List<LessonWeek> getLessonWeek(int quarterId, String quarter){
+    public String getLessonTitle(String date, String language){
         String[] columns = {"*"};
-        String sortOder = COLUMN_LESSON_WEEK_ID + " ASC";
-        String selection = COLUMN_LESSON_WEEK_QUARTER + " = ? AND " + COLUMN_LESSON_WEEK_QUARTER + " = ?";
-        String[] selectionArgs = {String.valueOf(quarterId), quarter};
-
-        List<LessonWeek> list = new ArrayList<>();
-
+        String selection = COLUMN_LESSON_WEEK_DATE + " = ? AND " + COLUMN_LESSON_WEEK_LANGUAGE + " = ?";
+        String[] selectionArgs = {String.valueOf(date), language};
+        String title = null;
         SQLiteDatabase db = this.getWritableDatabase();
 
-        Cursor cursor = db.query(TABLE_LESSON_WEEK, columns, selection, selectionArgs, null, null, sortOder);
-        if (cursor.moveToFirst()){
-            do {
-                LessonWeek obj = new LessonWeek();
-                obj.setLessonWeekId(cursor.getInt(cursor.getColumnIndex(COLUMN_LESSON_WEEK_ID)));
-                obj.setLessonTitle(cursor.getString(cursor.getColumnIndex(COLUMN_LESSON_WEEK_TITLE)));
-                obj.setLessonDate(cursor.getString(cursor.getColumnIndex(COLUMN_LESSON_WEEK_DATE)));
-                obj.setLessonReading(cursor.getString(cursor.getColumnIndex(COLUMN_LESSON_WEEK_READING)));
-                obj.setMemoryVerse(cursor.getString(cursor.getColumnIndex(COLUMN_LESSON_WEEK_MEM_VERSE)));
-                obj.setLessonLanguage(Language.valueOf(cursor.getString(cursor.getColumnIndex(COLUMN_LESSON_WEEK_LANGUAGE))));
-                obj.setQuarterQuarter(cursor.getString(cursor.getColumnIndex(COLUMN_LESSON_WEEK_QUARTER)));
-                obj.setRegisteredBy(cursor.getString(cursor.getColumnIndex(COLUMN_LESSON_WEEK_REG_BY)));
-                obj.setRegistrationDate(cursor.getString(cursor.getColumnIndex(COLUMN_LESSON_WEEK_REG_DATE)));
-
-                list.add(obj);
-            } while (cursor.moveToNext());
+        Cursor cursor = db.query(TABLE_LESSON_WEEK, columns, selection, selectionArgs, null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            try {
+                title = cursor.getString(cursor.getColumnIndex(COLUMN_LESSON_WEEK_TITLE));
+            } finally {
+                cursor.close();
+            }
         }
-        cursor.close();
         db.close();
+        return title;
+    }
 
-        return list;
+    /**
+     * Retrieves a scripture reading of the lesson from the database for a specific date in the provided language.
+     *
+     * @param date The date of the week for which lesson scripture is to be retrieved.
+     * @param language The language of the scripture to be retrieved.
+     * @return A string title
+     */
+    @SuppressLint("Range")
+    public String getLessonReading(String date, String language){
+        String[] columns = {"*"};
+        String selection = COLUMN_LESSON_WEEK_DATE + " = ? AND " + COLUMN_LESSON_WEEK_LANGUAGE + " = ?";
+        String[] selectionArgs = {String.valueOf(date), language};
+        String title = null;
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.query(TABLE_LESSON_WEEK, columns, selection, selectionArgs, null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            try {
+                title = cursor.getString(cursor.getColumnIndex(COLUMN_LESSON_WEEK_READING));
+            } finally {
+                cursor.close();
+            }
+        }
+        db.close();
+        return title;
+    }
+
+    /**
+     * Retrieves a memory verse of the lesson from the database for a specific date in the provided language.
+     *
+     * @param date The date of the week for which memory verse is to be retrieved.
+     * @param language The language of the memory verse to be retrieved.
+     * @return A string title
+     */
+    @SuppressLint("Range")
+    public String getLessonMemVerse(String date, String language){
+        String[] columns = {"*"};
+        String selection = COLUMN_LESSON_WEEK_DATE + " = ? AND " + COLUMN_LESSON_WEEK_LANGUAGE + " = ?";
+        String[] selectionArgs = {String.valueOf(date), language};
+        String title = null;
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.query(TABLE_LESSON_WEEK, columns, selection, selectionArgs, null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            try {
+                title = cursor.getString(cursor.getColumnIndex(COLUMN_LESSON_WEEK_MEM_VERSE));
+            } finally {
+                cursor.close();
+            }
+        }
+        db.close();
+        return title;
     }
 
     /**
@@ -1709,6 +1815,35 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * Retrieves the preference of the song identified by the provided song id.
+     *
+     * @param songId The ID of the song to be checked.
+     * @return A preference of the Song.
+     */
+    @SuppressLint("Range")
+    public String checkSongPref(String songId){
+        String[] columns = {"*"};
+        String selection = COLUMN_SONG_ID + " = ?";
+        String[] selectionArgs = {songId};
+
+        String title = null;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.query(TABLE_SONG, columns, selection, selectionArgs, null, null, null);
+        if (cursor.moveToFirst()) {
+            try {
+                title = cursor.getString(cursor.getColumnIndex(COLUMN_SONG_PREFERENCE));
+            } finally {
+                cursor.close();
+            }
+        }
+        db.close();
+
+        return title;
+    }
+
+    /**
      * Updates the information of a Song in the database.
      *
      * @param par The Song object containing the updated information.
@@ -1727,6 +1862,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         String whereClause = COLUMN_SONG_ID + " = ?";
         String[] whereArgs = {String.valueOf(par.getSongId())};
+
+        db.update(TABLE_SONG, values, whereClause, whereArgs);
+        db.close();
+    }
+
+    /**
+     * Updates the preference of a Song in the database.
+     *
+     * @param songId The Song id to be updated.
+     * @param preference The updated Preference.
+     */
+    public void updateSong(String songId, Preference preference){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_SONG_PREFERENCE, preference.name());
+
+        String whereClause = COLUMN_SONG_ID + " = ?";
+        String[] whereArgs = {songId};
 
         db.update(TABLE_SONG, values, whereClause, whereArgs);
         db.close();
@@ -1859,7 +2013,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @return A list of SongChorus objects containing information about choruses for the specified song.
      */
     @SuppressLint("Range")
-    public List<SongChorus> getChorus(int songId){
+    public List<SongChorus> getChoruses(int songId){
         String[] columns = {"*"};
         String sortOrder = COLUMN_CHORUS_ID + " ASC";
         String selection = COLUMN_CHORUS_SONG_ID + " = ?";
@@ -1884,6 +2038,33 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
 
         return list;
+    }
+
+    /**
+     * Retrieves the SongChorus from the database for a specific song ID.
+     *
+     * @param songId The ID of the song for which chorus is to be retrieved.
+     * @return A string object containing the chorus for the specified song.
+     */
+    @SuppressLint("Range")
+    public String getChorus(int songId){
+        String[] columns = {"*"};
+        String selection = COLUMN_CHORUS_SONG_ID + " = ?";
+        String[] selectionArgs = {String.valueOf(songId)};
+        String chorus = null;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.query(TABLE_SONG_CHORUS, columns, selection, selectionArgs, null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            try {
+                chorus = cursor.getString(cursor.getColumnIndex(COLUMN_CHORUS_CONTENT));
+            } finally {
+                cursor.close();
+            }
+        }
+        db.close();
+        return chorus;
     }
 
     /**
