@@ -84,6 +84,8 @@ public class AnnouncementsFragment extends Fragment implements View.OnClickListe
     private int[] images = {R.drawable.ic_ministry_green, R.drawable.ic_group_green, R.drawable.ic_sermon_green}; // Add your image resources here
     private String[] urls = {"https://www.example1.com", "https://www.example2.com", "https://www.example3.com"}; // URLs corresponding to each image
     private int currentPosition = 0;
+    private Handler handler;
+    private Runnable updateRunnable;
 
     /** Accessing context **/
     @Override
@@ -100,6 +102,7 @@ public class AnnouncementsFragment extends Fragment implements View.OnClickListe
         initListeners();
         initObjects();
 
+        startImageChangeTimer();
         return binding.getRoot();
     }
 
@@ -129,7 +132,7 @@ public class AnnouncementsFragment extends Fragment implements View.OnClickListe
 
         viewPager.setAdapter(new ImagePagerAdapter(context, images, urls));
 
-        // Start a timer to change images every 5 seconds
+        /** Start a timer to change images every 5 seconds
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -143,6 +146,49 @@ public class AnnouncementsFragment extends Fragment implements View.OnClickListe
                 });
             }
         }, 0, 5000);
+    }**/
+    }
+
+
+    // Method to start updating images
+    private void startImageChangeTimer() {
+        Handler handler = new Handler(Looper.getMainLooper());
+        Runnable updateRunnable = new Runnable() {
+            @Override
+            public void run() {
+                currentPosition = (currentPosition + 1) % images.length;
+                // Update adapter's data without resetting it
+                viewPager.setCurrentItem(images[currentPosition], true);
+                // Post the same runnable again after 5 seconds
+                handler.postDelayed(this, 5000);
+            }
+        };
+        // Start the runnable
+        handler.postDelayed(updateRunnable, 5000);
+    }
+    private void handleImages(){
+        // Define a handler
+        handler = new Handler(Looper.getMainLooper());
+
+        // Define a runnable to update the current item
+        updateRunnable = new Runnable() {
+            @Override
+            public void run() {
+                currentPosition = (currentPosition + 1) % images.length;
+                viewPager.setCurrentItem(currentPosition, true);
+                // Post the same runnable again after 5 seconds
+                handler.postDelayed(this, 5000);
+            }
+        };
+
+        // Start the runnable
+        handler.postDelayed(updateRunnable, 5000);
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        handler.removeCallbacks(updateRunnable);
     }
 
     private void initListeners() {

@@ -118,6 +118,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         textViewCreateAccount = binding.textViewCreateAccount;
         buttonLogin = binding.buttonLogIn;
         cardViewGoogleSignIn = binding.cardViewGoogleSignIn;
+
+        textViewCreateAccount.setOnClickListener(view -> {
+            // Launch Create Account
+            Intent intentRegister = new Intent(LoginActivity.this, SignUpProfileActivity.class);
+            startActivity(intentRegister);
+        });
     }
 
     /**
@@ -161,7 +167,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Toast.makeText(this, R.string.coming_soon, Toast.LENGTH_LONG).show();
         } else if (v.getId() == R.id.textViewCreateAccount){
             // Launch Create Account
-            Intent intentRegister = new Intent(getApplicationContext(), SignUpProfileActivity.class);
+            Intent intentRegister = new Intent(LoginActivity.this, SignUpProfileActivity.class);
             startActivity(intentRegister);
         }
     }

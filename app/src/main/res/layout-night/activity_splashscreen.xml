@@ -27,7 +27,6 @@
         android:id="@+id/textViewShallom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/shallom_text"
         android:textSize="50sp"
         android:fontFamily="@font/ibmplexsanshebrew_bold"
         android:textStyle="bold"

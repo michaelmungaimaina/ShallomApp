@@ -42,12 +42,12 @@ public class SplashActivity extends AppCompatActivity {
         shallomText = binding.textViewShallom;
         shallom = getString(R.string.shallom_text);
 
-
+        animateText();
 
         new Handler().postDelayed(() -> {
             startActivity(new Intent(SplashActivity.this, LoginActivity.class));
             finish();
-        }, 2500); // milliseconds delay
+        }, 3000); // milliseconds delay
 
     }
 
@@ -58,7 +58,7 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 if (index <= shallom.length()) {
                     shallomText.setText(shallom.substring(0, index++));
-                    handler.postDelayed(this, 100); // Adjust the delay as needed
+                    handler.postDelayed(this, 200); // Adjust the delay as needed
                 }
             }
         }, 100); // Adjust the initial delay as needed

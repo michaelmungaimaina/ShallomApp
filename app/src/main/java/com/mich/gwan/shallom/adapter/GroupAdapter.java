@@ -22,11 +22,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.mich.gwan.shallom.R;
 import com.mich.gwan.shallom.fragment.GroupsFragment;
 import com.mich.gwan.shallom.model.Group;
+import com.mich.gwan.shallom.model.LessonQuestion;
 
 import java.util.List;
 
 public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.ViewHolder> {
-    private final List<Group> list;
+    private List<Group> list;
     private int index = RecyclerView.NO_POSITION;
     private Context context;
     private boolean status = true;
@@ -41,7 +42,7 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.ViewHolder> 
     public GroupAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // inflating recycler item view
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.recycler_events, parent, false);
+                .inflate(R.layout.recycler_group, parent, false);
         context = parent.getContext();
 
         return new GroupAdapter.ViewHolder(itemView);
@@ -89,6 +90,10 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.ViewHolder> 
         return list.size();
     }
 
+    public void updateList(List<Group> listItem){
+        list = listItem;
+        notifyDataSetChanged();
+    }
 
     /**
      * ViewHolder class

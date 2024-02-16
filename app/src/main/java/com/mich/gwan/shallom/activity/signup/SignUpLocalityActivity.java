@@ -7,6 +7,7 @@ package com.mich.gwan.shallom.activity.signup;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -27,8 +28,10 @@ import com.mich.gwan.shallom.model.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class SignUpLocalityActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -86,7 +89,7 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
     }
 
     private void spinnerData() {
-
+        regions = new ArrayList<>();
         // Ad items to Region list
         regions.add("Select Region");
         regions.add("NAIROBI REGION");
@@ -762,7 +765,7 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         replaceAllWithUppercase(kisiiSubCounties);
         replaceAllWithUppercase(nyamiraSubCounties);
 
-
+        countiesMap = new HashMap<>();
         // put key (REGION) and value (COUNTY-LIST) to the countyMap
         countiesMap.put("SELECT REGION", selectRegion);
         countiesMap.put("NAIROBI REGION", nairobiRegion);
@@ -777,6 +780,7 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         countiesMap.put("TURKANA REGION", turkanaRegion);
         countiesMap.put("NORTH EASTERN REGION", northEasternRegion);
 
+        subCountiesMap = new HashMap<>();
         // put key (COUNTY) and value (SUB-COUNTY-LIST) to the subCountyMap
         subCountiesMap.put("SELECT COUNTY", selectCounty);
         subCountiesMap.put("001 Mombasa", mombasaSubCounties);
@@ -827,6 +831,7 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         subCountiesMap.put("046 Nyamira", nyamiraSubCounties);
         subCountiesMap.put("047 NAIROBI CITY", nairobiSubCounties);
 
+        villageMap = new HashMap<>();
         // Put key (SUB-COUNTY) and value (VILLAGE-LIST) to villageMap
         villageMap.put("SELECT SUB-COUNTY", selectCounty);
         villageMap.put("NYALI", nyaliVillages);
@@ -857,13 +862,18 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         spinnerRegion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                // Update counties based on the selected region
-                updateCounties(regions.get(position));
+                // Get the selected region
+                String selectedRegion = parent.getItemAtPosition(position).toString();
+
+                // Update counties spinner based on the selected region
+                updateCounties(selectedRegion);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
+                // Handle case when nothing is selected
+                // Log a message to help with debugging
+                Log.e("OnItemSelectedListener", "No item selected in the region spinner");
             }
         });
 
@@ -893,6 +903,7 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
             }
         });
 
+        groups = new ArrayList<>();
         // Add items to Group list
         groups.add("Select Group");
         groups.add("COGYOK");
@@ -901,6 +912,7 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         groups.add("MEYO");
         groups.add("LEWA");
 
+        designation = new ArrayList<>();
         // Add values to Designation list
         designation.add("Select Designation");
         designation.add("CHAIRPERSON");
@@ -1130,10 +1142,13 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         // Create a new map to store the modified entries temporarily
         Map<String, List<String>> modifiedMap = new HashMap<>();
 
-        // Iterate through the original map
-        for (Map.Entry<String, List<String>> entry : myMap.entrySet()) {
-            String key = entry.getKey();
-            List<String> value = entry.getValue();
+        // Create a copy of the keys to iterate over
+        Set<String> keys = new HashSet<>(myMap.keySet());
+
+        // Iterate through the keys
+        for (String key : keys) {
+            // Retrieve the value associated with the current key
+            List<String> value = myMap.get(key);
 
             // Remove the entry from the original map
             myMap.remove(key);
@@ -1145,5 +1160,4 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         // Insert all modified entries back into the original map
         myMap.putAll(modifiedMap);
     }
-
 }

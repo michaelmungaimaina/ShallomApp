@@ -51,6 +51,17 @@ public class GroupsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         binding = FragmentGroupsBinding.inflate(inflater, container, false);
 
+        group = new Group();
+        list = new ArrayList<>();
+        group.setGroupAcronym("COGYOK");
+        group.setGroupFullName("C. O. G. Youth Organisation of Kenya");
+        group.setGroupDescription("This is the a group of youth unmarried members");
+        Drawable drawable = ContextCompat.getDrawable(context, R.drawable.ic_ministry_green);
+        assert drawable != null;
+        group.setGroupImage(((BitmapDrawable) drawable).getBitmap());
+
+        //list.set(0, group);
+        list.add(group);
         initViews();
         initObjects();
         initListeners();
@@ -64,9 +75,7 @@ public class GroupsFragment extends Fragment {
     }
 
     private void initObjects() {
-        list = new ArrayList<>();
         adapter = new GroupAdapter(list);
-        group = new Group();
         linearLayoutManager = new LinearLayoutManager(context);
 
         recyclerViewGroups.setLayoutManager(linearLayoutManager);
@@ -74,14 +83,9 @@ public class GroupsFragment extends Fragment {
         recyclerViewGroups.setHasFixedSize(true);
         recyclerViewGroups.setAdapter(adapter);
 
-        group.setGroupAcronym("COGYOK");
-        group.setGroupFullName("C. O. G. Youth Organisation of Kenya");
-        group.setGroupDescription("This is the a group of youth unmarried members");
-        Drawable drawable = ContextCompat.getDrawable(context, R.drawable.ic_ministry_green);
-        assert drawable != null;
-        group.setGroupImage(((BitmapDrawable) drawable).getBitmap());
-
-        list.set(0, group);
+        //list.set(0, group);
+        list.add(group);
+        adapter.updateList(list);
     }
 
     private void initListeners() {

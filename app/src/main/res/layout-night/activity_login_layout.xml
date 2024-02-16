@@ -62,17 +62,19 @@
         android:hint="@string/username_hint"
         android:layout_marginStart="@dimen/margin_start"
         android:layout_marginTop="@dimen/margin_top"
-        style="@style/OutlinedRoundedBox">
+        style="@style/OutlinedRoundedBox"
+        android:background="@drawable/round_corner_toggle_less">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textInputEditTextUsername"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textStyle="italic"
-            android:inputType="text"
+            android:layout_height="48dp"
+            android:textStyle="normal"
+            android:textColor="@color/black"
+            android:inputType="textAutoComplete"
             android:fontFamily="@font/ibmplexsanshebrew_regular"
             android:textSize="14sp"
-            android:background="@drawable/round_corner_toggle_less"/>
+            android:background="@color/transparent"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -99,17 +101,19 @@
         app:counterMaxLength="16"
         app:passwordToggleTint="@color/green_light"
         android:layout_marginTop="@dimen/margin_top"
-        style="@style/OutlinedRoundedBox">
+        style="@style/OutlinedRoundedBox"
+        android:background="@drawable/round_corner_toggle">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textInputEditTextPassword"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textStyle="italic"
+            android:layout_height="48dp"
+            android:textStyle="normal"
+            android:textColor="@color/black"
             android:inputType="textPassword"
             android:fontFamily="@font/ibmplexsanshebrew_regular"
             android:textSize="14sp"
-            android:background="@drawable/round_corner_toggle"/>
+            android:background="@color/transparent"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
@@ -138,7 +142,7 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonLogIn"
-        android:layout_width="200dp"
+        android:layout_width="310dp"
         android:layout_height="40dp"
         android:background="@drawable/buton_background"
         android:layout_gravity="center"
@@ -153,9 +157,8 @@
         android:id="@+id/cardViewGoogleSignIn"
         android:layout_width="@dimen/input_width"
         android:layout_height="48dp"
-        android:foreground="@drawable/cardview_border"
-        app:cardBackgroundColor="@drawable/cardview_border"
         android:layout_marginStart="@dimen/margin_start"
+        app:cardBackgroundColor="@color/transparent"
         android:layout_marginTop="30dp"
         app:cardCornerRadius="0dp"
         app:cardElevation="0dp">
@@ -168,7 +171,8 @@
                 android:layout_width="35dp"
                 android:layout_height="match_parent"
                 android:src="@drawable/ic_google"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:visibility="gone"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -177,7 +181,7 @@
                 android:fontFamily="@font/ibmplexsanshebrew_medium"
                 android:textStyle="bold"
                 android:layout_gravity="center"
-                android:textColor="@color/white"
+                android:textColor="@color/transparent"
                 android:gravity="center"
                 android:layout_marginStart="10dp"/>
         </LinearLayout>

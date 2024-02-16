@@ -103,7 +103,7 @@ public class Data {
             COLUMN_LESSON_QUESTION_ID+","+COLUMN_LESSON_QUESTION_WEEK+","+COLUMN_LESSON_QUESTION_QUESTION+","
             +COLUMN_LESSON_QUESTION_BOOKS+","+COLUMN_LESSON_QUESTION_EXPLANATION+","+COLUMN_LESSON_QUESTION_LANGUAGE+","
             +COLUMN_LESSON_QUESTION_REG_DATE+","+COLUMN_LESSON_QUESTION_REG_BY+") VALUES"+
-            "(1, 2, 'What', 'Mat 6, Jam 4,', 'Abcd efgh ijklmnop', 'ENGLISH', '2024-02-15', 'MICHAEL MAINA', )," +
+            "(1, 2, 'What', 'Mat 6, Jam 4,', 'Abcd efgh ijklmnop', 'ENGLISH', '2024-02-15', 'MICHAEL MAINA')," +
             "(2, 2, 'Did you ', 'John 3:4, James 3:3', 'NULL', 'ENGLISH', '2024-02-15', 'MICHAEL MAINA')," +
             "(3, 2, 'Nini', 'Mat 6, Yak 4,', 'Abcd efgh ijklmnop', 'KISWAHILI', '2024-02-15', 'MICHAEL MAINA')," +
             "(4, 2, 'Ulifanya', 'Yoh 3:4, Yak 3:3', 'NULL', 'KISWAHILI', '2024-02-15','MICHAEL MAINA')";

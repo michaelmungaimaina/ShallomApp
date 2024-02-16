@@ -111,17 +111,18 @@
                     android:textColorHint="@color/grey_350"
                     android:hint="@string/firstname_hint"
                     android:layout_marginTop="@dimen/margin_top"
-                    style="@style/OutlinedRoundedBox">
+                    style="@style/OutlinedRoundedBox"
+                    android:background="@drawable/round_corner_toggle_less">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/textInputEditTextFirstName"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:textStyle="italic"
+                        android:layout_height="48dp"
+                        android:textStyle="normal"
                         android:inputType="text"
                         android:fontFamily="@font/ibmplexsanshebrew_regular"
                         android:textSize="14sp"
-                        android:background="@drawable/round_corner_toggle_less"/>
+                        android:background="@color/transparent"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
@@ -158,17 +159,18 @@
                     android:textColorHint="@color/grey_350"
                     android:hint="@string/surname_hint"
                     android:layout_marginTop="@dimen/margin_top"
-                    style="@style/OutlinedRoundedBox">
+                    style="@style/OutlinedRoundedBox"
+                    android:background="@drawable/round_corner_toggle_less">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/textInputEditTextSurname"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:textStyle="italic"
-                        android:inputType="text"
+                        android:textStyle="normal"
+                        android:inputType="textAutoComplete"
                         android:fontFamily="@font/ibmplexsanshebrew_regular"
                         android:textSize="14sp"
-                        android:background="@drawable/round_corner_toggle_less"/>
+                        android:background="@color/transparent"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
@@ -206,17 +208,18 @@
             android:textColorHint="@color/grey_350"
             android:hint="@string/email_hint"
             android:layout_marginTop="@dimen/margin_top"
-            style="@style/OutlinedRoundedBox">
+            style="@style/OutlinedRoundedBox"
+            android:background="@drawable/round_corner_toggle_less">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/textInputEditTextUEmail"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textStyle="italic"
-                android:inputType="text"
+                android:layout_height="48dp"
+                android:textStyle="normal"
+                android:inputType="textAutoComplete"
                 android:fontFamily="@font/ibmplexsanshebrew_regular"
                 android:textSize="14sp"
-                android:background="@drawable/round_corner_toggle_less"/>
+                android:background="@color/transparent"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
@@ -251,17 +254,19 @@
             android:textColorHint="@color/grey_350"
             android:hint="@string/phone_hint"
             android:layout_marginTop="@dimen/margin_top"
-            style="@style/OutlinedRoundedBox">
+            style="@style/OutlinedRoundedBox"
+            android:background="@drawable/round_corner_toggle_less">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/textInputEditTextPhoneNumber"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textStyle="italic"
+                android:layout_height="48dp"
+                android:textStyle="normal"
+                android:textColor="@color/black"
                 android:inputType="number"
                 android:fontFamily="@font/ibmplexsanshebrew_regular"
                 android:textSize="14sp"
-                android:background="@drawable/round_corner_toggle_less"/>
+                android:background="@color/transparent"/>
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.flexbox.FlexboxLayout
             android:layout_width="310dp"
@@ -306,17 +311,19 @@
                     android:textColorHint="@color/grey_350"
                     android:hint="@string/username_hint"
                     android:layout_marginTop="@dimen/margin_top"
+                    android:background="@drawable/round_corner_toggle_less"
                     style="@style/OutlinedRoundedBox">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/textInputEditTextUsername"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:textStyle="italic"
-                        android:inputType="text"
+                        android:layout_height="48dp"
+                        android:textStyle="normal"
+                        android:textColor="@color/black"
+                        android:inputType="textAutoComplete"
                         android:fontFamily="@font/ibmplexsanshebrew_regular"
                         android:textSize="14sp"
-                        android:background="@drawable/round_corner_toggle_less"/>
+                        android:background="@color/transparent"/>
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
@@ -367,6 +374,7 @@
                         android:inputType="text"
                         android:fontFamily="@font/ibmplexsanshebrew_regular"
                         android:textSize="14sp"
+                        android:dropDownSelector="@color/black"
                         android:dropDownWidth="match_parent"
                         android:prompt="@string/county_prompt"
                         android:background="@drawable/round_corner_toggle_less"/>
@@ -376,7 +384,7 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonNext"
-            android:layout_width="90dp"
+            android:layout_width="310dp"
             android:layout_height="40dp"
             android:background="@drawable/buton_background"
             android:layout_gravity="end|center"
