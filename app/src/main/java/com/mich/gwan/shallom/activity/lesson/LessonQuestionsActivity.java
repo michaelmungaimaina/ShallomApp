@@ -51,7 +51,7 @@ public class LessonQuestionsActivity extends AppCompatActivity implements View.O
 
     private RecyclerView recyclerView;
 
-    private ShapeableImageView searchIcon;
+    private ImageView searchIcon;
     private ImageView backIcon;
 
     private CardView filterCardView;
@@ -245,7 +245,7 @@ public class LessonQuestionsActivity extends AppCompatActivity implements View.O
         }
     }
 
-    private void updateView(ShapeableImageView imageView, String message, boolean isVisible){
+    private void updateView(ImageView imageView, String message, boolean isVisible){
         if (isVisible){
             searchIcon.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_search_green));
             InputMethodManager imm = (InputMethodManager) getApplicationContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
