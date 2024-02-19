@@ -89,7 +89,7 @@ public class LessonActivity extends AppCompatActivity implements View.OnClickLis
         OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                finishAffinity();
+                finish();
             }
         };
 

@@ -88,7 +88,7 @@ public class LessonPaymentActivity extends AppCompatActivity implements View.OnC
         // set toolbar as the action bar.
         setSupportActionBar(toolbar);
 
-        initObjects();
+        //initObjects();
         initListeners();
 
     }
@@ -120,7 +120,7 @@ public class LessonPaymentActivity extends AppCompatActivity implements View.OnC
 
     private void initObjects() {
         databaseHelper = new DatabaseHelper(this);
-        user = (User) databaseHelper.getUser(username, password);
+        user = databaseHelper.getUser(username, password).get(0);
 
         userProfile.setImageBitmap(user.getUserProf());
 
@@ -158,28 +158,28 @@ public class LessonPaymentActivity extends AppCompatActivity implements View.OnC
             linearLayoutNineMonths.setBackgroundTintList(null);
             linearLayoutOneYear.setBackgroundTintList(null);
 
-            subscriptionPrice = Integer.parseInt(textViewThreeMonths.getText().toString().substring(4));
+            subscriptionPrice = Integer.parseInt(textViewThreeMonths.getText().toString().substring(5));
         } else if (v.getId() == R.id.linearLayoutSixMonths) {
             linearLayoutThreeMonths.setBackgroundTintList(null);
             linearLayoutSixMonths.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.green_blue)));
             linearLayoutNineMonths.setBackgroundTintList(null);
             linearLayoutOneYear.setBackgroundTintList(null);
 
-            subscriptionPrice = Integer.parseInt(textViewSixMonths.getText().toString().substring(4));
+            subscriptionPrice = Integer.parseInt(textViewSixMonths.getText().toString().substring(5));
         } else if (v.getId() == R.id.linearLayoutNineMonths) {
             linearLayoutThreeMonths.setBackgroundTintList(null);
             linearLayoutSixMonths.setBackgroundTintList(null);
             linearLayoutNineMonths.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.orange_green)));
             linearLayoutOneYear.setBackgroundTintList(null);
 
-            subscriptionPrice = Integer.parseInt(textViewNineMonths.getText().toString().substring(4));
+            subscriptionPrice = Integer.parseInt(textViewNineMonths.getText().toString().substring(5));
         } else if (v.getId() == R.id.linearLayoutOneYear) {
             linearLayoutThreeMonths.setBackgroundTintList(null);
             linearLayoutSixMonths.setBackgroundTintList(null);
             linearLayoutNineMonths.setBackgroundTintList(null);
             linearLayoutOneYear.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.orange_bright)));
 
-            subscriptionPrice = Integer.parseInt(textViewOneYear.getText().toString().substring(4));
+            subscriptionPrice = Integer.parseInt(textViewOneYear.getText().toString().substring(5));
         } else if (v.getId() == R.id.buttonMakePayment) {
             // Show bottom sheet
             showBottomSheet();

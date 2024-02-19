@@ -106,6 +106,8 @@ public class DoctrineActivity extends AppCompatActivity implements View.OnClickL
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
+
+        getDataFromSQLite();
     }
 
     private void initListeners() {

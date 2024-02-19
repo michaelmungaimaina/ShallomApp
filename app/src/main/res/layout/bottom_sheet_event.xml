@@ -7,8 +7,8 @@
     android:id="@+id/bottomSheetContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bottom_sheet_background"
-    android:backgroundTint="#37070707"
+    android:background="@drawable/bottom_sheet_background_b"
+    android:backgroundTint="#8D070707"
     android:backgroundTintMode="src_atop"
     android:orientation="vertical"
     android:gravity="center_horizontal">
@@ -41,17 +41,19 @@
         android:textColorHint="@color/grey_350"
         android:hint="@string/event_title_hint"
         android:layout_marginTop="@dimen/margin_top"
-        style="@style/OutlinedRoundedBox">
+        style="@style/OutlinedRoundedBox"
+        android:background="@drawable/round_corner_toggle_less">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textInputEditTextEventTitle"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textStyle="italic"
+            android:layout_height="48dp"
+            android:textStyle="normal"
             android:inputType="text"
+            android:textColor="@color/black"
             android:fontFamily="@font/ibmplexsanshebrew_regular"
             android:textSize="14sp"
-            android:background="@drawable/round_corner_toggle_less"/>
+            android:background="@color/transparent"/>
     </com.google.android.material.textfield.TextInputLayout>
     <TextView
         android:layout_width="310dp"
@@ -70,17 +72,19 @@
         android:textColorHint="@color/grey_350"
         android:hint="@string/event_location_hint"
         android:layout_marginTop="@dimen/margin_top"
-        style="@style/OutlinedRoundedBox">
+        style="@style/OutlinedRoundedBox"
+        android:background="@drawable/round_corner_toggle_less">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textInputEditTextEventLocation"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textStyle="italic"
+            android:layout_height="48dp"
+            android:textStyle="normal"
             android:inputType="text"
+            android:textColor="@color/black"
             android:fontFamily="@font/ibmplexsanshebrew_regular"
             android:textSize="14sp"
-            android:background="@drawable/round_corner_toggle_less"/>
+            android:background="@color/transparent"/>
     </com.google.android.material.textfield.TextInputLayout>
     <TextView
         android:layout_width="310dp"
@@ -99,18 +103,22 @@
         android:textColorHint="@color/grey_350"
         android:hint="@string/event_description_hint"
         android:layout_marginTop="@dimen/margin_top"
-        style="@style/OutlinedRoundedBox">
+        style="@style/OutlinedRoundedBox"
+        android:background="@drawable/round_corner_toggle_less">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textInputEditTextEventDescription"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textStyle="italic"
-            android:inputType="text"
+            android:layout_height="100dp"
+            android:textStyle="normal"
+            android:inputType="textAutoComplete"
+            android:textColor="@color/black"
+            android:gravity="start"
+            android:minLines="7"
             android:fontFamily="@font/ibmplexsanshebrew_regular"
             android:textSize="14sp"
             android:maxLines="15"
-            android:background="@drawable/round_corner_toggle_less"/>
+            android:background="@color/transparent"/>
     </com.google.android.material.textfield.TextInputLayout>
     <TextView
         android:layout_width="310dp"
@@ -180,6 +188,7 @@
         android:text="@string/submit"
         android:textColor="@color/white"
         android:layout_marginTop="48dp"
+        android:layout_marginBottom="20dp"
         android:textSize="14sp"
         android:fontFamily="@font/ibmplexsanshebrew_medium"
         android:textStyle="bold"/>

@@ -16,9 +16,9 @@
         android:foreground="@drawable/round_rectangle_border"
         app:cardBackgroundColor="@color/transparent"
         app:cardCornerRadius="15dp">
-        <!-- viewpager to show images -->
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/viewPager"
+        <!-- viewflipper to show images -->
+        <ViewFlipper
+            android:id="@+id/viewFlipper"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </androidx.cardview.widget.CardView>
@@ -38,6 +38,7 @@
             android:layout_marginTop="2dp"
             android:layout_marginStart="5dp"/>
         <LinearLayout
+            android:id="@+id/layoutUpcomingEvents"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -67,6 +68,7 @@
                 android:textStyle="bold" />
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/layoutPastEvents"
             android:layout_alignParentEnd="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -119,7 +121,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewAnnouncements"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginTop="5dp"
@@ -140,6 +142,22 @@
             android:textColorHint="@color/grey"
             android:textSize="@dimen/header_text_size"
             android:textStyle="bold" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabEvent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|start"
+            android:layout_marginEnd="@dimen/margin_view_start"
+            android:layout_marginBottom="70dp"
+            android:backgroundTint="@color/green_dark"
+            android:tintMode="src_atop"
+            app:maxImageSize="50dp"
+            app:srcCompat="@drawable/ic_add_green"
+            app:elevation="0dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignBottom="@+id/recyclerViewAnnouncements"
+            android:contentDescription="@string/new_event" />
+
 
     </RelativeLayout>
 </androidx.appcompat.widget.LinearLayoutCompat>

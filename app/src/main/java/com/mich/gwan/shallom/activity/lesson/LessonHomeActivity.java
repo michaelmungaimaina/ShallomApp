@@ -79,6 +79,7 @@ public class LessonHomeActivity extends AppCompatActivity implements View.OnClic
         initObjects();
         initListeners();
 
+        getDataFromSQLite();
         // Sets the status bar color to the specified color
         int statusBarColor = ContextCompat.getColor(this, R.color.layout_tint);
         Window window = this.getWindow();
@@ -108,7 +109,13 @@ public class LessonHomeActivity extends AppCompatActivity implements View.OnClic
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
 
+        list = databaseHelper.getLessonQuarter();
+        adapter.updateList(list);
+        adapter.notifyDataSetChanged();
+
         getDataFromSQLite();
+
+        System.out.println(list.get(0).getQuarterYear());
     }
 
     private void initListeners() {
@@ -138,7 +145,7 @@ public class LessonHomeActivity extends AppCompatActivity implements View.OnClic
                     public void onClick(View view, int position) {
                         Intent intent = new Intent(view.getContext(), LessonDaySummary.class);
                         intent.putExtra("YEAR", list.get(position).getQuarterYear());
-                        intent.putExtra("QUARTER_ID", list.get(position).getQuarterId());
+                        intent.putExtra("QUARTER_ID", String.valueOf(list.get(position).getQuarterId()));
                         intent.putExtra("QUARTER", "NULL");
                         startActivity(intent);
                     }
@@ -153,7 +160,7 @@ public class LessonHomeActivity extends AppCompatActivity implements View.OnClic
     void filter(String text){
         List<LessonQuarter> temp = new ArrayList<>();
         for(LessonQuarter item: list){
-            //or use .equal(text) with you want equal match
+            //or use .equal(text) if you want equal match
             //use .toLowerCase() for better matches
             if(item.getQuarterYear().contains(text.toUpperCase())){
                 temp.add(item);
@@ -176,11 +183,13 @@ public class LessonHomeActivity extends AppCompatActivity implements View.OnClic
             } else {
                 isVisible = false;
                 enableFilterMode();
+                filterEditText.setText("");
                 searchIcon.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_search_green));
                 InputMethodManager imm = (InputMethodManager) getApplicationContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
                 imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
                 adapter.updateList(list);
             }
+            getDataFromSQLite();
 
         } else if (v.getId() == R.id.backIcon) {
             finishAffinity();

@@ -37,13 +37,13 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
 
     @NonNull
     @Override
-    public QuestionAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public QuestionAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // inflating recycler item view
         RecyclerLessonQuestionsBinding binding = RecyclerLessonQuestionsBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
 
         context = parent.getContext();
 
-        return new QuestionAdapter.ViewHolder(binding);
+        return new ViewHolder(binding);
     }
 
     @Override

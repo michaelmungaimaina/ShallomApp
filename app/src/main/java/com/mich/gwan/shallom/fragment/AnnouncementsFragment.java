@@ -2,39 +2,37 @@ package com.mich.gwan.shallom.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
+import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mich.gwan.shallom.R;
 import com.mich.gwan.shallom.adapter.EventAdapter;
-import com.mich.gwan.shallom.adapter.ImagePagerAdapter;
 import com.mich.gwan.shallom.dao.DatabaseHelper;
+import com.mich.gwan.shallom.databinding.BottomSheetActionBinding;
+import com.mich.gwan.shallom.databinding.BottomSheetEventBinding;
 import com.mich.gwan.shallom.databinding.FragmentAnnouncementsBinding;
 import com.mich.gwan.shallom.helper.InputValidation;
 import com.mich.gwan.shallom.helper.RecyclerTouchListener;
@@ -46,14 +44,11 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.atomic.AtomicReference;
 
-public class AnnouncementsFragment extends Fragment implements View.OnClickListener{
+public class AnnouncementsFragment extends Fragment {
     private FragmentAnnouncementsBinding binding;
 
-    private ViewPager viewPager;
+    private ViewFlipper viewFlipper;
 
     private RecyclerView eventsRecycler;
 
@@ -62,6 +57,11 @@ public class AnnouncementsFragment extends Fragment implements View.OnClickListe
     private TextView textViewPastEvents;
     private TextView textViewVertLine1;
     private TextView textViewVertLine2;
+
+    private FloatingActionButton fabEvent;
+
+    private LinearLayout pastEvents;
+    private LinearLayout upcomingEvents;
 
     private InputValidation inputValidation;
 
@@ -84,8 +84,7 @@ public class AnnouncementsFragment extends Fragment implements View.OnClickListe
     private int[] images = {R.drawable.ic_ministry_green, R.drawable.ic_group_green, R.drawable.ic_sermon_green}; // Add your image resources here
     private String[] urls = {"https://www.example1.com", "https://www.example2.com", "https://www.example3.com"}; // URLs corresponding to each image
     private int currentPosition = 0;
-    private Handler handler;
-    private Runnable updateRunnable;
+
 
     /** Accessing context **/
     @Override
@@ -94,106 +93,48 @@ public class AnnouncementsFragment extends Fragment implements View.OnClickListe
         context = mContext;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         binding = FragmentAnnouncementsBinding.inflate(inflater, container, false);
 
         // Initializes views, listeners, and objects using helper methods
         initViews();
-        initListeners();
         initObjects();
 
-        startImageChangeTimer();
         return binding.getRoot();
     }
 
     /**
      * Initializes views and sets up recyclerview event listeners.
      */
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void initViews() {
-        viewPager = binding.viewPager;
+        viewFlipper = binding.viewFlipper;
         eventsRecycler = binding.recyclerViewAnnouncements;
         textViewEmptyEvents = binding.textViewEmptyEvents;
         textViewUpcomingEvents = binding.textViewUpcomingEvents;
-        textViewPastEvents = binding.textViewEmptyEvents;
+        textViewPastEvents = binding.textViewPastEvent;
         textViewVertLine1 = binding.verticalLine1;
         textViewVertLine2 = binding.verticalLine2;
+        pastEvents = binding.layoutPastEvents;
+        upcomingEvents = binding.layoutUpcomingEvents;
+        fabEvent = binding.fabEvent;
 
-        eventsRecycler.addOnItemTouchListener(new RecyclerTouchListener(context, eventsRecycler,
-                new RecyclerTouchListener.ClickListener() {
-            @Override
-            public void onClick(View view, final int position) {
-            }
+        // show flipper images
+        for (int image : images) {
+            setFlipperImage(image);
+        }
 
-            @Override
-            public void onLongClick(View view, int position) {
-                showActionsBottomSheet(position);
-            }
-        }));
-
-        viewPager.setAdapter(new ImagePagerAdapter(context, images, urls));
-
-        /** Start a timer to change images every 5 seconds
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                new Handler(Looper.getMainLooper()).post(new Runnable() {
-                    @Override
-                    public void run() {
-                        currentPosition = (currentPosition + 1) % images.length;
-                        viewPager.setCurrentItem(currentPosition, true);
-                    }
-                });
-            }
-        }, 0, 5000);
-    }**/
+        handleOnClick();
     }
 
-
-    // Method to start updating images
-    private void startImageChangeTimer() {
-        Handler handler = new Handler(Looper.getMainLooper());
-        Runnable updateRunnable = new Runnable() {
-            @Override
-            public void run() {
-                currentPosition = (currentPosition + 1) % images.length;
-                // Update adapter's data without resetting it
-                viewPager.setCurrentItem(images[currentPosition], true);
-                // Post the same runnable again after 5 seconds
-                handler.postDelayed(this, 5000);
-            }
-        };
-        // Start the runnable
-        handler.postDelayed(updateRunnable, 5000);
-    }
-    private void handleImages(){
-        // Define a handler
-        handler = new Handler(Looper.getMainLooper());
-
-        // Define a runnable to update the current item
-        updateRunnable = new Runnable() {
-            @Override
-            public void run() {
-                currentPosition = (currentPosition + 1) % images.length;
-                viewPager.setCurrentItem(currentPosition, true);
-                // Post the same runnable again after 5 seconds
-                handler.postDelayed(this, 5000);
-            }
-        };
-
-        // Start the runnable
-        handler.postDelayed(updateRunnable, 5000);
-    }
-
-    @Override
-    public void onDestroy(){
-        super.onDestroy();
-        handler.removeCallbacks(updateRunnable);
-    }
-
-    private void initListeners() {
-        textViewUpcomingEvents.setOnClickListener(this);
-        textViewPastEvents.setOnClickListener(this);
+    private void setFlipperImage(int res){
+        Log.i("Set Flipper called ", res + " ");
+        ImageView imageView = new ImageView(getContext());
+        imageView.setBackgroundResource(res);
+        viewFlipper.addView(imageView);
+        viewFlipper.setFlipInterval(5000);
+        viewFlipper.setAutoStart(true);
     }
 
     private void initObjects() {
@@ -210,25 +151,56 @@ public class AnnouncementsFragment extends Fragment implements View.OnClickListe
         eventsRecycler.setAdapter(adapter);
 
         getDataFromSQLite();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            showUpcomingEvents();
+            adapter.notifyDataSetChanged();
+        }
+
+        toggleEmptyList();
     }
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.textViewUpcomingEvents){
+    private void handleOnClick() {
+        upcomingEvents.setOnClickListener(view -> {
             showUpcomingEvents();
             textViewVertLine1.setBackgroundColor(ContextCompat.getColor(context, R.color.green_bright));
             textViewVertLine2.setBackgroundColor(ContextCompat.getColor(context, R.color.green_700));
             textViewUpcomingEvents.setTextColor(ContextCompat.getColor(context, R.color.white));
             textViewPastEvents.setTextColor(ContextCompat.getColor(context, R.color.green_700));
-        } else if (v.getId() == R.id.textViewPastEvent) {
+            System.out.println("Element clicked");
+            toggleEmptyList();
+        });
+        pastEvents.setOnClickListener(view -> {
             showPastEvents();
             textViewVertLine1.setBackgroundColor(ContextCompat.getColor(context, R.color.green_700));
             textViewVertLine2.setBackgroundColor(ContextCompat.getColor(context, R.color.green_bright));
             textViewUpcomingEvents.setTextColor(ContextCompat.getColor(context, R.color.green_700));
             textViewPastEvents.setTextColor(ContextCompat.getColor(context, R.color.white));
-        }
+            System.out.println("Element clicked");
+            toggleEmptyList();
+        });
+
+        // recyclerview click events
+        eventsRecycler.addOnItemTouchListener(new RecyclerTouchListener(context, eventsRecycler,
+                new RecyclerTouchListener.ClickListener() {
+                    @Override
+                    public void onClick(View view, final int position) {
+                        System.out.println(controllist.get(position).getEventEndDate().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli() + "  " +
+                                "  " + System.currentTimeMillis());
+                    }
+
+                    @Override
+                    public void onLongClick(View view, int position) {
+                        showActionsBottomSheet(position);
+                    }
+                }));
+
+        // Add new event
+        fabEvent.setOnClickListener(view -> {
+            showUpdateBottomSheet(false, null, -1);
+        });
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -238,6 +210,7 @@ public class AnnouncementsFragment extends Fragment implements View.OnClickListe
             if (controllist.get(i).getEventEndDate().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli() < System.currentTimeMillis())
                 list.add(controllist.get(i));
         }
+        adapter.notifyDataSetChanged();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -247,6 +220,7 @@ public class AnnouncementsFragment extends Fragment implements View.OnClickListe
             if (controllist.get(i).getEventStartDate().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli() > System.currentTimeMillis())
                 list.add(controllist.get(i));
         }
+        adapter.notifyDataSetChanged();
     }
 
     /**
@@ -288,35 +262,30 @@ public class AnnouncementsFragment extends Fragment implements View.OnClickListe
      * @param position The position of the selected item in the list.
      */
     private void showActionsBottomSheet(final int position) {
-        // Create a BottomSheetDialogFragment
-        BottomSheetDialogFragment bottomSheetDialogFragment = new BottomSheetDialogFragment() {
-            @NonNull
-            @Override
-            public Dialog onCreateDialog(Bundle savedInstanceState) {
-                // Create an array of action labels
-                CharSequence[] actions = new CharSequence[]{"Edit", "Delete"};
+                @SuppressLint("PrivateResource") final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context,
+                        com.google.android.material.R.style.Base_V14_ThemeOverlay_MaterialComponents_BottomSheetDialog);
+                BottomSheetActionBinding actionBinding = BottomSheetActionBinding.inflate(getLayoutInflater());
+                bottomSheetDialog.setContentView(actionBinding.getRoot());
 
-                // Create a dialog builder
-                AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-                builder.setTitle("Choose Action");
-                builder.setItems(actions, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (which == 0) {
-                            // Edit action selected
-                            showNoteDialog(true, list.get(position), position);
-                        } else {
-                            // Delete action selected
-                            deleteValue(position);
-                        }
+                final TextView update = actionBinding.textViewUpdate;
+                final TextView delete = actionBinding.textViewDelete;
+
+                update.setOnClickListener(view -> {
+                    // Edit action selected
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        showUpdateBottomSheet(true, list.get(position), position);
                     }
                 });
-                return builder.create();
-            }
-        };
 
-        // Show the bottom sheet dialog fragment
-        bottomSheetDialogFragment.show(getParentFragmentManager(), bottomSheetDialogFragment.getTag());
+                delete.setOnClickListener(view -> {
+                    // Delete action selected
+                    deleteValue(position);
+                });
+
+                bottomSheetDialog.setCancelable(true);
+                bottomSheetDialog.setCanceledOnTouchOutside(true);
+                bottomSheetDialog.setDismissWithAnimation(true);
+                bottomSheetDialog.show();
     }
 
 
@@ -341,18 +310,20 @@ public class AnnouncementsFragment extends Fragment implements View.OnClickListe
      * when shouldUpdate=true, it automatically displays old note and changes the
      * button text to UPDATE
      */
-    private void showNoteDialog(final boolean shouldUpdate, final Event event, final int position){
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void showUpdateBottomSheet(final boolean shouldUpdate, final Event event, final int position){
         @SuppressLint("PrivateResource") final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context,
                 com.google.android.material.R.style.Base_V14_ThemeOverlay_MaterialComponents_BottomSheetDialog);
-        @SuppressLint("InflateParams") View bottomSheetView  = LayoutInflater.from(context.getApplicationContext()).inflate(R.layout.bottom_sheet_event,null);
+        BottomSheetEventBinding eventBinding = BottomSheetEventBinding.inflate(getLayoutInflater());
+        bottomSheetDialog.setContentView(eventBinding.getRoot());
 
-        final EditText eventTitle = bottomSheetView.findViewById(R.id.textInputEditTextEventTitle);
-        final EditText eventLocation = bottomSheetView.findViewById(R.id.textInputEditTextEventLocation);
-        final EditText eventDescription = bottomSheetView.findViewById(R.id.textInputEditTextEventDescription);
-        final TextView startDate = bottomSheetView.findViewById(R.id.textViewStartDate);
-        final TextView endDate = bottomSheetView.findViewById(R.id.textViewEndDate);
-        final TextView headerText = bottomSheetView.findViewById(R.id.textViewTitle);
-        final AppCompatButton submitButton = bottomSheetView.findViewById(R.id.submitButton);
+        final EditText eventTitle = eventBinding.textInputEditTextEventTitle;
+        final EditText eventLocation = eventBinding.textInputEditTextEventLocation;
+        final EditText eventDescription = eventBinding.textInputEditTextEventDescription;
+        final TextView startDate = eventBinding.textViewStartDate;
+        final TextView endDate = eventBinding.textViewEndDate;
+        final TextView headerText = eventBinding.textViewTitle;
+        final AppCompatButton submitButton = eventBinding.submitButton;
 
         headerText.setText(!shouldUpdate ? getString(R.string.event_registration) : getString(R.string.event_update));
 
@@ -366,107 +337,96 @@ public class AnnouncementsFragment extends Fragment implements View.OnClickListe
         }
 
         submitButton.setText(shouldUpdate ? getString(R.string.update) : getString(R.string.submit));
-        startDate.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
-            @Override
-            public void onClick(View v) {
-                final Calendar c = Calendar.getInstance();
-                int mYear = c.get(Calendar.YEAR);
-                int mMonth = c.get(Calendar.MONTH);
-                int mDay = c.get(Calendar.DAY_OF_MONTH);
+        startDate.setOnClickListener(v -> {
+            final Calendar c = Calendar.getInstance();
+            int mYear = c.get(Calendar.YEAR);
+            int mMonth = c.get(Calendar.MONTH);
+            int mDay = c.get(Calendar.DAY_OF_MONTH);
 
-                datePickerDialog = new DatePickerDialog(context, R.style.CustomDatePickerDialogTheme, (view, year, month, dayOfMonth) -> {
-                    localStartDate = LocalDateTime.of(year,month,dayOfMonth - 1,18, 0);
-                    if (dayOfMonth < 10 && month < 9 ){
-                        String strDate = year + "-0" + (month + 1) + "-0" + dayOfMonth;
-                        startDate.setText(strDate);
-                    }
-                    if (dayOfMonth < 10 && month >= 9){
-                        String strDate = year + "-" + (month + 1) + "-0" + dayOfMonth;
-                        startDate.setText(strDate);
-                    }
-                    if (dayOfMonth >= 10 && month < 9){
-                        String strDate = year + "-0" + (month + 1) + "-" + dayOfMonth;
-                        startDate.setText(strDate);
-                    }
-                    if (dayOfMonth >= 10 && month >= 9){
-                        String strDate = year + "-" + (month + 1) + "-" + dayOfMonth;
-                        startDate.setText(strDate);
-                    }
-                }, mYear, mMonth, mDay);
-                datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis() + (365L * 24 * 60 * 60 * 1000));
-                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
-                datePickerDialog.show();
-            }
-        });
-
-        endDate.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
-            @Override
-            public void onClick(View v) {
-                final Calendar c = Calendar.getInstance();
-                int mYear = c.get(Calendar.YEAR);
-                int mMonth = c.get(Calendar.MONTH);
-                int mDay = c.get(Calendar.DAY_OF_MONTH);
-
-                datePickerDialog = new DatePickerDialog(context, R.style.CustomDatePickerDialogTheme, (view, year, month, dayOfMonth) -> {
-                    localEndDate = LocalDateTime.of(year,month,dayOfMonth,18, 0);
-                    if (dayOfMonth < 10 && month < 9 ){
-                        String strDate = year + "-0" + (month + 1) + "-0" + dayOfMonth;
-                        endDate.setText(strDate);
-                    }
-                    if (dayOfMonth < 10 && month >= 9){
-                        String strDate = year + "-" + (month + 1) + "-0" + dayOfMonth;
-                        endDate.setText(strDate);
-                    }
-                    if (dayOfMonth >= 10 && month < 9){
-                        String strDate = year + "-0" + (month + 1) + "-" + dayOfMonth;
-                        endDate.setText(strDate);
-                    }
-                    if (dayOfMonth >= 10 && month >= 9){
-                        String strDate = year + "-" + (month + 1) + "-" + dayOfMonth;
-                        endDate.setText(strDate);
-                    }
-                }, mYear, mMonth, mDay);
-                datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis() + (365L * 24 * 60 * 60 * 1000));
-                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
-                datePickerDialog.show();
-            }
-        });
-
-        submitButton.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
-            @Override
-            public void onClick(View v) {
-                // Show error message when no text is entered
-                if (!inputValidation.isEditTextOccupied(eventTitle, getString(R.string.enter_event_title)))
-                    return;
-                if (!inputValidation.isEditTextOccupied(eventLocation, getString(R.string.enter_event_location)))
-                    return;
-                if (!inputValidation.isEditTextOccupied(eventDescription, getString(R.string.enter_event_description)))
-                    return;
-                if (startDate.getText().toString().isEmpty())
-                    return;
-                if (endDate.getText().toString().isEmpty())
-                    return;
-
-                // check if user is updating values
-                if (shouldUpdate && event != null) {
-                    // update values by it's position
-                    updateValue(eventLocation.getText().toString().toUpperCase(), eventTitle.getText().toString().toUpperCase(),
-                            eventDescription.getText().toString().toUpperCase(), String.valueOf(localStartDate),
-                            String.valueOf(localEndDate), position);
-                    Toast.makeText(context,getString(R.string.event_update_success),Toast.LENGTH_SHORT).show();
-                } else {
-                    // create new note
-                    insertValue(eventTitle.getText().toString().toUpperCase(), eventLocation.getText().toString().toUpperCase(),
-                            eventDescription.getText().toString().toUpperCase(), String.valueOf(localStartDate),
-                            String.valueOf(localEndDate));
-                    Toast.makeText(context,getString(R.string.event_registration_success),Toast.LENGTH_SHORT).show();
+            datePickerDialog = new DatePickerDialog(context, R.style.CustomDatePickerDialogTheme, (view, year, month, dayOfMonth) -> {
+                localStartDate = LocalDateTime.of(year,month,dayOfMonth - 1,18, 0);
+                if (dayOfMonth < 10 && month < 9 ){
+                    String strDate = year + "-0" + (month + 1) + "-0" + dayOfMonth;
+                    startDate.setText(strDate);
                 }
-                bottomSheetDialog.dismiss();
-            }
+                if (dayOfMonth < 10 && month >= 9){
+                    String strDate = year + "-" + (month + 1) + "-0" + dayOfMonth;
+                    startDate.setText(strDate);
+                }
+                if (dayOfMonth >= 10 && month < 9){
+                    String strDate = year + "-0" + (month + 1) + "-" + dayOfMonth;
+                    startDate.setText(strDate);
+                }
+                if (dayOfMonth >= 10 && month >= 9){
+                    String strDate = year + "-" + (month + 1) + "-" + dayOfMonth;
+                    startDate.setText(strDate);
+                }
+            }, mYear, mMonth, mDay);
+            datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis() + (365L * 24 * 60 * 60 * 1000));
+            datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
+            datePickerDialog.show();
         });
+
+        endDate.setOnClickListener(v -> {
+            final Calendar c = Calendar.getInstance();
+            int mYear = c.get(Calendar.YEAR);
+            int mMonth = c.get(Calendar.MONTH);
+            int mDay = c.get(Calendar.DAY_OF_MONTH);
+
+            datePickerDialog = new DatePickerDialog(context, R.style.CustomDatePickerDialogTheme, (view, year, month, dayOfMonth) -> {
+                localEndDate = LocalDateTime.of(year,month,dayOfMonth,18, 0);
+                if (dayOfMonth < 10 && month < 9 ){
+                    String strDate = year + "-0" + (month + 1) + "-0" + dayOfMonth;
+                    endDate.setText(strDate);
+                }
+                if (dayOfMonth < 10 && month >= 9){
+                    String strDate = year + "-" + (month + 1) + "-0" + dayOfMonth;
+                    endDate.setText(strDate);
+                }
+                if (dayOfMonth >= 10 && month < 9){
+                    String strDate = year + "-0" + (month + 1) + "-" + dayOfMonth;
+                    endDate.setText(strDate);
+                }
+                if (dayOfMonth >= 10 && month >= 9){
+                    String strDate = year + "-" + (month + 1) + "-" + dayOfMonth;
+                    endDate.setText(strDate);
+                }
+            }, mYear, mMonth, mDay);
+            datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis() + (365L * 24 * 60 * 60 * 1000));
+            datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
+            datePickerDialog.show();
+        });
+
+        submitButton.setOnClickListener(v -> {
+            // Show error message when no text is entered
+            if (!inputValidation.isEditTextOccupied(eventTitle, getString(R.string.enter_event_title)))
+                return;
+            if (!inputValidation.isEditTextOccupied(eventLocation, getString(R.string.enter_event_location)))
+                return;
+            if (!inputValidation.isEditTextOccupied(eventDescription, getString(R.string.enter_event_description)))
+                return;
+            if (startDate.getText().toString().isEmpty())
+                return;
+            if (endDate.getText().toString().isEmpty())
+                return;
+
+            // check if user is updating values
+            if (shouldUpdate && event != null) {
+                // update values by it's position
+                updateValue(eventLocation.getText().toString().toUpperCase(), eventTitle.getText().toString().toUpperCase(),
+                        eventDescription.getText().toString().toUpperCase(), String.valueOf(localStartDate),
+                        String.valueOf(localEndDate), position);
+                Toast.makeText(context,getString(R.string.event_update_success),Toast.LENGTH_SHORT).show();
+            } else {
+                // create new note
+                insertValue(eventTitle.getText().toString().toUpperCase(), eventLocation.getText().toString().toUpperCase(),
+                        eventDescription.getText().toString().toUpperCase(), String.valueOf(localStartDate),
+                        String.valueOf(localEndDate));
+                Toast.makeText(context,getString(R.string.event_registration_success),Toast.LENGTH_SHORT).show();
+            }
+            bottomSheetDialog.dismiss();
+        });
+        bottomSheetDialog.setDismissWithAnimation(true);
         bottomSheetDialog.show();
     }
 
@@ -525,7 +485,7 @@ public class AnnouncementsFragment extends Fragment implements View.OnClickListe
      */
     private void toggleEmptyList() {
         // check list.size() > 0
-        if (databaseHelper.getEventCount())
+        if (!databaseHelper.getEventCount())
             textViewEmptyEvents.setVisibility(View.GONE);
         else
             textViewEmptyEvents.setVisibility(View.VISIBLE);

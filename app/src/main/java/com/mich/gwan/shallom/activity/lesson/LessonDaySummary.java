@@ -113,12 +113,13 @@ public class LessonDaySummary extends AppCompatActivity implements View.OnClickL
         intent = getIntent();
         year = intent.getStringExtra("YEAR");
         quarter = intent.getStringExtra("QUARTER");
-        quarterId = intent.getStringExtra("QUARTER_ID");
+        quarterId = String.valueOf(intent.getStringExtra("QUARTER_ID"));
         databaseHelper = new DatabaseHelper(this);
         inputValidation = new InputValidation(this);
         list = new ArrayList<>();
         middleText.setText(year);
 
+        // Set the active quarter
         if (!quarter.equals("NULL")) {
             updateView(firstQuarter, quarter);
             updateView(secondQuarter, quarter);
@@ -126,9 +127,15 @@ public class LessonDaySummary extends AppCompatActivity implements View.OnClickL
             updateView(lastQuarter, quarter);
         }
 
+        System.out.println(quarterId);
+        System.out.println(quarter);
+        list = databaseHelper.getLessonWeek(Integer.parseInt(quarterId));
         getDataFromSQLite();
         mainList = getList("ENGLISH");
         adapter = new LessonSermonAdapter(mainList);
+
+        System.out.println(list.get(0).getLessonDate());
+        System.out.println(mainList.get(0).getLessonDate());
 
         LinearLayoutManager myLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(myLayoutManager);

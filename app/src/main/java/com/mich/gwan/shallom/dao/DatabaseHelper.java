@@ -1125,27 +1125,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     @SuppressLint("Range")
     public List<LessonQuarter> getLessonQuarter(){
-        String[] columns = {"*"};
+        String[] columns = {"DISTINCT " + COLUMN_LESSON_QUARTER_YEAR};
         String sortOrder = COLUMN_LESSON_QUARTER_ID + " DESC";
+
+        String query = "SELECT DISTINCT " + COLUMN_LESSON_QUARTER_YEAR + " FROM " + TABLE_LESSON_QUARTER + " ORDER BY " + COLUMN_LESSON_QUARTER_ID + " DESC";
 
         List<LessonQuarter> list = new ArrayList<>();
 
         SQLiteDatabase db = this.getWritableDatabase();
 
+        //Cursor cursor = db.rawQuery(query, null);
+
         Cursor cursor = db.query(TABLE_LESSON_QUARTER, columns, null, null ,null, null, sortOrder);
         if (cursor.moveToFirst()){
             do {
                 LessonQuarter par = new LessonQuarter();
-                par.setQuarterId(cursor.getInt(cursor.getColumnIndex(COLUMN_LESSON_QUARTER_ID)));
+                //par.setQuarterId(cursor.getInt(cursor.getColumnIndex(COLUMN_LESSON_QUARTER_ID)));
                 par.setQuarterYear(cursor.getString(cursor.getColumnIndex(COLUMN_LESSON_QUARTER_YEAR)));
-                par.setQuarterQuarter(cursor.getString(cursor.getColumnIndex(COLUMN_LESSON_QUARTER_MONTH)));
-                par.setRegistrationDate(cursor.getString(cursor.getColumnIndex(COLUMN_LESSON_QUARTER_REG_DATE)));
-                par.setRegisteredBy(cursor.getString(cursor.getColumnIndex(COLUMN_LESSON_QUARTER_REG_BY)));
+                //par.setQuarterQuarter(cursor.getString(cursor.getColumnIndex(COLUMN_LESSON_QUARTER_MONTH)));
+                //par.setRegistrationDate(cursor.getString(cursor.getColumnIndex(COLUMN_LESSON_QUARTER_REG_DATE)));
+                //par.setRegisteredBy(cursor.getString(cursor.getColumnIndex(COLUMN_LESSON_QUARTER_REG_BY)));
 
                 list.add(par);
             } while (cursor.moveToNext());
         }
         cursor.close();
+        db.close();
         return list;
     }
 

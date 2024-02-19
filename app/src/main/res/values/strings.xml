@@ -76,10 +76,10 @@
     <string name="manage_requests">Manage Request(s)</string>
     <string name="admin_panel">ADMIN PANEL</string>
     <string name="year_range">2023 – 2024</string>
-    <string name="last_quarter">JAN - MAR</string>
-    <string name="third_quarter">OCT - DEC</string>
-    <string name="second_quarter">JUL - SEP</string>
-    <string name="first_quarter">APR - JUN</string>
+    <string name="last_quarter">JAN-MAR</string>
+    <string name="third_quarter">OCT-DEC</string>
+    <string name="second_quarter">JUL-SEP</string>
+    <string name="first_quarter">APR-JUN</string>
     <string name="scripture_reading">Scripture Reading</string>
     <string name="memory_verse">Memory Verse</string>
     <string name="explanation"><u>Explanation</u></string>
@@ -138,9 +138,9 @@
     <string name="upcoming_events">Upcoming Events</string>
     <string name="event_title">Title of event</string>
     <string name="event_location_small">Location</string>
-    <string name="event_location_hint">Kiambu, Karigoini</string>
-    <string name="event_title_hint">Pessach Festivity</string>
-    <string name="event_description_hint">We celebrate pessach for eight days.</string>
+    <string name="event_location_hint">Event location</string>
+    <string name="event_title_hint">Input  Event Title</string>
+    <string name="event_description_hint">A description of the event</string>
     <string name="event_start_date">Start date</string>
     <string name="event_end_date">End date</string>
     <string name="submit">SUBMIT</string>
@@ -202,4 +202,14 @@
     <string name="mewak">MEWAK</string>
     <string name="cogmea">COGMEA</string>
     <string name="already_favourite">Already a fouvourite!</string>
+    <string name="secs">Secs</string>
+    <string name="choose_action">Choose Action</string>
+    <string name="action_delete">DELETE</string>
+    <string name="action_update">UPDATE</string>
+    <string name="new_event">New Event</string>
+    <string name="good_night">GOOD NIGHT!</string>
+    <string name="good_evening">GOOD EVENING!</string>
+    <string name="good_afternoon">GOOD AFTERNOON!</string>
+    <string name="good_morning">GOOD MORNING!</string>
+    <string name="already_at_home">Home is active!</string>
 </resources>

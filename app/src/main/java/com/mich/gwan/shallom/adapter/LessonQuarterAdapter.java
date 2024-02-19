@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -28,6 +29,7 @@ import com.mich.gwan.shallom.R;
 import com.mich.gwan.shallom.activity.lesson.LessonDaySummary;
 import com.mich.gwan.shallom.activity.lesson.LessonHomeActivity;
 import com.mich.gwan.shallom.dao.DatabaseHelper;
+import com.mich.gwan.shallom.databinding.RecyclerBibleLessonBinding;
 import com.mich.gwan.shallom.fragment.AnnouncementsFragment;
 import com.mich.gwan.shallom.helper.RecyclerTouchListener;
 import com.mich.gwan.shallom.model.Event;
@@ -57,13 +59,12 @@ public class LessonQuarterAdapter extends RecyclerView.Adapter<LessonQuarterAdap
 
     @NonNull
     @Override
-    public LessonQuarterAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public LessonQuarterAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // inflating recycler item view
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.recycler_bible_lesson, parent, false);
+        RecyclerBibleLessonBinding binding = RecyclerBibleLessonBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
         context = parent.getContext();
 
-        return new LessonQuarterAdapter.ViewHolder(itemView);
+        return new ViewHolder(binding);
     }
 
     @Override
@@ -71,11 +72,57 @@ public class LessonQuarterAdapter extends RecyclerView.Adapter<LessonQuarterAdap
         holder.textViewYear.setText(list.get(position).getQuarterYear());
 
         databaseHelper = new DatabaseHelper(context);
-        linearLayoutManager = new LinearLayoutManager(context);
+        //linearLayoutManager = new LinearLayoutManager(context);
         quarterList = databaseHelper.getLessonQuarters(list.get(position).getQuarterYear());
-        adapter = new QuartersAdapter(quarterList);
+        //adapter = new QuartersAdapter(quarterList);
 
-        holder.recyclerView.setLayoutManager(linearLayoutManager);
+        //For debug
+        System.out.println(list.get(position).getQuarterYear());
+        System.out.println(databaseHelper.getLessonQuarterId(list.get(position).getQuarterYear(), holder.textViewLastQ.getText().toString()));
+        System.out.println(holder.textViewLastQ.getText().toString());
+
+        holder.textViewLastQ.setOnClickListener(view -> {
+            for (int i = 0; i < quarterList.size(); i++)
+                if (quarterList.get(i).equals(holder.textViewLastQ.getText().toString())){
+                    Intent intent = new Intent(context, LessonDaySummary.class);
+                    intent.putExtra("YEAR", list.get(position).getQuarterYear());
+                    intent.putExtra("QUARTER_ID", String.valueOf(databaseHelper.getLessonQuarterId(list.get(position).getQuarterYear(), holder.textViewLastQ.getText().toString())));
+                    intent.putExtra("QUARTER", holder.textViewLastQ.getText().toString());
+                    context.startActivity(intent);
+                }
+        });
+        holder.textViewFirstQ.setOnClickListener(view -> {
+            for (int i = 0; i < quarterList.size(); i++)
+                if (quarterList.get(i).equals(holder.textViewFirstQ.getText().toString())){
+                    Intent intent = new Intent(context, LessonDaySummary.class);
+                    intent.putExtra("YEAR", list.get(position).getQuarterYear());
+                    intent.putExtra("QUARTER_ID", String.valueOf(databaseHelper.getLessonQuarterId(list.get(position).getQuarterYear(), holder.textViewLastQ.getText().toString())));
+                    intent.putExtra("QUARTER", holder.textViewFirstQ.getText().toString());
+                    context.startActivity(intent);
+                }
+        });
+        holder.textViewSecondQ.setOnClickListener(view -> {
+            for (int i = 0; i < quarterList.size(); i++)
+                if (quarterList.get(i).equals(holder.textViewSecondQ.getText().toString())){
+                    Intent intent = new Intent(context, LessonDaySummary.class);
+                    intent.putExtra("YEAR", list.get(position).getQuarterYear());
+                    intent.putExtra("QUARTER_ID", String.valueOf(databaseHelper.getLessonQuarterId(list.get(position).getQuarterYear(), holder.textViewLastQ.getText().toString())));
+                    intent.putExtra("QUARTER", holder.textViewSecondQ.getText().toString());
+                    context.startActivity(intent);
+                }
+        });
+        holder.textViewThirdQ.setOnClickListener(view -> {
+            for (int i = 0; i < quarterList.size(); i++)
+                if (quarterList.get(i).equals(holder.textViewThirdQ.getText().toString())){
+                    Intent intent = new Intent(context, LessonDaySummary.class);
+                    intent.putExtra("YEAR", list.get(position).getQuarterYear());
+                    intent.putExtra("QUARTER_ID", String.valueOf(databaseHelper.getLessonQuarterId(list.get(position).getQuarterYear(), holder.textViewLastQ.getText().toString())));
+                    intent.putExtra("QUARTER", holder.textViewThirdQ.getText().toString());
+                    context.startActivity(intent);
+                }
+        });
+
+        /**holder.recyclerView.setLayoutManager(linearLayoutManager);
         holder.recyclerView.setItemAnimator(new DefaultItemAnimator());
         holder.recyclerView.setHasFixedSize(true);
         holder.recyclerView.setAdapter(adapter);
@@ -96,8 +143,7 @@ public class LessonQuarterAdapter extends RecyclerView.Adapter<LessonQuarterAdap
                    public void onLongClick(View view, int position) {
 
                    }
-               }));
-
+               }));**/
 
         holder.itemView.setSelected(index == position);
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
@@ -138,17 +184,25 @@ public class LessonQuarterAdapter extends RecyclerView.Adapter<LessonQuarterAdap
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
         public TextView textViewYear;
-        public RecyclerView recyclerView;
+        public TextView textViewLastQ;
+        public TextView textViewFirstQ;
+        public TextView textViewSecondQ;
+        public TextView textViewThirdQ;
+        public LinearLayout recyclerView;
 
         public ConstraintLayout parentLayout;
         private final LessonHomeActivity activity;
 
-        public ViewHolder(View view){
-            super(view);
-            textViewYear = view.findViewById(R.id.textViewYear);
-            recyclerView = view.findViewById(R.id.recyclerQuarters);
+        public ViewHolder(RecyclerBibleLessonBinding binding){
+            super(binding.getRoot());
+            textViewLastQ = binding.textViewLastQ;
+            textViewFirstQ = binding.textViewFirstQ;
+            textViewSecondQ = binding.textViewSecondQ;
+            textViewThirdQ = binding.textViewThirdQ;
+            textViewYear = binding.textViewYear;
+            recyclerView = binding.recyclerQuarters;
 
-            parentLayout = view.findViewById(R.id.constraintLayoutMain);
+            parentLayout = binding.constraintLayoutMain;
             activity = new LessonHomeActivity();
         }
 

@@ -20,9 +20,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mich.gwan.shallom.R;
+import com.mich.gwan.shallom.databinding.RecyclerEventsBinding;
 import com.mich.gwan.shallom.fragment.AnnouncementsFragment;
 import com.mich.gwan.shallom.model.Event;
 
+import java.text.MessageFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -42,19 +44,18 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
 
     @NonNull
     @Override
-    public EventAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public EventAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // inflating recycler item view
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.recycler_events, parent, false);
+        RecyclerEventsBinding binding = RecyclerEventsBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
         context = parent.getContext();
 
-        return new ViewHolder(itemView);
+        return new ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            holder.textViewEventStartDay.setText(list.get(position).getEventStartDate().format(DateTimeFormatter.ofPattern("DD")));
+            holder.textViewEventStartDay.setText(list.get(position).getEventStartDate().format(DateTimeFormatter.ofPattern("dd")));
             holder.textViewEventStartMonth.setText(list.get(position).getEventStartDate().format(DateTimeFormatter.ofPattern("MMM")));
         }
         holder.textViewLocation.setText(list.get(position).getEventLocation());
@@ -63,7 +64,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
 
         System.currentTimeMillis();
         //long time = list.get(position).getEventStartDate();
-        holder.textViewEventDuration.setText(list.get(position).getEventLocation());
+        holder.textViewEventDuration.setText(MessageFormat.format("Starts on {0} up to {1}", list.get(position).getEventStartDate(), list.get(position).getEventEndDate()));
 
         long targetMillisec = 0;
         // Set target date and time
@@ -78,16 +79,19 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
                 long remainingSeconds = millisUntilFinished / 1000;
 
                 // Calculate remaining days, hours, minutes, and seconds
-                long days = remainingSeconds / (24 * 60 * 60);
-                long hours = (remainingSeconds % (24 * 60 * 60)) / (60 * 60);
-                long minutes = ((remainingSeconds % (24 * 60 * 60)) % (60 * 60)) / 60;
-                long seconds = ((remainingSeconds % (24 * 60 * 60)) % (60 * 60)) % 60;
+                long weeks = remainingSeconds / (7 * 24 * 60 * 60);
+                long days = (remainingSeconds % (7 * 24 * 60 * 60)) / (24 * 60 * 60);
+                long hours = ((remainingSeconds % (7 * 24 * 60 * 60)) % (24 * 60 * 60)) / (60 * 60);
+                long l = ((remainingSeconds % (7 * 24 * 60 * 60)) % (24 * 60 * 60)) % (60 * 60);
+                long minutes = l / 60;
+                long seconds = l % 60;
 
                 // Update TextViews
                 holder.textViewEventWeeks.setText(String.valueOf(days));
                 holder.textViewEventDays.setText(String.valueOf(hours));
                 holder.textViewEventHours.setText(String.valueOf(minutes));
                 holder.textViewEventMinutes.setText(String.valueOf(seconds));
+                holder.textViewEventSeconds.setText(String.valueOf(weeks));
             }
 
             @SuppressLint("SetTextI18n")
@@ -98,6 +102,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
                 holder.textViewEventDays.setText("00");
                 holder.textViewEventHours.setText("00");
                 holder.textViewEventMinutes.setText("00");
+                holder.textViewEventSeconds.setText("00");
             }
         }.start();
 
@@ -124,7 +129,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        Log.v(EventAdapter.class.getSimpleName(),""+list.size());
+        Log.v(EventAdapter.class.getSimpleName()," "+list.size());
         return list.size();
     }
 
@@ -144,22 +149,24 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         public TextView textViewEventDays;
         public TextView textViewEventHours;
         public TextView textViewEventMinutes;
+        public TextView textViewEventSeconds;
         public RelativeLayout parentLayout;
         private final AnnouncementsFragment fragment;
 
-        public ViewHolder(View view){
-            super(view);
-            textViewEventStartDay = view.findViewById(R.id.textViewEventStartDay);
-            textViewEventStartMonth = view.findViewById(R.id.textViewEventStartMonth);
-            textViewLocation = view.findViewById(R.id.textViewLocation);
-            textViewEventName = view.findViewById(R.id.textViewEventName);
-            textViewEventDescription = view.findViewById(R.id.textViewEventDescription);
-            textViewEventDuration = view.findViewById(R.id.textViewEventDuration);
-            textViewEventWeeks = view.findViewById(R.id.textViewWeeks);
-            textViewEventDays = view.findViewById(R.id.textViewDays);
-            textViewEventHours = view.findViewById(R.id.textViewHours);
-            textViewEventMinutes = view.findViewById(R.id.textViewMinutes);
-            parentLayout = view.findViewById(R.id.relativeLayout);
+        public ViewHolder(RecyclerEventsBinding binding){
+            super(binding.getRoot());
+            textViewEventStartDay = binding.textViewEventStartDay;
+            textViewEventStartMonth = binding.textViewEventStartMonth;
+            textViewLocation = binding.textViewEventLocation;
+            textViewEventName = binding.textViewEventName;
+            textViewEventDescription = binding.textViewEventDescription;
+            textViewEventDuration = binding.textViewEventDuration;
+            textViewEventWeeks = binding.textViewWeeks;
+            textViewEventDays = binding.textViewDays;
+            textViewEventHours = binding.textViewHours;
+            textViewEventMinutes = binding.textViewMinutes;
+            parentLayout = binding.relativeLayout;
+            textViewEventSeconds = binding.textViewSeconds;
             fragment = new AnnouncementsFragment();
         }
 
