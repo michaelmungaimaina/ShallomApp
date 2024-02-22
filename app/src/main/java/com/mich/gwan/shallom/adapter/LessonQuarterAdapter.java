@@ -76,9 +76,16 @@ public class LessonQuarterAdapter extends RecyclerView.Adapter<LessonQuarterAdap
         quarterList = databaseHelper.getLessonQuarters(list.get(position).getQuarterYear());
         //adapter = new QuartersAdapter(quarterList);
 
+        String lastQid = String.valueOf(databaseHelper.getLessonQuarterId(list.get(position).getQuarterYear(), holder.textViewLastQ.getText().toString()));
+        String firstQid = String.valueOf(databaseHelper.getLessonQuarterId(list.get(position).getQuarterYear(), holder.textViewFirstQ.getText().toString()));
+        String secondQid = String.valueOf(databaseHelper.getLessonQuarterId(list.get(position).getQuarterYear(), holder.textViewSecondQ.getText().toString()));
+        String thirdQid = String.valueOf(databaseHelper.getLessonQuarterId(list.get(position).getQuarterYear(), holder.textViewThirdQ.getText().toString()));
         //For debug
         System.out.println(list.get(position).getQuarterYear());
-        System.out.println(databaseHelper.getLessonQuarterId(list.get(position).getQuarterYear(), holder.textViewLastQ.getText().toString()));
+        System.out.println(lastQid);
+        System.out.println(firstQid);
+        System.out.println(secondQid);
+        System.out.println(thirdQid);
         System.out.println(holder.textViewLastQ.getText().toString());
 
         holder.textViewLastQ.setOnClickListener(view -> {
@@ -86,7 +93,7 @@ public class LessonQuarterAdapter extends RecyclerView.Adapter<LessonQuarterAdap
                 if (quarterList.get(i).equals(holder.textViewLastQ.getText().toString())){
                     Intent intent = new Intent(context, LessonDaySummary.class);
                     intent.putExtra("YEAR", list.get(position).getQuarterYear());
-                    intent.putExtra("QUARTER_ID", String.valueOf(databaseHelper.getLessonQuarterId(list.get(position).getQuarterYear(), holder.textViewLastQ.getText().toString())));
+                    intent.putExtra("QUARTER_ID", lastQid);
                     intent.putExtra("QUARTER", holder.textViewLastQ.getText().toString());
                     context.startActivity(intent);
                 }
@@ -96,7 +103,7 @@ public class LessonQuarterAdapter extends RecyclerView.Adapter<LessonQuarterAdap
                 if (quarterList.get(i).equals(holder.textViewFirstQ.getText().toString())){
                     Intent intent = new Intent(context, LessonDaySummary.class);
                     intent.putExtra("YEAR", list.get(position).getQuarterYear());
-                    intent.putExtra("QUARTER_ID", String.valueOf(databaseHelper.getLessonQuarterId(list.get(position).getQuarterYear(), holder.textViewLastQ.getText().toString())));
+                    intent.putExtra("QUARTER_ID", firstQid);
                     intent.putExtra("QUARTER", holder.textViewFirstQ.getText().toString());
                     context.startActivity(intent);
                 }
@@ -106,7 +113,7 @@ public class LessonQuarterAdapter extends RecyclerView.Adapter<LessonQuarterAdap
                 if (quarterList.get(i).equals(holder.textViewSecondQ.getText().toString())){
                     Intent intent = new Intent(context, LessonDaySummary.class);
                     intent.putExtra("YEAR", list.get(position).getQuarterYear());
-                    intent.putExtra("QUARTER_ID", String.valueOf(databaseHelper.getLessonQuarterId(list.get(position).getQuarterYear(), holder.textViewLastQ.getText().toString())));
+                    intent.putExtra("QUARTER_ID", secondQid);
                     intent.putExtra("QUARTER", holder.textViewSecondQ.getText().toString());
                     context.startActivity(intent);
                 }
@@ -116,7 +123,7 @@ public class LessonQuarterAdapter extends RecyclerView.Adapter<LessonQuarterAdap
                 if (quarterList.get(i).equals(holder.textViewThirdQ.getText().toString())){
                     Intent intent = new Intent(context, LessonDaySummary.class);
                     intent.putExtra("YEAR", list.get(position).getQuarterYear());
-                    intent.putExtra("QUARTER_ID", String.valueOf(databaseHelper.getLessonQuarterId(list.get(position).getQuarterYear(), holder.textViewLastQ.getText().toString())));
+                    intent.putExtra("QUARTER_ID", thirdQid);
                     intent.putExtra("QUARTER", holder.textViewThirdQ.getText().toString());
                     context.startActivity(intent);
                 }

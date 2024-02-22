@@ -16,7 +16,6 @@ import android.graphics.Bitmap;
 import android.os.Build;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
 
 import com.mich.gwan.shallom.enums.Language;
 import com.mich.gwan.shallom.enums.Preference;
@@ -33,10 +32,8 @@ import com.mich.gwan.shallom.model.User;
 import com.mich.gwan.shallom.utils.ImageUtils;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -1368,6 +1365,35 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return list;
 
+    }
+
+    /**
+     * Checks if a given lesson has existing questions.
+     *
+     * @param weekId The lesson Id to be checked in questions table.
+     * @return true if questions does not exist, false if exists
+     */
+    @SuppressLint("Range")
+    public boolean checkWeekIdInQuestion(String weekId){
+        String[] columns = {"*"};
+        String selection = COLUMN_LESSON_QUESTION_WEEK + " = ?";
+        String[] selectionArgs = {weekId};
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.query(TABLE_LESSON_QUESTION, columns, selection, selectionArgs ,null, null, null);
+        if (cursor != null){
+            try {
+                // returns true if empty
+                cursor.moveToFirst();
+                return cursor.getInt(1) == 0;
+            } catch (CursorIndexOutOfBoundsException e) {
+                return true;
+            } finally {
+                cursor.close();
+            }
+        }
+        return true;
     }
 
     /**

@@ -8,6 +8,7 @@ package com.mich.gwan.shallom.activity.lesson;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
@@ -35,12 +37,15 @@ import com.mich.gwan.shallom.R;
 import com.mich.gwan.shallom.adapter.QuestionAdapter;
 import com.mich.gwan.shallom.dao.DatabaseHelper;
 import com.mich.gwan.shallom.databinding.ActivityBibleLessonQuestionLayoutBinding;
+import com.mich.gwan.shallom.enums.Language;
 import com.mich.gwan.shallom.helper.InputValidation;
 import com.mich.gwan.shallom.helper.RecyclerTouchListener;
 import com.mich.gwan.shallom.model.LessonQuestion;
 import com.mich.gwan.shallom.model.LessonWeek;
 import com.mich.gwan.shallom.service.AsyncTaskExecutorService;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -77,10 +82,12 @@ public class LessonQuestionsActivity extends AppCompatActivity implements View.O
 
     private Intent intent;
     private boolean isVisible = false;
+    private boolean isEnglish = true;
     private String weekId;
     private String lessonTitleText;
     private String lessonDate;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,14 +123,21 @@ public class LessonQuestionsActivity extends AppCompatActivity implements View.O
         memoryVerse = binding.textViewMemoryVerse;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void initObjects() {
         databaseHelper = new DatabaseHelper(this);
         inputValidation = new InputValidation(this);
         intent = getIntent();
-        weekId = intent.getStringExtra("WEEK_ID");
+        weekId = String.valueOf(intent.getStringExtra("WEEK_ID"));
         lessonTitleText = intent.getStringExtra("LESSON_TITLE");
         lessonDate = intent.getStringExtra("LESSON_DATE");
         list = new ArrayList<>();
+
+        middleText.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("MMM, dd yyy")));
+        System.out.println(weekId);
+        System.out.println(lessonDate);
+        System.out.println(lessonTitleText);
+        list = databaseHelper.getLessonQuestion(Integer.parseInt(weekId));
         getDataFromSQLite();
         mainList = getList("ENGLISH");
         adapter = new QuestionAdapter(mainList);
@@ -165,20 +179,41 @@ public class LessonQuestionsActivity extends AppCompatActivity implements View.O
         });
     }
 
+    /**
+     * Updates the values that the user types on the filter edit text to the
+     * adapter if the values match in the active list
+     * @param text The text input from user
+     */
     private void filter(String text){
         List<LessonQuestion> temp = new ArrayList<>();
-        for(LessonQuestion item: mainList){
-            //or use .equal(text) with you want equal match
-            //use .toLowerCase() for better matches
-            if(item.getQuestion().contains(text.toUpperCase()) || item.getQuestionRefBooks().contains(text.toUpperCase()) ||
-                    String.valueOf(item.getQuestionId()).contains(text.toUpperCase())){
-                temp.add(item);
+        if (isEnglish)
+            for (LessonQuestion item : getList(Language.ENGLISH.name())) {
+                //or use .equal(text) with you want equal match
+                //use .toLowerCase() for better matches
+                if (item.getQuestion().toUpperCase().contains(text.toUpperCase()) || item.getQuestionRefBooks().toUpperCase().contains(text.toUpperCase()) ||
+                        String.valueOf(item.getQuestionId()).toUpperCase().contains(text.toUpperCase()) || item.getExplanation().toUpperCase().contains(text.toUpperCase())) {
+                    temp.add(item);
+                }
             }
-        }
+        else
+            for (LessonQuestion item : getList(Language.KISWAHILI.name())) {
+                //or use .equal(text) with you want equal match
+                //use .toLowerCase() for better matches
+                if (item.getQuestion().toUpperCase().contains(text.toUpperCase()) || item.getQuestionRefBooks().toUpperCase().contains(text.toUpperCase()) ||
+                        String.valueOf(item.getQuestionId()).toUpperCase().contains(text.toUpperCase()) || item.getExplanation().toUpperCase().contains(text.toUpperCase())) {
+                    temp.add(item);
+                }
+            }
+
         //update recyclerview
         adapter.updateList(temp);
     }
 
+    /**
+     * The method that switches the display between languages
+     * @param language the language to be switched to
+     * @return a list of the selected language
+     */
     private List<LessonQuestion> getList(String language){
         List<LessonQuestion> temp = new ArrayList<>();
         for (LessonQuestion item : list){
@@ -189,6 +224,10 @@ public class LessonQuestionsActivity extends AppCompatActivity implements View.O
         return temp;
     }
 
+    /**
+     * Handles onClick events for various views
+     * @param v the clicked view
+     */
     @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onClick(View v) {
@@ -197,37 +236,45 @@ public class LessonQuestionsActivity extends AppCompatActivity implements View.O
                 isVisible = true;
                 enableFilterMode();
 
-                updateView(searchIcon, "Filter mode enabled", false);
+                updateView(searchIcon, getString(R.string.enable_filter_mode), false);
             } else {
                 isVisible = false;
                 enableFilterMode();
 
-                updateView(searchIcon, "Filter mode disabled", true);
+                updateView(searchIcon, getString(R.string.disable_filter_mode), true);
             }
 
         } else if (v.getId() == R.id.backIcon) {
-            finishAffinity();
+            finish();
 
         } else if (v.getId() == R.id.textViewKiswahili) {
-            getList("KISWAHILI");
-
+            // Update list with swahili data
+            adapter.updateList(getList(Language.KISWAHILI.name()));
             adapter.notifyDataSetChanged();
 
-            // Set the values of the Textviews
-            lessonTitle.setText(databaseHelper.getLessonTitle(lessonDate, "KISWAHILI"));
-            scriptureReading.setText(databaseHelper.getLessonReading(lessonDate, "KISWAHILI"));
-            memoryVerse.setText(databaseHelper.getLessonMemVerse(lessonDate, "KISWAHILI"));
+            // Update language status
+            isEnglish = false;
+
+            // Set the values of the TextViews
+            lessonTitle.setText(databaseHelper.getLessonTitle(lessonDate, Language.KISWAHILI.name()));
+            scriptureReading.setText(databaseHelper.getLessonReading(lessonDate, Language.KISWAHILI.name()));
+            memoryVerse.setText(databaseHelper.getLessonMemVerse(lessonDate, Language.KISWAHILI.name()));
 
             // Update View
             updateView(swahili, true);
             updateView(english, false);
         } else if (v.getId() == R.id.textViewEnglish) {
-            adapter.updateList(getList("ENGLISH"));
+            // Update list with english data
+            adapter.updateList(getList(Language.ENGLISH.name()));
+            adapter.notifyDataSetChanged();
+
+            // Update language status
+            isEnglish = false;
 
             // Set the values of the text views
             lessonTitle.setText(lessonTitleText);
-            scriptureReading.setText(databaseHelper.getLessonReading(lessonDate, "ENGLISH"));
-            memoryVerse.setText(databaseHelper.getLessonMemVerse(lessonDate, "ENGLISH"));
+            scriptureReading.setText(databaseHelper.getLessonReading(lessonDate, Language.ENGLISH.name()));
+            memoryVerse.setText(databaseHelper.getLessonMemVerse(lessonDate, Language.ENGLISH.name()));
 
             //Update View
             updateView(english, true);
@@ -235,6 +282,12 @@ public class LessonQuestionsActivity extends AppCompatActivity implements View.O
         }
     }
 
+    /**
+     * Sets active textview with a green border and a grey background
+     * while the inactive view with a grey border and a hollow background
+     * @param textView Text view that is selected
+     * @param isSelected status of view
+     */
     private void updateView(TextView textView, boolean isSelected){
         if (isSelected){
             textView.setTextColor(ContextCompat.getColor(this, R.color.white));
@@ -245,23 +298,34 @@ public class LessonQuestionsActivity extends AppCompatActivity implements View.O
         }
     }
 
+    /**
+     * Alternates the icons of an imageview depending on the one that is active
+     * @param imageView The image view whose value is altered
+     * @param message The message to be displayed
+     * @param isVisible visibility of the icon;
+     */
     private void updateView(ImageView imageView, String message, boolean isVisible){
         if (isVisible){
-            searchIcon.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_search_green));
+            imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_search_green));
             InputMethodManager imm = (InputMethodManager) getApplicationContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
             imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
-            adapter.updateList(list);
-            Toast.makeText(LessonQuestionsActivity.this, "Filter mode disabled", Toast.LENGTH_LONG).show();
+
+            // Update the right list of language
+            if (!isEnglish) adapter.updateList(getList(Language.KISWAHILI.name()));
+            else adapter.updateList(getList(Language.ENGLISH.name()));
+
+            Toast.makeText(LessonQuestionsActivity.this, message, Toast.LENGTH_LONG).show();
         } else{
             filterEditText.requestFocus();
-            searchIcon.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_close_green));
+            imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_close_green));
             WindowCompat.getInsetsController(getWindow(), filterEditText).show(WindowInsetsCompat.Type.ime());
-            Toast.makeText(LessonQuestionsActivity.this, "Filter mode enabled", Toast.LENGTH_LONG).show();
+            Toast.makeText(LessonQuestionsActivity.this, message, Toast.LENGTH_LONG).show();
         }
     }
 
     /**
      * Enable filter mode
+     * Makes the cardview holding the edit text visible
      */
     public void enableFilterMode() {
         if (isVisible) {
@@ -272,6 +336,9 @@ public class LessonQuestionsActivity extends AppCompatActivity implements View.O
         }
     }
 
+    /**
+     * Gets data from the database
+     */
     private void getDataFromSQLite(){
         new AsyncTaskExecutorService<Void, Void, Void>() {
             @Override

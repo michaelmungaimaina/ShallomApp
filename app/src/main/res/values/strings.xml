@@ -82,7 +82,7 @@
     <string name="first_quarter">APR-JUN</string>
     <string name="scripture_reading">Scripture Reading</string>
     <string name="memory_verse">Memory Verse</string>
-    <string name="explanation"><u>Explanation</u></string>
+    <string name="explanation"><u>Editorial</u></string>
     <string name="explanation_text">Simple description</string>
     <string name="sample_bible_books">Proverbs 22:2, Psalms 10:10</string>
     <string name="sample_bible_book">Proverbs 22:2</string>
@@ -212,4 +212,9 @@
     <string name="good_afternoon">GOOD AFTERNOON!</string>
     <string name="good_morning">GOOD MORNING!</string>
     <string name="already_at_home">Home is active!</string>
+    <string name="enable_filter_mode">Filter mode enabled</string>
+    <string name="disable_filter_mode">Filter mode disabled</string>
+    <string name="quarter_is">"The quarter "</string>
+    <string name="not_available">" is not available"</string>
+    <string name="no_qustions">No questions for this Lesson!</string>
 </resources>

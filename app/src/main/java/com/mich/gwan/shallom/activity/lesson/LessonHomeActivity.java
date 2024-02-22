@@ -143,16 +143,16 @@ public class LessonHomeActivity extends AppCompatActivity implements View.OnClic
                 new RecyclerTouchListener.ClickListener() {
                     @Override
                     public void onClick(View view, int position) {
+
+                    }
+
+                    @Override
+                    public void onLongClick(View view, int position) {
                         Intent intent = new Intent(view.getContext(), LessonDaySummary.class);
                         intent.putExtra("YEAR", list.get(position).getQuarterYear());
                         intent.putExtra("QUARTER_ID", String.valueOf(list.get(position).getQuarterId()));
                         intent.putExtra("QUARTER", "NULL");
                         startActivity(intent);
-                    }
-
-                    @Override
-                    public void onLongClick(View view, int position) {
-
                     }
                 }));
     }

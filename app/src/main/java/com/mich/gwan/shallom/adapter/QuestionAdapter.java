@@ -48,7 +48,8 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        holder.textViewQuestionNumber.setText(!(position + 1 < 11) ? String.valueOf(position + 1) : "0" + position + 1);
+        holder.textViewQuestionNumber.setText(String.valueOf(position + 1));
+        //!(position + 1 < 11) ? String.valueOf(position + 1) : "0" + position + 1
         holder.textViewQuestion.setText(list.get(position).getQuestion());
         holder.textViewRefScripture.setText(list.get(position).getQuestionRefBooks());
 
@@ -61,7 +62,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        Log.v(LessonSermonAdapter.class.getSimpleName(),""+list.size());
+        Log.v(QuestionAdapter.class.getSimpleName(),""+list.size());
         return list.size();
     }
 

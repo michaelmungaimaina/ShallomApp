@@ -23,6 +23,7 @@ import com.mich.gwan.shallom.databinding.RecyclerLessonQuarterBinding;
 import com.mich.gwan.shallom.model.LessonQuarter;
 import com.mich.gwan.shallom.model.LessonWeek;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -50,8 +51,8 @@ public class LessonSermonAdapter extends RecyclerView.Adapter<LessonSermonAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            holder.textViewSermonDay.setText((CharSequence) DateTimeFormatter.ofPattern("dd").parse(list.get(position).getLessonDate()));
-            holder.textViewSermonMonth.setText((CharSequence) DateTimeFormatter.ofPattern("MMM").parse(list.get(position).getLessonDate()));
+            holder.textViewSermonDay.setText((CharSequence) String.valueOf(DateTimeFormatter.ofPattern("dd").format(LocalDate.parse(list.get(position).getLessonDate()))));
+            holder.textViewSermonMonth.setText((CharSequence) String.valueOf(DateTimeFormatter.ofPattern("MMM").format(LocalDate.parse(list.get(position).getLessonDate()))));
         }
         holder.textViewSermonTitle.setText(list.get(position).getLessonTitle());
         holder.textViewMainScripture.setText(list.get(position).getLessonReading());
@@ -68,6 +69,13 @@ public class LessonSermonAdapter extends RecyclerView.Adapter<LessonSermonAdapte
     public void updateList(List<LessonWeek> listItem){
         list = listItem;
         notifyDataSetChanged();
+    }
+
+    /**
+     * Get the current list
+     */
+    public List<LessonWeek> getList(){
+        return list;
     }
 
     /**

@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/constraintLayoutMain">
+    android:id="@+id/constraintLayoutMain"
+    android:background="@drawable/round_rectangle_green_8px"
+    android:layout_marginTop="7dp">
     <LinearLayout
         android:id="@+id/layout_year_range"
         android:layout_width="0dp"
@@ -107,6 +109,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="15dp"
+            android:layout_marginBottom="@dimen/margin_top"
             android:background="@drawable/ic_tilted_rectangle_green_border"
             android:fontFamily="@font/ibmplexsanshebrew_bold"
             android:gravity="center"
@@ -118,17 +121,4 @@
             android:textSize="15sp"
             android:textStyle="bold" />
     </LinearLayout>
-    <TextView
-        android:id="@+id/textViewThird"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_gravity="center"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="15dp"
-        android:background="@color/green_teal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerQuarters"/>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

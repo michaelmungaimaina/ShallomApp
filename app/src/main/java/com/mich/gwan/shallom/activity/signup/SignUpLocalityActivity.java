@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.mich.gwan.shallom.R;
 import com.mich.gwan.shallom.dao.DatabaseHelper;
@@ -890,7 +891,7 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
                 // Do nothing here
             }
         });
-
+        
         spinnerSubCounty.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

@@ -5,7 +5,8 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:gravity="top"
-    android:background="@color/green_700"
+    android:layout_marginTop="@dimen/margin_top"
+    android:background="@drawable/round_rectangle_green_8px"
     android:padding="@dimen/margin_top">
     <androidx.cardview.widget.CardView
         android:layout_width="45dp"

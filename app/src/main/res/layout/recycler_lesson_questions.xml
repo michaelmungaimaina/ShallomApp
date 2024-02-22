@@ -3,8 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_top"
+    android:layout_marginBottom="@dimen/margin_top"
     android:padding="@dimen/margin_top"
-    app:cardBackgroundColor="@color/green_light"
+    app:cardBackgroundColor="@color/transparent"
     app:cardCornerRadius="8dp"
     app:cardElevation="0dp">
 <LinearLayout
@@ -12,12 +14,15 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:gravity="top"
-    android:background="@color/green_700">
+    android:background="@drawable/round_rectangle_green_8px">
     <androidx.cardview.widget.CardView
         android:layout_width="45dp"
         android:layout_height="45dp"
         app:cardBackgroundColor="@color/green_light"
         app:cardCornerRadius="40dp"
+        android:layout_marginStart="@dimen/margin_top"
+        android:layout_marginTop="@dimen/margin_top"
+        android:layout_marginBottom="@dimen/margin_top"
         app:cardElevation="0dp">
         <LinearLayout
             android:layout_width="match_parent"
@@ -27,14 +32,15 @@
             <TextView
                 android:id="@+id/textViewQuestionNumber"
                 android:layout_width="wrap_content"
-                android:layout_height="15dp"
+                android:layout_height="18dp"
                 android:text="@string/day"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:textSize="15sp"
+                android:textSize="17sp"
                 android:maxLines="1"
                 android:gravity="center_vertical"
                 android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/margin_top"
                 android:fontFamily="@font/ibmplexsanshebrew_bold"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
@@ -44,6 +50,9 @@
         android:layout_height="wrap_content"
         android:gravity="start"
         android:orientation="vertical"
+        android:layout_marginBottom="@dimen/margin_top"
+        android:layout_marginTop="@dimen/margin_top"
+        android:layout_marginEnd="@dimen/margin_top"
         android:layout_marginStart="@dimen/margin_top">
         <TextView
             android:id="@+id/textViewQuestion"
@@ -52,8 +61,8 @@
             android:text="@string/sample_text"
             android:textColor="@color/white"
             android:textStyle="normal"
-            android:textSize="13sp"
-            android:maxLines="1"
+            android:textSize="15sp"
+            android:maxLines="3"
             android:layout_gravity="start"
             android:fontFamily="@font/ibmplexsanshebrew_bold"/>
         <TextView
@@ -63,8 +72,8 @@
             android:text="@string/sample_bible_books"
             android:textColor="@color/white_"
             android:textStyle="normal"
-            android:textSize="12sp"
-            android:maxLines="1"
+            android:textSize="13sp"
+            android:maxLines="2"
             android:layout_gravity="start"
             android:scrollbars="horizontal"
             android:scrollHorizontally="true"

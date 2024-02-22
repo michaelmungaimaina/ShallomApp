@@ -30,11 +30,11 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.imageview.ShapeableImageView;
 import com.mich.gwan.shallom.R;
 import com.mich.gwan.shallom.adapter.LessonSermonAdapter;
 import com.mich.gwan.shallom.dao.DatabaseHelper;
 import com.mich.gwan.shallom.databinding.ActivityBibleLessonDaySummaryBinding;
+import com.mich.gwan.shallom.enums.Language;
 import com.mich.gwan.shallom.helper.InputValidation;
 import com.mich.gwan.shallom.helper.RecyclerTouchListener;
 import com.mich.gwan.shallom.model.LessonWeek;
@@ -72,6 +72,7 @@ public class LessonDaySummary extends AppCompatActivity implements View.OnClickL
     private List<LessonWeek> list, mainList;
     private Intent intent;
     private boolean isVisible = false;
+    private boolean ENGLISH = true;
     private String year, quarter, quarterId;
 
     @Override
@@ -134,8 +135,8 @@ public class LessonDaySummary extends AppCompatActivity implements View.OnClickL
         mainList = getList("ENGLISH");
         adapter = new LessonSermonAdapter(mainList);
 
-        System.out.println(list.get(0).getLessonDate());
-        System.out.println(mainList.get(0).getLessonDate());
+        //System.out.println(list.get(0).getLessonDate());
+        //System.out.println(mainList.get(0).getLessonDate());
 
         LinearLayoutManager myLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(myLayoutManager);
@@ -176,29 +177,44 @@ public class LessonDaySummary extends AppCompatActivity implements View.OnClickL
                     @Override
                     public void onClick(View view, int position) {
 
-                        if (mainList.get(position).getLessonLanguage().name().equals("KISWAHILI")){
+                        if (!ENGLISH){
                             int weekId = 0;
                             String lessonTitle = null;
 
                             // Get the week id
                             for (LessonWeek lessonWeek : list){
-                                if (Objects.equals(lessonWeek.getLessonDate(), mainList.get(position).getLessonDate()) && lessonWeek.getLessonLanguage().name().equals("ENGLISH")) {
+                                if (Objects.equals(lessonWeek.getLessonDate(), adapter.getList().get(position).getLessonDate()) && lessonWeek.getLessonLanguage().name().equals("ENGLISH")) {
                                     weekId = lessonWeek.getLessonWeekId();
                                     lessonTitle = lessonWeek.getLessonTitle();
                                 }
                             }
 
-                            Intent intent = new Intent(view.getContext(), LessonQuestionsActivity.class);
-                            intent.putExtra("WEEK_ID", weekId);
-                            intent.putExtra("LESSON_TITLE", lessonTitle);
-                            intent.putExtra("LESSON_DATE", mainList.get(position).getLessonDate());
-                            startActivity(intent);
+                            if (!databaseHelper.checkWeekIdInQuestion(String.valueOf(weekId))) {
+                                Intent intent = new Intent(view.getContext(), LessonQuestionsActivity.class);
+                                intent.putExtra("WEEK_ID", String.valueOf(weekId));
+                                intent.putExtra("LESSON_TITLE", lessonTitle);
+                                intent.putExtra("LESSON_DATE", adapter.getList().get(position).getLessonDate());
+                                startActivity(intent);
+                                System.out.println(weekId);
+                                System.out.println(lessonTitle);
+                                System.out.println(adapter.getList().get(position).getLessonDate());
+                            } else{
+                                Toast.makeText(LessonDaySummary.this, getString(R.string.no_qustions), Toast.LENGTH_LONG).show();
+                            }
                         } else {
-                            Intent intent = new Intent(view.getContext(), LessonQuestionsActivity.class);
-                            intent.putExtra("WEEK_ID", mainList.get(position).getLessonWeekId());
-                            intent.putExtra("LESSON_TITLE", mainList.get(position).getLessonTitle());
-                            intent.putExtra("LESSON_DATE", mainList.get(position).getLessonDate());
-                            startActivity(intent);
+                            if (!databaseHelper.checkWeekIdInQuestion(String.valueOf(adapter.getList().get(position).getLessonWeekId()))) {
+                                Intent intent = new Intent(view.getContext(), LessonQuestionsActivity.class);
+                                intent.putExtra("WEEK_ID", String.valueOf(adapter.getList().get(position).getLessonWeekId()));
+                                intent.putExtra("LESSON_TITLE", adapter.getList().get(position).getLessonTitle());
+                                intent.putExtra("LESSON_DATE", adapter.getList().get(position).getLessonDate());
+                                startActivity(intent);
+
+                                System.out.println(adapter.getList().get(position).getLessonWeekId());
+                                System.out.println(adapter.getList().get(position).getLessonTitle());
+                                System.out.println(adapter.getList().get(position).getLessonDate());
+                            } else{
+                                Toast.makeText(LessonDaySummary.this, getString(R.string.no_qustions), Toast.LENGTH_LONG).show();
+                            }
                         }
                     }
 
@@ -211,13 +227,30 @@ public class LessonDaySummary extends AppCompatActivity implements View.OnClickL
 
     private void filter(String text){
         List<LessonWeek> temp = new ArrayList<>();
-        for(LessonWeek item: mainList){
-            //or use .equal(text) with you want equal match
-            //use .toLowerCase() for better matches
-            if(item.getLessonTitle().contains(text.toUpperCase())){
-                temp.add(item);
+
+        if (ENGLISH) // Filters for english
+            for(LessonWeek item: getList(Language.ENGLISH.name())){
+                //or use .equal(text) with you want equal match
+                //use .toLowerCase() for better matches
+                if(item.getLessonTitle().toUpperCase().contains(text.toUpperCase()) ||
+                    item.getLessonReading().toUpperCase().contains(text.toUpperCase()) ||
+                    item.getMemoryVerse().toUpperCase().contains(text.toUpperCase()) ||
+                    item.getLessonDate().toUpperCase().contains(text.toUpperCase())){
+                    temp.add(item);
+                }
             }
-        }
+        else // Filters for Kiswahili
+            for(LessonWeek item: getList(Language.KISWAHILI.name())){
+                //or use .equal(text) with you want equal match
+                //use .toLowerCase() for better matches
+                if(item.getLessonTitle().toUpperCase().contains(text.toUpperCase()) ||
+                        item.getLessonReading().toUpperCase().contains(text.toUpperCase()) ||
+                        item.getMemoryVerse().toUpperCase().contains(text.toUpperCase()) ||
+                        item.getLessonDate().toUpperCase().contains(text.toUpperCase())){
+                    temp.add(item);
+                }
+            }
+
         //update recyclerview
         adapter.updateList(temp);
     }
@@ -230,6 +263,7 @@ public class LessonDaySummary extends AppCompatActivity implements View.OnClickL
                 temp.add(item);
             }
         }
+
         return temp;
     }
 
@@ -243,28 +277,39 @@ public class LessonDaySummary extends AppCompatActivity implements View.OnClickL
                 filterEditText.requestFocus();
                 searchIcon.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_close_green));
                 WindowCompat.getInsetsController(getWindow(), filterEditText).show(WindowInsetsCompat.Type.ime());
-                Toast.makeText(LessonDaySummary.this, "Filter mode enabled", Toast.LENGTH_LONG).show();
+                Toast.makeText(LessonDaySummary.this, getText(R.string.enable_filter_mode), Toast.LENGTH_LONG).show();
             } else {
                 isVisible = false;
                 enableFilterMode();
                 searchIcon.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_search_green));
                 InputMethodManager imm = (InputMethodManager) getApplicationContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
                 imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
-                adapter.updateList(list);
-                Toast.makeText(LessonDaySummary.this, "Filter mode disabled", Toast.LENGTH_LONG).show();
+
+                // Update the right list of language
+                if (!ENGLISH) adapter.updateList(getList(Language.KISWAHILI.name()));
+                else adapter.updateList(getList(Language.ENGLISH.name()));
+
+                Toast.makeText(LessonDaySummary.this, getString(R.string.disable_filter_mode), Toast.LENGTH_LONG).show();
             }
 
         } else if (v.getId() == R.id.backIcon) {
-            finishAffinity();
+            finish();
         } else if (v.getId() == R.id.textViewKiswahili) {
-            getList("KISWAHILI");
+            adapter.updateList(getList(Language.KISWAHILI.name()));
             adapter.notifyDataSetChanged();
+
+            // Update status
+            ENGLISH = false;
 
             // Update View
             updateView(swahili, true);
             updateView(english, false);
         } else if (v.getId() == R.id.textViewEnglish) {
-            adapter.updateList(getList("ENGLISH"));
+            adapter.updateList(getList(Language.ENGLISH.name()));
+            adapter.notifyDataSetChanged();
+
+            //Update status
+            ENGLISH = true;
 
             //Update View
             updateView(english, true);
@@ -305,23 +350,24 @@ public class LessonDaySummary extends AppCompatActivity implements View.OnClickL
     }
 
     private void buttonAction(AppCompatButton button){
-        // Check if the pressed quarter id present
-        if (databaseHelper.checkLessonQuarter(year,button.getText().toString())) {
+        // Check if the pressed quarter id is present
+        if (!databaseHelper.checkLessonQuarter(year,button.getText().toString())) {
             // Set the list
             list = databaseHelper.getLessonWeek(databaseHelper.getLessonQuarterId(year, button.getText().toString()));
             // Update adapter
-            adapter.updateList(getList("ENGLISH"));
+            if (ENGLISH) adapter.updateList(getList(Language.ENGLISH.name()));
+            else adapter.updateList(getList(Language.KISWAHILI.name()));
         } else
-            Toast.makeText(this, "The quarter " + button.getText().toString() + " is not available", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.quarter_is) + button.getText().toString() + getString(R.string.not_available), Toast.LENGTH_LONG).show();
     }
 
     private void updateView(AppCompatButton button, boolean isSelected) {
         if (isSelected) {
-            button.setTextColor(ContextCompat.getColor(this, R.color.green_bright));
-            button.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.ic_green_border_rectangle));
+            button.setTextColor(ContextCompat.getColor(this, R.color.green_dark));
+            button.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.round_rectangle_green_8px));
         } else {
             button.setTextColor(ContextCompat.getColor(this, R.color.grey));
-            button.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.ic_grey_border_rectangle));
+            button.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.roud_rectangle_grey_8px));
         }
     }
 
