@@ -1,8 +1,13 @@
 package com.mich.gwan.shallom.fragment;
 
+import static androidx.core.content.ContextCompat.getSystemService;
+
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
@@ -20,6 +25,7 @@ import android.widget.ViewFlipper;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -29,6 +35,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mich.gwan.shallom.R;
+import com.mich.gwan.shallom.activity.home.MainActivity;
 import com.mich.gwan.shallom.adapter.EventAdapter;
 import com.mich.gwan.shallom.dao.DatabaseHelper;
 import com.mich.gwan.shallom.databinding.BottomSheetActionBinding;
@@ -84,6 +91,8 @@ public class AnnouncementsFragment extends Fragment {
     private int[] images = {R.drawable.ic_ministry_green, R.drawable.ic_group_green, R.drawable.ic_sermon_green}; // Add your image resources here
     private String[] urls = {"https://www.example1.com", "https://www.example2.com", "https://www.example3.com"}; // URLs corresponding to each image
     private int currentPosition = 0;
+
+    private NotificationCompat.Builder mBuilder;
 
 
     /** Accessing context **/
@@ -150,11 +159,12 @@ public class AnnouncementsFragment extends Fragment {
         eventsRecycler.setHasFixedSize(true);
         eventsRecycler.setAdapter(adapter);
 
-        getDataFromSQLite();
+        controllist = databaseHelper.getEvent();
+        //getDataFromSQLite();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             showUpcomingEvents();
-            adapter.notifyDataSetChanged();
+            //adapter.notifyDataSetChanged();
         }
 
         toggleEmptyList();
@@ -207,20 +217,20 @@ public class AnnouncementsFragment extends Fragment {
     private void showPastEvents() {
         for (int i = 0; i < controllist.size(); i++){
             list.clear();
-            if (controllist.get(i).getEventEndDate().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli() < System.currentTimeMillis())
+            if (controllist.get(i).getEventEndDate().atZone(ZoneId.of("Africa/Nairobi")).toInstant().toEpochMilli() < System.currentTimeMillis())
                 list.add(controllist.get(i));
         }
-        adapter.notifyDataSetChanged();
+        adapter.updateList(list);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void showUpcomingEvents() {
         list.clear();
         for (int i = 0; i < controllist.size(); i++){
-            if (controllist.get(i).getEventStartDate().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli() > System.currentTimeMillis())
+            if (controllist.get(i).getEventStartDate().atZone(ZoneId.of("Africa/Nairobi")).toInstant().toEpochMilli() > System.currentTimeMillis())
                 list.add(controllist.get(i));
         }
-        adapter.notifyDataSetChanged();
+        adapter.updateList(list);
     }
 
     /**
@@ -229,7 +239,7 @@ public class AnnouncementsFragment extends Fragment {
      */
     @SuppressLint("StaticFieldLeak")
     private void getDataFromSQLite(){
-        // AsyncTask is used that SQLite operation not blocks the UI Thread.
+        // AsyncTask is used so that SQLite operation does not block the UI Thread.
         new AsyncTaskExecutorService<Void, Void, Void>(){
             /**
              * Performs database operation in the background.

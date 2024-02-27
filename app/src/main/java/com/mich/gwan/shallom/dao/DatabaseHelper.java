@@ -908,9 +908,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 par.setEventTitle(cursor.getString(cursor.getColumnIndex(COLUMN_EVENT_TITLE)));
                 par.setEventDescription(cursor.getString(cursor.getColumnIndex(COLUMN_EVENT_DESCRIPTION)));
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    par.setEventStartDate(LocalDateTime.parse(cursor.getString(cursor.getColumnIndex(COLUMN_EVENT_START_DATE)) + "T00:00:00"));
-                    par.setEventEndDate(LocalDateTime.parse(cursor.getString(cursor.getColumnIndex(COLUMN_EVENT_END_DATE)) + "T00:00:00"));
-                    par.setRegistrationDate(LocalDateTime.parse(cursor.getString(cursor.getColumnIndex(COLUMN_EVENT_REG_DATE)) + "T00:00:00"));
+                    par.setEventStartDate(LocalDateTime.parse(cursor.getString(cursor.getColumnIndex(COLUMN_EVENT_START_DATE))));
+                    par.setEventEndDate(LocalDateTime.parse(cursor.getString(cursor.getColumnIndex(COLUMN_EVENT_END_DATE))));
+                    par.setRegistrationDate(LocalDateTime.parse(cursor.getString(cursor.getColumnIndex(COLUMN_EVENT_REG_DATE))));
                 }
                 par.setRegisteredBy(cursor.getString(cursor.getColumnIndex(COLUMN_EVENT_REG_BY)));
 

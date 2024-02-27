@@ -45,11 +45,11 @@ public class DoctrineAdapter extends RecyclerView.Adapter<DoctrineAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        holder.textViewDoctrineNumber.setText(list.get(position).getDoctrineId());
+        holder.textViewDoctrineNumber.setText((position + 1 < 11) ? "0" + (position + 1) : String.valueOf(position));
         holder.textViewDoctrine.setText(list.get(position).getDoctrineContent());
         holder.textViewDoctrineDescription.setText(list.get(position).getDoctrineDescription());
 
-        String[] books = list.get(position).getDoctrineRef().split(",");
+        String[] books = list.get(position).getDoctrineRef().split(";");
 
         if (books.length > 0){
             switch (books.length){
@@ -160,6 +160,79 @@ public class DoctrineAdapter extends RecyclerView.Adapter<DoctrineAdapter.ViewHo
                     holder.textViewBook8.setText(books[7]);
                     holder.textViewBook9.setVisibility(View.VISIBLE);
                     holder.textViewBook9.setText(books[8]);
+                    break;
+                case 10:
+                    holder.textViewBook1.setVisibility(View.VISIBLE);
+                    holder.textViewBook1.setText(books[0]);
+                    holder.textViewBook2.setVisibility(View.VISIBLE);
+                    holder.textViewBook2.setText(books[1]);
+                    holder.textViewBook3.setVisibility(View.VISIBLE);
+                    holder.textViewBook3.setText(books[2]);
+                    holder.textViewBook4.setVisibility(View.VISIBLE);
+                    holder.textViewBook4.setText(books[3]);
+                    holder.textViewBook5.setVisibility(View.VISIBLE);
+                    holder.textViewBook5.setText(books[4]);
+                    holder.textViewBook6.setVisibility(View.VISIBLE);
+                    holder.textViewBook6.setText(books[5]);
+                    holder.textViewBook7.setVisibility(View.VISIBLE);
+                    holder.textViewBook7.setText(books[6]);
+                    holder.textViewBook8.setVisibility(View.VISIBLE);
+                    holder.textViewBook8.setText(books[7]);
+                    holder.textViewBook9.setVisibility(View.VISIBLE);
+                    holder.textViewBook9.setText(books[8]);
+                    holder.textViewBook10.setVisibility(View.VISIBLE);
+                    holder.textViewBook10.setText(books[9]);
+                    break;
+                case 11:
+                    holder.textViewBook1.setVisibility(View.VISIBLE);
+                    holder.textViewBook1.setText(books[0]);
+                    holder.textViewBook2.setVisibility(View.VISIBLE);
+                    holder.textViewBook2.setText(books[1]);
+                    holder.textViewBook3.setVisibility(View.VISIBLE);
+                    holder.textViewBook3.setText(books[2]);
+                    holder.textViewBook4.setVisibility(View.VISIBLE);
+                    holder.textViewBook4.setText(books[3]);
+                    holder.textViewBook5.setVisibility(View.VISIBLE);
+                    holder.textViewBook5.setText(books[4]);
+                    holder.textViewBook6.setVisibility(View.VISIBLE);
+                    holder.textViewBook6.setText(books[5]);
+                    holder.textViewBook7.setVisibility(View.VISIBLE);
+                    holder.textViewBook7.setText(books[6]);
+                    holder.textViewBook8.setVisibility(View.VISIBLE);
+                    holder.textViewBook8.setText(books[7]);
+                    holder.textViewBook9.setVisibility(View.VISIBLE);
+                    holder.textViewBook9.setText(books[8]);
+                    holder.textViewBook10.setVisibility(View.VISIBLE);
+                    holder.textViewBook10.setText(books[9]);
+                    holder.textViewBook11.setVisibility(View.VISIBLE);
+                    holder.textViewBook11.setText(books[10]);
+                    break;
+                case 12:
+                    holder.textViewBook1.setVisibility(View.VISIBLE);
+                    holder.textViewBook1.setText(books[0]);
+                    holder.textViewBook2.setVisibility(View.VISIBLE);
+                    holder.textViewBook2.setText(books[1]);
+                    holder.textViewBook3.setVisibility(View.VISIBLE);
+                    holder.textViewBook3.setText(books[2]);
+                    holder.textViewBook4.setVisibility(View.VISIBLE);
+                    holder.textViewBook4.setText(books[3]);
+                    holder.textViewBook5.setVisibility(View.VISIBLE);
+                    holder.textViewBook5.setText(books[4]);
+                    holder.textViewBook6.setVisibility(View.VISIBLE);
+                    holder.textViewBook6.setText(books[5]);
+                    holder.textViewBook7.setVisibility(View.VISIBLE);
+                    holder.textViewBook7.setText(books[6]);
+                    holder.textViewBook8.setVisibility(View.VISIBLE);
+                    holder.textViewBook8.setText(books[7]);
+                    holder.textViewBook9.setVisibility(View.VISIBLE);
+                    holder.textViewBook9.setText(books[8]);
+                    holder.textViewBook10.setVisibility(View.VISIBLE);
+                    holder.textViewBook10.setText(books[9]);
+                    holder.textViewBook11.setVisibility(View.VISIBLE);
+                    holder.textViewBook11.setText(books[10]);
+                    holder.textViewBook12.setVisibility(View.VISIBLE);
+                    holder.textViewBook12.setText(books[11]);
+                    break;
             }
         }
     }
@@ -192,6 +265,9 @@ public class DoctrineAdapter extends RecyclerView.Adapter<DoctrineAdapter.ViewHo
         public TextView textViewBook7;
         public TextView textViewBook8;
         public TextView textViewBook9;
+        public TextView textViewBook10;
+        public TextView textViewBook11;
+        public TextView textViewBook12;
 
         public ViewHolder(RecyclerDoctrineBinding binding){
             super(binding.getRoot());
@@ -207,6 +283,9 @@ public class DoctrineAdapter extends RecyclerView.Adapter<DoctrineAdapter.ViewHo
             textViewBook7 = binding.textViewBookSeven;
             textViewBook8 = binding.textViewBookEight;
             textViewBook9 = binding.textViewBookNine;
+            textViewBook10 = binding.textViewBookTen;
+            textViewBook11 = binding.textViewBookEleven;
+            textViewBook12 = binding.textViewBookTwelve;
         }
 
     }

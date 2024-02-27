@@ -217,4 +217,7 @@
     <string name="quarter_is">"The quarter "</string>
     <string name="not_available">" is not available"</string>
     <string name="no_qustions">No questions for this Lesson!</string>
+    <string name="doctrine_introduction">People often ask us just what we believe. To answer this question, these \"40 Points of Doctrine\" have been prepared, which cover the principle teaching of the Church of God. These points of belief represent years and even lifetimes of study of the scriptures on the part of dedicated men of God, who devoted their lives to \"rightly dividing the word of Truth.\" They are, and have been the teachings of the Church of God for generations, and are in harmony with the doctrine as taught by Christ and the apostles in the early days of the Church.</string>
+    <string name="already_at_doctrine">Doctrine activity is active!</string>
+    <string name="points_doctrines">40 Points of Doctrine</string>
 </resources>

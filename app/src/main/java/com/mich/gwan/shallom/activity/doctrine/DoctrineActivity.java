@@ -12,16 +12,22 @@ package com.mich.gwan.shallom.activity.doctrine;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Size;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
@@ -32,9 +38,15 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.imageview.ShapeableImageView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.mich.gwan.shallom.R;
+import com.mich.gwan.shallom.activity.home.MainActivity;
+import com.mich.gwan.shallom.activity.lesson.LessonActivity;
 import com.mich.gwan.shallom.activity.lesson.LessonDaySummary;
+import com.mich.gwan.shallom.activity.requests.RequestsActivity;
+import com.mich.gwan.shallom.activity.songs.SongsActivity;
 import com.mich.gwan.shallom.adapter.DoctrineAdapter;
 import com.mich.gwan.shallom.dao.DatabaseHelper;
 import com.mich.gwan.shallom.databinding.ActivityBibleLessonDaySummaryBinding;
@@ -65,6 +77,8 @@ public class DoctrineActivity extends AppCompatActivity implements View.OnClickL
 
     private Toolbar toolbar;
 
+    private BottomNavigationView bottomNavigationView;
+
     private DatabaseHelper databaseHelper;
     private InputValidation inputValidation;
     private DoctrineAdapter adapter;
@@ -82,10 +96,14 @@ public class DoctrineActivity extends AppCompatActivity implements View.OnClickL
         initObjects();
         initListeners();
 
+        // Sets the status bar color to the specified color
+        int statusBarColor = ContextCompat.getColor(this, R.color.layout_tint);
+        Window window = this.getWindow();
+        window.setStatusBarColor(statusBarColor);
     }
 
     private void initViews() {
-        recyclerView = binding.recyclerViewGroups;
+        recyclerView = binding.recyclerViewDoctrine;
         searchIcon = binding.myToolbar.shapeableImageViewIcon;
         backIcon = binding.myToolbar.backIcon;
         filterCardView = binding.myToolbar.cardViewFilter;
@@ -93,6 +111,19 @@ public class DoctrineActivity extends AppCompatActivity implements View.OnClickL
         filterEditText = binding.myToolbar.editTextFilter;
         toolbar = binding.myToolbar.toolbarPayment;
         middleText = binding.myToolbar.toolbarMiddleText;
+        bottomNavigationView = binding.bottomNavigation;
+
+        backIcon.setVisibility(View.GONE);
+
+        middleText.setText(R.string.points_doctrines);
+        middleText.setTextSize(27);
+        //middleText.setTextSize(37);
+
+        // Set the default selected item
+        bottomNavigationView.setSelectedItemId(R.id.doctrine);
+        // Handle bottom menu navigation
+        menuClick();
+
     }
 
     private void initObjects() {
@@ -137,8 +168,8 @@ public class DoctrineActivity extends AppCompatActivity implements View.OnClickL
         for(Doctrine item: list){
             //or use .equal(text) with you want equal match
             //use .toLowerCase() for better matches
-            if(item.getDoctrineRef().contains(text.toUpperCase()) || String.valueOf(item.getDoctrineId()).contains(text.toUpperCase()) ||
-                  item.getDoctrineDescription().contains(text.toUpperCase()) || item.getDoctrineContent().contains(text.toUpperCase())){
+            if(item.getDoctrineRef().toUpperCase().contains(text.toUpperCase()) || String.valueOf(item.getDoctrineId()).toUpperCase().contains(text.toUpperCase()) ||
+                  item.getDoctrineDescription().toUpperCase().contains(text.toUpperCase()) || item.getDoctrineContent().toUpperCase().contains(text.toUpperCase())){
                 temp.add(item);
             }
         }
@@ -167,9 +198,34 @@ public class DoctrineActivity extends AppCompatActivity implements View.OnClickL
             }
 
         } else if (v.getId() == R.id.backIcon) {
-            finishAffinity();
+            finish();
         }
     }
+
+    private void menuClick(){
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if(item.getItemId() == R.id.home)
+                    // Start activity home
+                    startActivity(new Intent(DoctrineActivity.this, MainActivity.class));
+                else if (item.getItemId() == R.id.requests)
+                    // Start activity requests
+                    startActivity(new Intent(DoctrineActivity.this, RequestsActivity.class));
+                else if (item.getItemId() == R.id.lesson)
+                    // Start activity lesson
+                    startActivity(new Intent(DoctrineActivity.this, LessonActivity.class));
+                else if (item.getItemId() == R.id.doctrine)
+                    Toast.makeText(DoctrineActivity.this, getString(R.string.already_at_doctrine), Toast.LENGTH_SHORT).show();
+                else if (item.getItemId() == R.id.songs)
+                    // Start activity songs
+                    startActivity(new Intent(DoctrineActivity.this, SongsActivity.class));
+
+                return false;
+            }
+        });
+    }
+
 
     /**
      * Enable filter mode
@@ -183,20 +239,23 @@ public class DoctrineActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
+    @SuppressLint("StaticFieldLeak")
     private void getDataFromSQLite(){
-        new AsyncTaskExecutorService<Void, Void, Void>() {
+// AsyncTask is used that SQLite operation not blocks the UI Thread.
+        new AsyncTask<Void, Void, Void>() {
             @Override
-            protected Void doInBackground(Void unused) {
+            protected Void doInBackground(@SuppressLint("StaticFieldLeak") Void... params) {
                 list.clear();
-                list = databaseHelper.getDoctrine();
+                list.addAll(databaseHelper.getDoctrine());
                 return null;
             }
 
             @SuppressLint("NotifyDataSetChanged")
             @Override
-            protected void onPostExecute(Void unused) {
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
                 adapter.notifyDataSetChanged();
             }
-        };
+        }.execute();
     }
 }

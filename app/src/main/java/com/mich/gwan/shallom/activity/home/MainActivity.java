@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity{
         bottomNavigationView.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                if (item.getItemId() == R.id.home)
+                if(item.getItemId() == R.id.home)
                     Toast.makeText(MainActivity.this, getString(R.string.already_at_home), Toast.LENGTH_SHORT).show();
                 else if (item.getItemId() == R.id.requests)
                     // Start activity requests

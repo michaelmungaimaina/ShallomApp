@@ -3,8 +3,8 @@
   ~ Created on 2024 / 2 / 14
   -->
 
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/linearLayoutCompatGroupFrag"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,93 +12,106 @@
     android:backgroundTintMode="src_atop"
     android:background="@drawable/background_gradient"
     android:backgroundTint="@color/layout_tint">
-
-    <include
-        android:id="@+id/my_toolbar"
-        layout="@layout/toolbar_lesson_home"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:minHeight="?attr/actionBarSize"
-        android:fitsSystemWindows="true"/>
-
-
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="9dp"
-        android:layout_marginStart="@dimen/margin_view_start">
-        <TextView
-            android:id="@+id/verticalLine1"
-            android:layout_width="6dp"
-            android:layout_height="17dp"
-            android:background="@color/green_bright"
-            android:layout_marginTop="2dp"
-            android:layout_marginStart="5dp"/>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_alignParentTop="true">
+        <include
+            android:id="@+id/my_toolbar"
+            layout="@layout/toolbar_lesson_home"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:minHeight="?attr/actionBarSize"
+            android:fitsSystemWindows="true"/>
 
-        <TextView
-            android:id="@+id/textViewIntroduction"
+
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="22dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="5dp"
-            android:fontFamily="@font/ibmplexsanshebrew_bold"
-            android:maxLines="1"
-            android:text="@string/introduction"
-            android:textColor="@color/white"
-            android:textSize="15sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="9dp"
+            android:layout_marginStart="@dimen/margin_view_start">
+            <TextView
+                android:id="@+id/verticalLine1"
+                android:layout_width="6dp"
+                android:layout_height="19dp"
+                android:background="@color/green_bright"
+                android:layout_marginTop="2dp"
+                android:layout_marginStart="5dp"/>
 
-    <TextView
-        android:id="@+id/textViewGroupIntro"
+            <TextView
+                android:id="@+id/textViewIntroduction"
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/ibmplexsanshebrew_bold"
+                android:maxLines="1"
+                android:text="@string/introduction"
+                android:textColor="@color/white"
+                android:textSize="19sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textViewGroupIntro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/doctrine_introduction"
+            android:textColor="@color/white"
+            android:textStyle="normal"
+            android:textSize="16sp"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_top"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:justificationMode="inter_word"
+            android:fontFamily="@font/ibmplexsanshebrew_regular"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="25dp"
+            android:layout_marginStart="@dimen/margin_view_start">
+            <TextView
+                android:layout_width="6dp"
+                android:layout_height="19dp"
+                android:background="@color/green_bright"
+                android:layout_marginTop="2dp"
+                android:layout_marginStart="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/ibmplexsanshebrew_bold"
+                android:maxLines="1"
+                android:text="@string/doctrines"
+                android:textColor="@color/white"
+                android:textSize="19sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewDoctrine"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="48dp"
+            android:layout_marginTop="@dimen/margin_view_start"/>
+    </LinearLayout>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        style="@style/Widget.App.BottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/sample_text"
-        android:textColor="@color/white"
-        android:textStyle="normal"
-        android:textSize="12sp"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/margin_top"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:justificationMode="inter_word"
-        android:fontFamily="@font/ibmplexsanshebrew_regular"/>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="25dp"
-        android:layout_marginStart="@dimen/margin_view_start">
-        <TextView
-            android:layout_width="6dp"
-            android:layout_height="17dp"
-            android:background="@color/green_bright"
-            android:layout_marginTop="2dp"
-            android:layout_marginStart="5dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="22dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="5dp"
-            android:fontFamily="@font/ibmplexsanshebrew_bold"
-            android:maxLines="1"
-            android:text="@string/doctrines"
-            android:textColor="@color/white"
-            android:textSize="15sp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewGroups"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginTop="@dimen/margin_view_start"/>
-
-</androidx.appcompat.widget.LinearLayoutCompat>
+        android:layout_alignParentBottom="true"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/bottom_navigation_menu"/>
+</RelativeLayout>

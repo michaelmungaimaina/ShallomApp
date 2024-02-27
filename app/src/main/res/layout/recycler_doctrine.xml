@@ -4,9 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/margin_top"
-    app:cardBackgroundColor="@color/green_light"
+    app:cardBackgroundColor="@color/transparent"
+    android:layout_marginTop="@dimen/margin_top"
+    android:layout_marginBottom="@dimen/margin_top"
     app:cardCornerRadius="0dp"
-    app:cardElevation="0dp">
+    app:cardElevation="0dp"
+    android:background="@color/transparent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,10 +17,11 @@
         android:gravity="top"
         android:paddingEnd="@dimen/margin_top"
         android:paddingStart="@dimen/margin_top"
-        android:background="@color/green_700">
+        android:background="@drawable/round_rectangle_green_8px">
         <androidx.cardview.widget.CardView
             android:layout_width="45dp"
             android:layout_height="45dp"
+            android:layout_marginTop="@dimen/margin_top"
             app:cardBackgroundColor="@color/green_light"
             app:cardCornerRadius="40dp"
             app:cardElevation="0dp">
@@ -54,8 +58,10 @@
                 android:text="@string/sample_text"
                 android:textColor="@color/white"
                 android:textStyle="normal"
-                android:textSize="13sp"
+                android:textSize="16sp"
                 android:justificationMode="inter_word"
+                android:layout_marginTop="@dimen/margin_top"
+                android:layout_marginEnd="@dimen/margin_top"
                 android:layout_gravity="start"
                 android:fontFamily="@font/ibmplexsanshebrew_bold"/>
             <TextView
@@ -65,7 +71,7 @@
                 android:text="@string/sample_text"
                 android:textColor="@color/white_"
                 android:textStyle="normal"
-                android:textSize="12sp"
+                android:textSize="15sp"
                 android:justificationMode="inter_word"
                 android:layout_gravity="start"
                 android:scrollbars="horizontal"
@@ -73,13 +79,18 @@
                 android:scrollbarStyle="insideInset"
                 android:scrollbarSize="1dp"
                 android:layout_marginTop="@dimen/margin_view_start"
+                android:layout_marginEnd="@dimen/margin_top"
                 android:fontFamily="@font/ibmplexsanshebrew_regular"/>
-            <LinearLayout
+            <com.google.android.flexbox.FlexboxLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                app:flexWrap="wrap"
+                app:alignItems="flex_start"
+                app:alignContent="flex_start"
+                app:justifyContent="space_between"
+                android:layout_marginBottom="@dimen/margin_top"
                 android:layout_marginTop="@dimen/margin_view_start"
-                android:gravity="center_vertical">
+                android:layout_marginEnd="@dimen/margin_top">
                 <TextView
                     android:id="@+id/textViewBookOne"
                     android:layout_width="wrap_content"
@@ -260,7 +271,67 @@
                     android:layout_gravity="center_vertical"
                     android:background="@drawable/ic_txt_backround"
                     android:fontFamily="@font/ibmplexsanshebrew_bold"/>
-            </LinearLayout>
+                <TextView
+                    android:id="@+id/textViewBookTen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="@string/sample_bible_book"
+                    android:textColor="@color/green_bright"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:layout_marginStart="@dimen/margin_top"
+                    android:layout_marginEnd="@dimen/margin_top"
+                    android:layout_marginTop="@dimen/margin_top"
+                    android:layout_marginBottom="@dimen/margin_top"
+                    android:maxLines="1"
+                    android:visibility="gone"
+                    android:paddingStart="9dp"
+                    android:paddingEnd="9dp"
+                    android:gravity="center_vertical"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/ic_txt_backround"
+                    android:fontFamily="@font/ibmplexsanshebrew_bold"/>
+                <TextView
+                    android:id="@+id/textViewBookEleven"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="@string/sample_bible_book"
+                    android:textColor="@color/green_bright"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:layout_marginStart="@dimen/margin_top"
+                    android:layout_marginEnd="@dimen/margin_top"
+                    android:layout_marginTop="@dimen/margin_top"
+                    android:layout_marginBottom="@dimen/margin_top"
+                    android:maxLines="1"
+                    android:visibility="gone"
+                    android:paddingStart="9dp"
+                    android:paddingEnd="9dp"
+                    android:gravity="center_vertical"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/ic_txt_backround"
+                    android:fontFamily="@font/ibmplexsanshebrew_bold"/>
+                <TextView
+                    android:id="@+id/textViewBookTwelve"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="@string/sample_bible_book"
+                    android:textColor="@color/green_bright"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:layout_marginStart="@dimen/margin_top"
+                    android:layout_marginEnd="@dimen/margin_top"
+                    android:layout_marginTop="@dimen/margin_top"
+                    android:layout_marginBottom="@dimen/margin_top"
+                    android:maxLines="1"
+                    android:visibility="gone"
+                    android:paddingStart="9dp"
+                    android:paddingEnd="9dp"
+                    android:gravity="center_vertical"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/ic_txt_backround"
+                    android:fontFamily="@font/ibmplexsanshebrew_bold"/>
+            </com.google.android.flexbox.FlexboxLayout>
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

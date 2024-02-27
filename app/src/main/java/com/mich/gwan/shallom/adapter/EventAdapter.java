@@ -23,16 +23,18 @@ import com.mich.gwan.shallom.R;
 import com.mich.gwan.shallom.databinding.RecyclerEventsBinding;
 import com.mich.gwan.shallom.fragment.AnnouncementsFragment;
 import com.mich.gwan.shallom.model.Event;
+import com.mich.gwan.shallom.model.LessonQuestion;
 
 import java.text.MessageFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.util.List;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> {
-    private final List<Event> list;
+    private List<Event> list;
     private int index = RecyclerView.NO_POSITION;
     Context context;
 
@@ -69,7 +71,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         long targetMillisec = 0;
         // Set target date and time
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            targetMillisec = list.get(position).getEventEndDate().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+            targetMillisec = list.get(position).getEventEndDate().atZone(ZoneId.of("Africa/Nairobi")).toInstant().toEpochMilli();
+            //ZonedDateTime date = list.get(position).getEventEndDate().atZone(ZoneId.of("Africa/Nairobi")).toInstant().toEpochMilli();
         }
 
         // Start countdown timer
@@ -131,6 +134,12 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     public int getItemCount() {
         Log.v(EventAdapter.class.getSimpleName()," "+list.size());
         return list.size();
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void updateList(List<Event> listItem){
+        list = listItem;
+        notifyDataSetChanged();
     }
 
 
