@@ -58,6 +58,8 @@ import com.mich.gwan.shallom.service.AsyncTaskExecutorService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class DoctrineActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -82,6 +84,8 @@ public class DoctrineActivity extends AppCompatActivity implements View.OnClickL
     private DatabaseHelper databaseHelper;
     private InputValidation inputValidation;
     private DoctrineAdapter adapter;
+
+    private ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     private List<Doctrine> list;
 
@@ -177,6 +181,10 @@ public class DoctrineActivity extends AppCompatActivity implements View.OnClickL
         adapter.updateList(temp);
     }
 
+    /**
+     * Handle onclick events
+     * @param v The view that is clicked
+     */
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.cardViewSearch){
@@ -202,6 +210,9 @@ public class DoctrineActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
+    /**
+     * Sets up click listener for the bottom navigation menu items.
+     */
     private void menuClick(){
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -241,21 +252,33 @@ public class DoctrineActivity extends AppCompatActivity implements View.OnClickL
 
     @SuppressLint("StaticFieldLeak")
     private void getDataFromSQLite(){
-// AsyncTask is used that SQLite operation not blocks the UI Thread.
-        new AsyncTask<Void, Void, Void>() {
+        executorService.execute(new Runnable() {
             @Override
-            protected Void doInBackground(@SuppressLint("StaticFieldLeak") Void... params) {
-                list.clear();
-                list.addAll(databaseHelper.getDoctrine());
-                return null;
-            }
+            public void run() {
+                // Perform the database operation in background
+                List<Doctrine> fetchedList = databaseHelper.getDoctrine();
 
-            @SuppressLint("NotifyDataSetChanged")
-            @Override
-            protected void onPostExecute(Void aVoid) {
-                super.onPostExecute(aVoid);
-                adapter.notifyDataSetChanged();
+                // Update the UI on the main thread
+                runOnUiThread(new Runnable() {
+                    @SuppressLint("NotifyDataSetChanged")
+                    @Override
+                    public void run() {
+                        // Clear the list
+                        list.clear();
+                        // Add all items from the fetched list
+                        list.addAll(fetchedList);
+                        // Notify the adapter of the data change
+                        adapter.notifyDataSetChanged();
+                    }
+                });
             }
-        }.execute();
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Shutdown the executor service to release resources
+        executorService.shutdown();
     }
 }
