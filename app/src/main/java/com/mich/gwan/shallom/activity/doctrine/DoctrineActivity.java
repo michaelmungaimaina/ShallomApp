@@ -252,26 +252,19 @@ public class DoctrineActivity extends AppCompatActivity implements View.OnClickL
 
     @SuppressLint("StaticFieldLeak")
     private void getDataFromSQLite(){
-        executorService.execute(new Runnable() {
-            @Override
-            public void run() {
-                // Perform the database operation in background
-                List<Doctrine> fetchedList = databaseHelper.getDoctrine();
+        executorService.execute(() -> {
+            // Perform the database operation in background
+            List<Doctrine> fetchedList = databaseHelper.getDoctrine();
 
-                // Update the UI on the main thread
-                runOnUiThread(new Runnable() {
-                    @SuppressLint("NotifyDataSetChanged")
-                    @Override
-                    public void run() {
-                        // Clear the list
-                        list.clear();
-                        // Add all items from the fetched list
-                        list.addAll(fetchedList);
-                        // Notify the adapter of the data change
-                        adapter.notifyDataSetChanged();
-                    }
-                });
-            }
+            // Update the UI on the main thread
+            runOnUiThread(() -> {
+                // Clear the list
+                list.clear();
+                // Add all items from the fetched list
+                list.addAll(fetchedList);
+                // Notify the adapter of the data change
+                adapter.notifyDataSetChanged();
+            });
         });
     }
 

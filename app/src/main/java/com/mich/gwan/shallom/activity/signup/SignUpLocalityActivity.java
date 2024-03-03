@@ -69,7 +69,28 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
     private List<String> groups;
     private List<String> designation;
     private List<String> regions;
-    List<String> counties;
+    private List<String> counties;
+
+    // REGIONS
+    private List<String> nairobiRegion, coastRegion, northEasternRegion, murangaCounties, eldoretRegion,
+                nakuruRegion, kirinyagaRegion, turkanaRegion, embuRegion, narokRegion, kisumuRegion, selectRegion;
+
+    // COUNTIES
+    private List<String> nairobiSubCounties, mombasaSubCounties, kwaleSubCounties, kilifiSubCounties, tanaRiverSubCounties,
+                lamuSubCounties, taitaTavetaSubCounties, garisaSubCounties, wajirSubCounties, manderaSubCounties,
+                marsabitSubCounties, isioloSubCounties, meruSubCounties, tharakaNithiSubCounties, embuSubCounties,
+                kituiSubCounties, machakosSubCounties, makueniSubCounties, nyadaruaSubCounties, nyeriSubCounties,
+                kirinyagaSubCounties, murangaSubCounties, kiambuSubCounties, turkanaSubCounties, westPokotSubCounties,
+                samburuSubCounties, transNzoiaSubCounties, uasinGishuSubCounties, elgeyoMarakwetSubCounties, nandiSubCounties,
+                baringoSubCounties, laikipiaSubCounties, nakuruSubCounties, narokSubCounties, kajiadoSubCounties,
+                kerichoSubCounties, bometSubCounties, kakamegaSubCounties, vihigaSubCounties, bungomaSubCounties,
+                busiaSubCounties, siayaSubCounties, kisumuSubCounties, homaBaySubCounties, migoriSubCounties,
+                kisiiSubCounties, nyamiraSubCounties, selectCounty;
+
+    // SUB-COUNTIES
+    private List<String> nyaliVillages, jomvuVillages, msambeniVillages, kilifiSouthVillages, ganzeVillages,
+                kaloleniVillages, roysambuVillages, kamukunjiVillages, embakasiNorthVillages, kabeteVillages,
+                jujaVillages, kiambuVillages, ruiruVillages, limuruVillages, thikaTownVillages, selectSubCounty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +112,7 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
 
     private void spinnerData() {
         regions = new ArrayList<>();
-        // Ad items to Region list
+        // Add items to Region list
         regions.add("Select Region");
         regions.add("NAIROBI REGION");
         regions.add("COAST REGION");
@@ -105,14 +126,14 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         regions.add("TURKANA REGION");
         regions.add("NORTH EASTERN REGION");
 
-        List<String> nairobiRegion = new ArrayList<>();
+        nairobiRegion = new ArrayList<>();
         nairobiRegion.add("Select County");
         nairobiRegion.add("016 Machakos");
         nairobiRegion.add("017 Makueni");
         nairobiRegion.add("022 Kiambu");
         nairobiRegion.add("047 Nairobi City");
 
-        List<String> coastRegion = new ArrayList<>();
+        coastRegion = new ArrayList<>();
         coastRegion.add("Select County");
         coastRegion.add("001 Mombasa");
         coastRegion.add("002 Kwale");
@@ -121,19 +142,19 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         coastRegion.add("005 Lamu");
         coastRegion.add("006 Taita Taveta");
 
-        List<String> northEasternRegion = new ArrayList<>();
+        northEasternRegion = new ArrayList<>();
         northEasternRegion.add("Select County");
         northEasternRegion.add("007 Garissa");
         northEasternRegion.add("008 Wajir");
         northEasternRegion.add("009 Mandera");
         northEasternRegion.add("010 Marsabit");
 
-        List<String> murangaCounties = new ArrayList<>();
+        murangaCounties = new ArrayList<>();
         murangaCounties.add("Select County");
         murangaCounties.add("019 Nyeri");
         murangaCounties.add("021 Murang'a");
 
-        List<String> eldoretRegion = new ArrayList<>();
+        eldoretRegion = new ArrayList<>();
         eldoretRegion.add("Select County");
         eldoretRegion.add("026 Trans Nzoia");
         eldoretRegion.add("027 Uasin Gishu");
@@ -146,23 +167,23 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         eldoretRegion.add("039 Bungoma");
         eldoretRegion.add("040 Busia");
 
-        List<String> nakuruRegion = new ArrayList<>();
+        nakuruRegion = new ArrayList<>();
         nakuruRegion.add("Select County");
         nakuruRegion.add("018 Nyandarua");
         nakuruRegion.add("031 Laikipia");
         nakuruRegion.add("032 Nakuru");
 
-        List<String> kirinyagaRegion = new ArrayList<>();
+        kirinyagaRegion = new ArrayList<>();
         kirinyagaRegion.add("Select County");
         kirinyagaRegion.add("020 Kirinyaga");
 
-        List<String> turkanaRegion = new ArrayList<>();
+        turkanaRegion = new ArrayList<>();
         turkanaRegion.add("Select County");
         turkanaRegion.add("023 Turkana");
         turkanaRegion.add("024 West Pokot");
         turkanaRegion.add("025 Samburu");
 
-        List<String> embuRegion = new ArrayList<>();
+        embuRegion = new ArrayList<>();
         embuRegion.add("Select County");
         embuRegion.add("011 Isiolo");
         embuRegion.add("012 Meru");
@@ -170,13 +191,13 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         embuRegion.add("014 Embu");
         embuRegion.add("015 Kitui");
 
-        List<String> narokRegion = new ArrayList<>();
+        narokRegion = new ArrayList<>();
         narokRegion.add("Select County");
         narokRegion.add("033 Narok");
         narokRegion.add("034 Kajiado");
         narokRegion.add("035 Kericho");
 
-        List<String> kisumuRegion = new ArrayList<>();
+        kisumuRegion = new ArrayList<>();
         kisumuRegion.add("Select County");
         kisumuRegion.add("041 Siaya");
         kisumuRegion.add("042 Kisumu");
@@ -185,10 +206,10 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         kisumuRegion.add("045 Kisii");
         kisumuRegion.add("046 Nyamira");
 
-        List<String> selectRegion = new ArrayList<>();
+        selectRegion = new ArrayList<>();
         selectRegion.add("Select County");
 
-        List<String> nairobiSubCounties = new ArrayList<>();
+        nairobiSubCounties = new ArrayList<>();
         nairobiSubCounties.add("Select Sub-County");
         nairobiSubCounties.add("Dagoretti North");
         nairobiSubCounties.add("Dagoretti South");
@@ -208,7 +229,7 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         nairobiSubCounties.add("Starehe");
         nairobiSubCounties.add("Westlands");
 
-        List<String> mombasaSubCounties = new ArrayList<>();
+        mombasaSubCounties = new ArrayList<>();
         mombasaSubCounties.add("Select Sub-County");
         mombasaSubCounties.add("Changamwe");
         mombasaSubCounties.add("Jomvu");
@@ -218,14 +239,14 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         mombasaSubCounties.add("Nyali");
 
 
-        List<String> kwaleSubCounties = new ArrayList<>();
+        kwaleSubCounties = new ArrayList<>();
         kwaleSubCounties.add("Select Sub-County");
         kwaleSubCounties.add("Kinango");
         kwaleSubCounties.add("Lunga Lunga");
         kwaleSubCounties.add("Msambweni");
         kwaleSubCounties.add("Matuga");
 
-        List<String> kilifiSubCounties = new ArrayList<>();
+        kilifiSubCounties = new ArrayList<>();
         kilifiSubCounties.add("Select Sub-County");
         kilifiSubCounties.add("Ganze");
         kilifiSubCounties.add("Kaloleni");
@@ -235,25 +256,25 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         kilifiSubCounties.add("Malindi");
         kilifiSubCounties.add("Rabai");
 
-        List<String> tanaRiverSubCounties = new ArrayList<>();
+        tanaRiverSubCounties = new ArrayList<>();
         tanaRiverSubCounties.add("Select Sub-County");
         tanaRiverSubCounties.add("Bura");
         tanaRiverSubCounties.add("Galole");
         tanaRiverSubCounties.add("Garsen");
 
-        List<String> lamuSubCounties = new ArrayList<>();
+        lamuSubCounties = new ArrayList<>();
         lamuSubCounties.add("Select Sub-County");
         lamuSubCounties.add("Lamu East");
         lamuSubCounties.add("Lamu West");
 
-        List<String> taitaTavetaSubCounties = new ArrayList<>();
+        taitaTavetaSubCounties = new ArrayList<>();
         taitaTavetaSubCounties.add("Select Sub-County");
         taitaTavetaSubCounties.add("Mwatate");
         taitaTavetaSubCounties.add("Taveta");
         taitaTavetaSubCounties.add("Voi");
         taitaTavetaSubCounties.add("Wundanyi");
 
-        List<String> garisaSubCounties = new ArrayList<>();
+        garisaSubCounties = new ArrayList<>();
         garisaSubCounties.add("Select Sub-County");
         garisaSubCounties.add("Daadab");
         garisaSubCounties.add("Fafi");
@@ -263,7 +284,7 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         garisaSubCounties.add("Lagdera");
         garisaSubCounties.add("Balambala");
 
-        List<String> wajirSubCounties = new ArrayList<>();
+        wajirSubCounties = new ArrayList<>();
         wajirSubCounties.add("Select Sub-County");
         wajirSubCounties.add("Eldas");
         wajirSubCounties.add("Tarbaj");
@@ -272,7 +293,7 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         wajirSubCounties.add("Wajir South");
         wajirSubCounties.add("Wajir West");
 
-        List<String> manderaSubCounties = new ArrayList<>();
+        manderaSubCounties = new ArrayList<>();
         manderaSubCounties.add("Select Sub-County");
         manderaSubCounties.add("Banissa");
         manderaSubCounties.add("Lafey");
@@ -281,20 +302,20 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         manderaSubCounties.add("Mandera South");
         manderaSubCounties.add("Mandera West");
 
-        List<String> marsabitSubCounties = new ArrayList<>();
+        marsabitSubCounties = new ArrayList<>();
         marsabitSubCounties.add("Select Sub-County");
         marsabitSubCounties.add("Laisamis");
         marsabitSubCounties.add("Moyale");
         marsabitSubCounties.add("North Hor");
         marsabitSubCounties.add("Saku");
 
-        List<String> isioloSubCounties = new ArrayList<>();
+        isioloSubCounties = new ArrayList<>();
         isioloSubCounties.add("Select Sub-County");
         isioloSubCounties.add("Isiolo");
         isioloSubCounties.add("Merti");
         isioloSubCounties.add("Garbatulla");
 
-        List<String> meruSubCounties = new ArrayList<>();
+        meruSubCounties = new ArrayList<>();
         meruSubCounties.add("Select Sub-County");
         meruSubCounties.add("Buuri");
         meruSubCounties.add("Igembe Central");
@@ -306,7 +327,7 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         meruSubCounties.add("Tigania East");
         meruSubCounties.add("Tigania West");
 
-        List<String> tharakaNithiSubCounties = new ArrayList<>();
+        tharakaNithiSubCounties = new ArrayList<>();
         tharakaNithiSubCounties.add("Select Sub-County");
         tharakaNithiSubCounties.add("Tharaka North");
         tharakaNithiSubCounties.add("Tharaka South");
@@ -315,14 +336,14 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         tharakaNithiSubCounties.add("Maara");
         tharakaNithiSubCounties.add("Chiakariga and Muthambi");
 
-        List<String> embuSubCounties = new ArrayList<>();
+        embuSubCounties = new ArrayList<>();
         embuSubCounties.add("Select Sub-County");
         embuSubCounties.add("Manyatta");
         embuSubCounties.add("Mbeere North");
         embuSubCounties.add("Mbeere South");
         embuSubCounties.add("Runyenjes");
 
-        List<String> kituiSubCounties = new ArrayList<>();
+        kituiSubCounties = new ArrayList<>();
         kituiSubCounties.add("Select Sub-County");
         kituiSubCounties.add("Kitui West");
         kituiSubCounties.add("Kitui Central");
@@ -333,7 +354,7 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         kituiSubCounties.add("Mwingi West");
         kituiSubCounties.add("Mwingi Central");
 
-        List<String> machakosSubCounties = new ArrayList<>();
+        machakosSubCounties = new ArrayList<>();
         machakosSubCounties.add("Select Sub-County");
         machakosSubCounties.add("Kathiani");
         machakosSubCounties.add("Machakos Town");
@@ -343,7 +364,7 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         machakosSubCounties.add("Mwala");
         machakosSubCounties.add("Yatta");
 
-        List<String> makueniSubCounties = new ArrayList<>();
+        makueniSubCounties = new ArrayList<>();
         makueniSubCounties.add("Select Sub-County");
         makueniSubCounties.add("Kaiti");
         makueniSubCounties.add("Kibwezi West");
@@ -352,7 +373,7 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         makueniSubCounties.add("Makueni");
         makueniSubCounties.add("Mbooni");
 
-        List<String> nyadaruaSubCounties = new ArrayList<>();
+        nyadaruaSubCounties = new ArrayList<>();
         nyadaruaSubCounties.add("Select Sub-County");
         nyadaruaSubCounties.add("Kinangop");
         nyadaruaSubCounties.add("Kipipiri");
@@ -360,7 +381,7 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         nyadaruaSubCounties.add("Ol-Kalou");
         nyadaruaSubCounties.add("Ol Joro Orok");
 
-        List<String> nyeriSubCounties = new ArrayList<>();
+        nyeriSubCounties = new ArrayList<>();
         nyeriSubCounties.add("Select Sub-County");
         nyeriSubCounties.add("Kieni East");
         nyeriSubCounties.add("Kieni West");
@@ -371,7 +392,7 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         nyeriSubCounties.add("Othaya");
         nyeriSubCounties.add("Tetu");
 
-        List<String> kirinyagaSubCounties = new ArrayList<>();
+        kirinyagaSubCounties = new ArrayList<>();
         kirinyagaSubCounties.add("Select Sub-County");
         kirinyagaSubCounties.add("Kirinyaga Central");
         kirinyagaSubCounties.add("Kirinyaga East");
@@ -379,7 +400,7 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         kirinyagaSubCounties.add("Mwea East");
         kirinyagaSubCounties.add("Mwea West");
 
-        List<String> murangaSubCounties = new ArrayList<>();
+        murangaSubCounties = new ArrayList<>();
         murangaSubCounties.add("Select Sub-County");
         murangaSubCounties.add("Gatanga");
         murangaSubCounties.add("Kahuro");
@@ -390,7 +411,7 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         murangaSubCounties.add("Mathioya");
         murangaSubCounties.add("Murang’a South");
 
-        List<String> kiambuSubCounties = new ArrayList<>();
+        kiambuSubCounties = new ArrayList<>();
         kiambuSubCounties.add("Select Sub-County");
         kiambuSubCounties.add("Gatundu North");
         kiambuSubCounties.add("Gatundu South");
@@ -405,7 +426,7 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         kiambuSubCounties.add("Thika Town");
         kiambuSubCounties.add("Lari");
 
-        List<String> turkanaSubCounties = new ArrayList<>();
+        turkanaSubCounties = new ArrayList<>();
         turkanaSubCounties.add("Select Sub-County");
         turkanaSubCounties.add("Loima");
         turkanaSubCounties.add("Turkana Central");
@@ -413,20 +434,20 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         turkanaSubCounties.add("Turkana North");
         turkanaSubCounties.add("Turkana South");
 
-        List<String> westPokotSubCounties = new ArrayList<>();
+        westPokotSubCounties = new ArrayList<>();
         westPokotSubCounties.add("Select Sub-County");
         westPokotSubCounties.add("Central Pokot");
         westPokotSubCounties.add("North Pokot");
         westPokotSubCounties.add("Pokot South");
         westPokotSubCounties.add("West Pokot");
 
-        List<String> samburuSubCounties = new ArrayList<>();
+        samburuSubCounties = new ArrayList<>();
         samburuSubCounties.add("Select Sub-County");
         samburuSubCounties.add("Samburu East");
         samburuSubCounties.add("Samburu North");
         samburuSubCounties.add("Samburu West");
 
-        List<String> transNzoiaSubCounties = new ArrayList<>();
+        transNzoiaSubCounties = new ArrayList<>();
         transNzoiaSubCounties.add("Select Sub-County");
         transNzoiaSubCounties.add("Cherangany");
         transNzoiaSubCounties.add("Endebess");
@@ -434,7 +455,7 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         transNzoiaSubCounties.add("Kwanza");
         transNzoiaSubCounties.add("Saboti");
 
-        List<String> uasinGishuSubCounties = new ArrayList<>();
+        uasinGishuSubCounties = new ArrayList<>();
         uasinGishuSubCounties.add("Select Sub-County");
         uasinGishuSubCounties.add("Ainabkoi");
         uasinGishuSubCounties.add("Kapseret");
@@ -443,14 +464,14 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         uasinGishuSubCounties.add("Soy");
         uasinGishuSubCounties.add("Turbo");
 
-        List<String> elgeyoMarakwetSubCounties = new ArrayList<>();
+        elgeyoMarakwetSubCounties = new ArrayList<>();
         elgeyoMarakwetSubCounties.add("Select Sub-County");
         elgeyoMarakwetSubCounties.add("Keiyo North");
         elgeyoMarakwetSubCounties.add("Keiyo South");
         elgeyoMarakwetSubCounties.add("Marakwet East");
         elgeyoMarakwetSubCounties.add("Marakwet West");
 
-        List<String> nandiSubCounties = new ArrayList<>();
+        nandiSubCounties = new ArrayList<>();
         nandiSubCounties.add("Select Sub-County");
         nandiSubCounties.add("Aldai");
         nandiSubCounties.add("Chesumei");
@@ -459,7 +480,7 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         nandiSubCounties.add("Nandi Hills");
         nandiSubCounties.add("Tindiret");
 
-        List<String> baringoSubCounties = new ArrayList<>();
+        baringoSubCounties = new ArrayList<>();
         baringoSubCounties.add("Select Sub-County");
         baringoSubCounties.add("Baringo Central");
         baringoSubCounties.add("Baringo North");
@@ -468,7 +489,7 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         baringoSubCounties.add("Mogotio");
         baringoSubCounties.add("Tiaty");
 
-        List<String> laikipiaSubCounties = new ArrayList<>();
+        laikipiaSubCounties = new ArrayList<>();
         laikipiaSubCounties.add("Select Sub-County");
         laikipiaSubCounties.add("Laikipia Central");
         laikipiaSubCounties.add("Laikipia East");
@@ -476,7 +497,7 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         laikipiaSubCounties.add("Laikipia West");
         laikipiaSubCounties.add("Nyahururu");
 
-        List<String> nakuruSubCounties = new ArrayList<>();
+        nakuruSubCounties = new ArrayList<>();
         nakuruSubCounties.add("Select Sub-County");
         nakuruSubCounties.add("Bahati");
         nakuruSubCounties.add("Gilgil");
@@ -490,7 +511,7 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         nakuruSubCounties.add("Rongai");
         nakuruSubCounties.add("Subukia");
 
-        List<String> narokSubCounties = new ArrayList<>();
+        narokSubCounties = new ArrayList<>();
         narokSubCounties.add("Select Sub-County");
         narokSubCounties.add("Narok East");
         narokSubCounties.add("Narok North");
@@ -499,7 +520,7 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         narokSubCounties.add("Transmara East");
         narokSubCounties.add("Transmara West");
 
-        List<String> kajiadoSubCounties = new ArrayList<>();
+        kajiadoSubCounties = new ArrayList<>();
         kajiadoSubCounties.add("Select Sub-County");
         kajiadoSubCounties.add("sinya");
         kajiadoSubCounties.add("ajiado Central");
@@ -507,7 +528,7 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         kajiadoSubCounties.add("oitokitok");
         kajiadoSubCounties.add("ashuuru");
 
-        List<String> kerichoSubCounties = new ArrayList<>();
+        kerichoSubCounties = new ArrayList<>();
         kerichoSubCounties.add("Select Sub-County");
         kerichoSubCounties.add("Ainamoi");
         kerichoSubCounties.add("Belgut");
@@ -516,7 +537,7 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         kerichoSubCounties.add("Kipkelion West");
         kerichoSubCounties.add("Soin/Sigowet");
 
-        List<String> bometSubCounties = new ArrayList<>();
+        bometSubCounties = new ArrayList<>();
         bometSubCounties.add("Select Sub-County");
         bometSubCounties.add("Bomet Central");
         bometSubCounties.add("Bomet East");
@@ -524,7 +545,7 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         bometSubCounties.add("Konoin");
         bometSubCounties.add("Sotik");
 
-        List<String> kakamegaSubCounties = new ArrayList<>();
+        kakamegaSubCounties = new ArrayList<>();
         kakamegaSubCounties.add("Select Sub-County");
         kakamegaSubCounties.add("Butere");
         kakamegaSubCounties.add("Kakamega Central");
@@ -540,7 +561,7 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         kakamegaSubCounties.add("Mutungu");
         kakamegaSubCounties.add("Navakholo");
 
-        List<String> vihigaSubCounties = new ArrayList<>();
+        vihigaSubCounties = new ArrayList<>();
         vihigaSubCounties.add("Select Sub-County");
         vihigaSubCounties.add("Emuhaya");
         vihigaSubCounties.add("Hamisi");
@@ -548,7 +569,7 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         vihigaSubCounties.add("Sabatia");
         vihigaSubCounties.add("Vihiga");
 
-        List<String> bungomaSubCounties = new ArrayList<>();
+        bungomaSubCounties = new ArrayList<>();
         bungomaSubCounties.add("Select Sub-County");
         bungomaSubCounties.add("Bumula");
         bungomaSubCounties.add("Kabuchai");
@@ -560,7 +581,7 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         bungomaSubCounties.add("Webuye East");
         bungomaSubCounties.add("Webuye West");
 
-        List<String> busiaSubCounties = new ArrayList<>();
+        busiaSubCounties = new ArrayList<>();
         busiaSubCounties.add("Select Sub-County");
         busiaSubCounties.add("Budalangi");
         busiaSubCounties.add("Butula");
@@ -569,7 +590,7 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         busiaSubCounties.add("Teso North");
         busiaSubCounties.add("Teso South");
 
-        List<String> siayaSubCounties = new ArrayList<>();
+        siayaSubCounties = new ArrayList<>();
         siayaSubCounties.add("Select Sub-County");
         siayaSubCounties.add("Alego Usonga");
         siayaSubCounties.add("Bondo");
@@ -578,7 +599,7 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         siayaSubCounties.add("Ugenya");
         siayaSubCounties.add("Unguja");
 
-        List<String> kisumuSubCounties = new ArrayList<>();
+        kisumuSubCounties = new ArrayList<>();
         kisumuSubCounties.add("Select Sub-County");
         kisumuSubCounties.add("Kisumu Central");
         kisumuSubCounties.add("Kisumu East");
@@ -588,7 +609,7 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         kisumuSubCounties.add("Nyando");
         kisumuSubCounties.add("Seme");
 
-        List<String> homaBaySubCounties = new ArrayList<>();
+        homaBaySubCounties = new ArrayList<>();
         homaBaySubCounties.add("Select Sub-County");
         homaBaySubCounties.add("Homabay Town");
         homaBaySubCounties.add("Kabondo");
@@ -599,7 +620,7 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         homaBaySubCounties.add("Rangwe");
         homaBaySubCounties.add("Suba");
 
-        List<String> migoriSubCounties = new ArrayList<>();
+        migoriSubCounties = new ArrayList<>();
         migoriSubCounties.add("Select Sub-County");
         migoriSubCounties.add("Awendo");
         migoriSubCounties.add("Kuria East");
@@ -611,7 +632,7 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         migoriSubCounties.add("Suna West");
         migoriSubCounties.add("Uriri");
 
-        List<String> kisiiSubCounties = new ArrayList<>();
+        kisiiSubCounties = new ArrayList<>();
         kisiiSubCounties.add("Select Sub-County");
         kisiiSubCounties.add("Kitutu Chache North");
         kisiiSubCounties.add("Kitutu Chache");
@@ -623,7 +644,7 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         kisiiSubCounties.add("South Mugirango");
         kisiiSubCounties.add("Bonchari");
 
-        List<String> nyamiraSubCounties = new ArrayList<>();
+        nyamiraSubCounties = new ArrayList<>();
         nyamiraSubCounties.add("Select Sub-County");
         nyamiraSubCounties.add("Borabu");
         nyamiraSubCounties.add("Manga");
@@ -631,78 +652,78 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         nyamiraSubCounties.add("Nyamira North");
         nyamiraSubCounties.add("Nyamira South");
 
-        List<String> selectCounty = new ArrayList<>();
+        selectCounty = new ArrayList<>();
         selectCounty.add("Select Sub-County");
 
         /**
          * Villages arraylists
          */
 
-        List<String> nyaliVillages = new ArrayList<>();
+        nyaliVillages = new ArrayList<>();
         nyaliVillages.add("Select Village");
         nyaliVillages.add("KISIMANI");
 
-        List<String> jomvuVillages = new ArrayList<>();
+        jomvuVillages = new ArrayList<>();
         jomvuVillages.add("Select Village");
         jomvuVillages.add("CHANGAMWE");
 
-        List<String> msambeniVillages = new ArrayList<>();
+        msambeniVillages = new ArrayList<>();
         msambeniVillages.add("Select Village");
         msambeniVillages.add("SHIMBA HILLS");
         msambeniVillages.add("UKUNDA");
 
-        List<String> kilifiSouthVillages = new ArrayList<>();
+        kilifiSouthVillages = new ArrayList<>();
         kilifiSouthVillages.add("Select Village");
         kilifiSouthVillages.add("KILIFI");
         kilifiSouthVillages.add("MSABAHA");
         kilifiSouthVillages.add("GEDE");
         kilifiSouthVillages.add("DIDA");
 
-        List<String> ganzeVillages = new ArrayList<>();
+        ganzeVillages = new ArrayList<>();
         ganzeVillages.add("Select Village");
         ganzeVillages.add("SHARIANI");
 
-        List<String> kaloleniVillages = new ArrayList<>();
+        kaloleniVillages = new ArrayList<>();
         kaloleniVillages.add("Select Village");
         kaloleniVillages.add("MKAPUNI");
 
-        List<String> roysambuVillages = new ArrayList<>();
+        roysambuVillages = new ArrayList<>();
         roysambuVillages.add("Select Village");
         roysambuVillages.add("MARURUI");
 
-        List<String> kamukunjiVillages = new ArrayList<>();
+        kamukunjiVillages = new ArrayList<>();
         kamukunjiVillages.add("Select Village");
         kamukunjiVillages.add("EASTLEIGH - HQ");
 
-        List<String> embakasiNorthVillages = new ArrayList<>();
+        embakasiNorthVillages = new ArrayList<>();
         embakasiNorthVillages.add("Select Village");
         embakasiNorthVillages.add("RUAI");
 
-        List<String> kabeteVillages = new ArrayList<>();
+        kabeteVillages = new ArrayList<>();
         kabeteVillages.add("Select Village");
         kabeteVillages.add("GUDOK");
 
-        List<String> jujaVillages = new ArrayList<>();
+        jujaVillages = new ArrayList<>();
         jujaVillages.add("Select Village");
         jujaVillages.add("JUJA");
 
-        List<String> kiambuVillages = new ArrayList<>();
+        kiambuVillages = new ArrayList<>();
         kiambuVillages.add("Select Village");
         kiambuVillages.add("KIAMBU");
 
-        List<String> ruiruVillages = new ArrayList<>();
+        ruiruVillages = new ArrayList<>();
         ruiruVillages.add("Select Village");
         ruiruVillages.add("RUIRU - BOOSTER");
 
-        List<String> limuruVillages = new ArrayList<>();
+        limuruVillages = new ArrayList<>();
         limuruVillages.add("Select Village");
         limuruVillages.add("LIMURU - TIEKUNU");
 
-        List<String> thikaTownVillages = new ArrayList<>();
+        thikaTownVillages = new ArrayList<>();
         thikaTownVillages.add("Select Village");
         thikaTownVillages.add("THIKA - KIGANJO");
 
-        List<String> selectSubCounty = new ArrayList<>();
+        selectSubCounty = new ArrayList<>();
         selectSubCounty.add("Select Village");
 
 
@@ -767,92 +788,9 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         replaceAllWithUppercase(nyamiraSubCounties);
 
         countiesMap = new HashMap<>();
-        // put key (REGION) and value (COUNTY-LIST) to the countyMap
-        countiesMap.put("SELECT REGION", selectRegion);
-        countiesMap.put("NAIROBI REGION", nairobiRegion);
-        countiesMap.put("COAST REGION", coastRegion);
-        countiesMap.put("MURANG'A REGION", murangaCounties);
-        countiesMap.put("ELDORET REGION", eldoretRegion);
-        countiesMap.put("NAKURU REGION", nakuruRegion);
-        countiesMap.put("EMBU REGION", embuRegion);
-        countiesMap.put("KIRINYAGA REGION", kirinyagaRegion);
-        countiesMap.put("NAROK REGION", narokRegion);
-        countiesMap.put("KISUMU REGION", kisumuRegion);
-        countiesMap.put("TURKANA REGION", turkanaRegion);
-        countiesMap.put("NORTH EASTERN REGION", northEasternRegion);
-
         subCountiesMap = new HashMap<>();
-        // put key (COUNTY) and value (SUB-COUNTY-LIST) to the subCountyMap
-        subCountiesMap.put("SELECT COUNTY", selectCounty);
-        subCountiesMap.put("001 Mombasa", mombasaSubCounties);
-        subCountiesMap.put("002 Kwale", kwaleSubCounties);
-        subCountiesMap.put("003 Kilifi", kilifiSubCounties);
-        subCountiesMap.put("004 Tana River", tanaRiverSubCounties);
-        subCountiesMap.put("005 Lamu", lamuSubCounties);
-        subCountiesMap.put("006 Taita Taveta", taitaTavetaSubCounties);
-        subCountiesMap.put("007 Garissa", garisaSubCounties);
-        subCountiesMap.put("008 Wajir", wajirSubCounties);
-        subCountiesMap.put("009 Mandera", manderaSubCounties);
-        subCountiesMap.put("010 Marsabit", marsabitSubCounties);
-        subCountiesMap.put("011 Isiolo", isioloSubCounties);
-        subCountiesMap.put("012 Meru", meruSubCounties);
-        subCountiesMap.put("013 Tharaka-Nithi", tharakaNithiSubCounties);
-        subCountiesMap.put("014 Embu", embuSubCounties);
-        subCountiesMap.put("015 Kitui", kituiSubCounties);
-        subCountiesMap.put("016 Machakos", machakosSubCounties);
-        subCountiesMap.put("017 Makueni", makueniSubCounties);
-        subCountiesMap.put("018 Nyandarua", nyadaruaSubCounties);
-        subCountiesMap.put("019 Nyeri", nyeriSubCounties);
-        subCountiesMap.put("020 Kirinyaga", kirinyagaSubCounties);
-        subCountiesMap.put("021 Murang'a", murangaSubCounties);
-        subCountiesMap.put("022 Kiambu", kiambuSubCounties);
-        subCountiesMap.put("023 Turkana", turkanaSubCounties);
-        subCountiesMap.put("024 West Pokot", westPokotSubCounties);
-        subCountiesMap.put("025 Samburu", samburuSubCounties);
-        subCountiesMap.put("026 Trans Nzoia", transNzoiaSubCounties);
-        subCountiesMap.put("027 Uasin Gishu", uasinGishuSubCounties);
-        subCountiesMap.put("028 Elgeyo Marakwet", elgeyoMarakwetSubCounties);
-        subCountiesMap.put("029 Nandi", nandiSubCounties);
-        subCountiesMap.put("030 Baringo", baringoSubCounties);
-        subCountiesMap.put("031 Laikipia", laikipiaSubCounties);
-        subCountiesMap.put("032 Nakuru", nakuruSubCounties);
-        subCountiesMap.put("033 Narok", narokSubCounties);
-        subCountiesMap.put("034 Kajiado", kajiadoSubCounties);
-        subCountiesMap.put("035 Kericho", kerichoSubCounties);
-        subCountiesMap.put("036 Bomet", bometSubCounties);
-        subCountiesMap.put("037 Kakamega", kakamegaSubCounties);
-        subCountiesMap.put("038 Vihiga", vihigaSubCounties);
-        subCountiesMap.put("039 Bungoma", bungomaSubCounties);
-        subCountiesMap.put("040 Busia", busiaSubCounties);
-        subCountiesMap.put("041 Siaya", siayaSubCounties);
-        subCountiesMap.put("042 Kisumu", kisumuSubCounties);
-        subCountiesMap.put("043 Homa Bay", homaBaySubCounties);
-        subCountiesMap.put("044 Migori", migoriSubCounties);
-        subCountiesMap.put("045 Kisii", kisiiSubCounties);
-        subCountiesMap.put("046 Nyamira", nyamiraSubCounties);
-        subCountiesMap.put("047 NAIROBI CITY", nairobiSubCounties);
-
         villageMap = new HashMap<>();
-        // Put key (SUB-COUNTY) and value (VILLAGE-LIST) to villageMap
-        villageMap.put("SELECT SUB-COUNTY", selectCounty);
-        villageMap.put("NYALI", nyaliVillages);
-        villageMap.put("JOMVU", jomvuVillages);
-        villageMap.put("MSAMBWENI", msambeniVillages);
-        villageMap.put("KILIFI SOUTH", kilifiSouthVillages);
-        villageMap.put("GANZE", ganzeVillages);
-        villageMap.put("KALOLENI", kaloleniVillages);
-        villageMap.put("ROYSAMBU", roysambuVillages);
-        villageMap.put("KAMKUNJI", kamukunjiVillages);
-        villageMap.put("EMBAKASI NORTH", embakasiNorthVillages);
-        villageMap.put("KABETE", kabeteVillages);
-        villageMap.put("JUJA", jujaVillages);
-        villageMap.put("KIAMBU", kiambuVillages);
-        villageMap.put("RUIRU", ruiruVillages);
-        villageMap.put("LIMURU", limuruVillages);
-        villageMap.put("THIKA", thikaTownVillages);
 
-        // Set all keys in the map to uppercase
-        replaceAllKeysWithUppercase(subCountiesMap);
 
         // Set up ArrayAdapter for regions
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, regions);
@@ -865,6 +803,8 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // Get the selected region
                 String selectedRegion = parent.getItemAtPosition(position).toString();
+
+                putCountiesMap();
 
                 // Update counties spinner based on the selected region
                 updateCounties(selectedRegion);
@@ -882,8 +822,13 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         spinnerCounty.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // Get the selected county
+                String selectedValue = parentView.getItemAtPosition(position).toString();
+
+                putSubCountiesMap();
+
                 // Update sub-counties based on the selected county
-                updateSubCounties(counties.get(position));
+                updateSubCounties(selectedValue);
             }
 
             @Override
@@ -895,7 +840,14 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         spinnerSubCounty.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                updateVillages(subCounties.get(position));
+
+                // Get the selected sub-county
+                String selectedValue = parent.getItemAtPosition(position).toString();
+
+                putVillageMap();
+
+                // Update villages based on the selected sub-county
+                updateVillages(selectedValue);
             }
 
             @Override
@@ -946,33 +898,171 @@ public class SignUpLocalityActivity extends AppCompatActivity implements View.On
         spinnerDesignation.setAdapter(designationAdapter);
     }
 
-    private void updateCounties(String selectedRegion){
-        // Get the counties for the selected region
-        counties = countiesMap.get(selectedRegion);
+    private void putCountiesMap(){
+        // put key (REGION) and value (COUNTY-LIST) to the countyMap
+        countiesMap.put("SELECT REGION", selectRegion);
+        countiesMap.put("NAIROBI REGION", nairobiRegion);
+        countiesMap.put("COAST REGION", coastRegion);
+        countiesMap.put("MURANG'A REGION", murangaCounties);
+        countiesMap.put("ELDORET REGION", eldoretRegion);
+        countiesMap.put("NAKURU REGION", nakuruRegion);
+        countiesMap.put("EMBU REGION", embuRegion);
+        countiesMap.put("KIRINYAGA REGION", kirinyagaRegion);
+        countiesMap.put("NAROK REGION", narokRegion);
+        countiesMap.put("KISUMU REGION", kisumuRegion);
+        countiesMap.put("TURKANA REGION", turkanaRegion);
+        countiesMap.put("NORTH EASTERN REGION", northEasternRegion);
+    }
 
-        // Update county spinner
-        ArrayAdapter<String> countyAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, counties);
-        countyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerCounty.setAdapter(countyAdapter);
+    private void putSubCountiesMap(){
+        // put key (COUNTY) and value (SUB-COUNTY-LIST) to the subCountyMap
+        subCountiesMap.put("SELECT COUNTY", selectCounty);
+        subCountiesMap.put("001 Mombasa", mombasaSubCounties);
+        subCountiesMap.put("002 Kwale", kwaleSubCounties);
+        subCountiesMap.put("003 Kilifi", kilifiSubCounties);
+        subCountiesMap.put("004 Tana River", tanaRiverSubCounties);
+        subCountiesMap.put("005 Lamu", lamuSubCounties);
+        subCountiesMap.put("006 Taita Taveta", taitaTavetaSubCounties);
+        subCountiesMap.put("007 Garissa", garisaSubCounties);
+        subCountiesMap.put("008 Wajir", wajirSubCounties);
+        subCountiesMap.put("009 Mandera", manderaSubCounties);
+        subCountiesMap.put("010 Marsabit", marsabitSubCounties);
+        subCountiesMap.put("011 Isiolo", isioloSubCounties);
+        subCountiesMap.put("012 Meru", meruSubCounties);
+        subCountiesMap.put("013 Tharaka-Nithi", tharakaNithiSubCounties);
+        subCountiesMap.put("014 Embu", embuSubCounties);
+        subCountiesMap.put("015 Kitui", kituiSubCounties);
+        subCountiesMap.put("016 Machakos", machakosSubCounties);
+        subCountiesMap.put("017 Makueni", makueniSubCounties);
+        subCountiesMap.put("018 Nyandarua", nyadaruaSubCounties);
+        subCountiesMap.put("019 Nyeri", nyeriSubCounties);
+        subCountiesMap.put("020 Kirinyaga", kirinyagaSubCounties);
+        subCountiesMap.put("021 Murang'a", murangaSubCounties);
+        subCountiesMap.put("022 Kiambu", kiambuSubCounties);
+        subCountiesMap.put("023 Turkana", turkanaSubCounties);
+        subCountiesMap.put("024 West Pokot", westPokotSubCounties);
+        subCountiesMap.put("025 Samburu", samburuSubCounties);
+        subCountiesMap.put("026 Trans Nzoia", transNzoiaSubCounties);
+        subCountiesMap.put("027 Uasin Gishu", uasinGishuSubCounties);
+        subCountiesMap.put("028 Elgeyo Marakwet", elgeyoMarakwetSubCounties);
+        subCountiesMap.put("029 Nandi", nandiSubCounties);
+        subCountiesMap.put("030 Baringo", baringoSubCounties);
+        subCountiesMap.put("031 Laikipia", laikipiaSubCounties);
+        subCountiesMap.put("032 Nakuru", nakuruSubCounties);
+        subCountiesMap.put("033 Narok", narokSubCounties);
+        subCountiesMap.put("034 Kajiado", kajiadoSubCounties);
+        subCountiesMap.put("035 Kericho", kerichoSubCounties);
+        subCountiesMap.put("036 Bomet", bometSubCounties);
+        subCountiesMap.put("037 Kakamega", kakamegaSubCounties);
+        subCountiesMap.put("038 Vihiga", vihigaSubCounties);
+        subCountiesMap.put("039 Bungoma", bungomaSubCounties);
+        subCountiesMap.put("040 Busia", busiaSubCounties);
+        subCountiesMap.put("041 Siaya", siayaSubCounties);
+        subCountiesMap.put("042 Kisumu", kisumuSubCounties);
+        subCountiesMap.put("043 Homa Bay", homaBaySubCounties);
+        subCountiesMap.put("044 Migori", migoriSubCounties);
+        subCountiesMap.put("045 Kisii", kisiiSubCounties);
+        subCountiesMap.put("046 Nyamira", nyamiraSubCounties);
+        subCountiesMap.put("047 NAIROBI CITY", nairobiSubCounties);
+
+        // Set all keys in the map to uppercase
+        replaceAllKeysWithUppercase(subCountiesMap);
+    }
+
+    private void putVillageMap(){
+        // Put key (SUB-COUNTY) and value (VILLAGE-LIST) to villageMap
+        villageMap.put("SELECT SUB-COUNTY", selectCounty);
+        villageMap.put("NYALI", nyaliVillages);
+        villageMap.put("JOMVU", jomvuVillages);
+        villageMap.put("MSAMBWENI", msambeniVillages);
+        villageMap.put("KILIFI SOUTH", kilifiSouthVillages);
+        villageMap.put("GANZE", ganzeVillages);
+        villageMap.put("KALOLENI", kaloleniVillages);
+        villageMap.put("ROYSAMBU", roysambuVillages);
+        villageMap.put("KAMKUNJI", kamukunjiVillages);
+        villageMap.put("EMBAKASI NORTH", embakasiNorthVillages);
+        villageMap.put("KABETE", kabeteVillages);
+        villageMap.put("JUJA", jujaVillages);
+        villageMap.put("KIAMBU", kiambuVillages);
+        villageMap.put("RUIRU", ruiruVillages);
+        villageMap.put("LIMURU", limuruVillages);
+        villageMap.put("THIKA", thikaTownVillages);
+    }
+    private void updateCounties(String selectedRegion){
+
+        if (selectedRegion != null) {
+            // Get the counties for the selected region
+            counties = countiesMap.get(selectedRegion);
+
+            // Check if counties list is null
+            if (counties != null) {
+                // Update county spinner
+                ArrayAdapter<String> countyAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, counties);
+                countyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinnerCounty.setAdapter(countyAdapter);
+            } else {
+                // Update county spinner
+                ArrayAdapter<String> countyAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, selectRegion);
+                countyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinnerCounty.setAdapter(countyAdapter);
+                // Log an error or handle the case where counties list is null
+                Log.e("UpdateCounties", "Counties list for selected region is null");
+            }
+        } else {
+            // Log an error or handle the case where selectedRegion is null
+            Log.e("UpdateCounties", "Selected region is null");
+        }
     }
     private void updateSubCounties(String selectedCounty) {
-        // Get the sub-counties for the selected county
-        subCounties = subCountiesMap.get(selectedCounty);
 
-        // Update sub-county spinner
-        ArrayAdapter<String> subCountyAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, subCounties);
-        subCountyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerSubCounty.setAdapter(subCountyAdapter);
+        if (selectedCounty != null) {
+            // Get the sub-counties for the selected county
+            subCounties = subCountiesMap.get(selectedCounty);
+
+            // Check if counties list is null
+            if (subCounties != null) {
+                // Update sub-county spinner
+                ArrayAdapter<String> subCountyAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, subCounties);
+                subCountyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinnerSubCounty.setAdapter(subCountyAdapter);
+            } else {
+                // Update sub-county spinner
+                ArrayAdapter<String> subCountyAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, selectCounty);
+                subCountyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinnerSubCounty.setAdapter(subCountyAdapter);
+                // Log an error or handle the case where counties list is null
+                Log.e("UpdateSubCounties", "SubCounties list for selected county is null");
+            }
+        } else {
+            // Log an error or handle the case where selectedRegion is null
+            Log.e("UpdateSubCounties", "Selected county is null");
+        }
     }
 
     private void updateVillages(String selectedSubCounty){
-        // Get the villages for the selected sub-county
-        villages = villageMap.get(selectedSubCounty);
 
-        // Set up ArrayAdapter for sub-counties
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, villages);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerVillage.setAdapter(adapter);
+        if (selectedSubCounty != null) {
+            // Get the villages for the selected sub-county
+            villages = villageMap.get(selectedSubCounty);
+
+            // Check if villages list is null
+            if (villages != null) {
+                // Set up ArrayAdapter for sub-counties
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, villages);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinnerVillage.setAdapter(adapter);
+            } else {
+                // Set up ArrayAdapter for sub-counties
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, selectSubCounty);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinnerVillage.setAdapter(adapter);
+                // Log an error or handle the case where sub-county list is null
+                Log.e("UpdateVillages", "Sub-county list for selected county is null");
+            }
+        } else {
+            // Log an error or handle the case where selected sub-county is null
+            Log.e("UpdateVillages", "Selected sub-county is null");
+        }
     }
 
     /**
